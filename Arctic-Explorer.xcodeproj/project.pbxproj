@@ -37,7 +37,7 @@
 		AA88695A0D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA8869570D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp */; };
 		AA88695B0D2BDBF900C08A49 /* OgreCEGUITexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA8869580D2BDBF900C08A49 /* OgreCEGUITexture.cpp */; };
 		AA8869840D2BDF3200C08A49 /* Ogre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000E25230B392BAA004EA2DF /* Ogre.framework */; };
-		DD6ABB110DD4330A00C913C7 /* RobsSnowMaterial.material in Resources */ = {isa = PBXBuildFile; fileRef = DD6ABB100DD4330A00C913C7 /* RobsSnowMaterial.material */; };
+		DDA0B2470DD43A4900B43968 /* RobsSnowMaterial.material in Resources */ = {isa = PBXBuildFile; fileRef = DDA0B2460DD43A4900B43968 /* RobsSnowMaterial.material */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +69,7 @@
 		000E296B0B39E162004EA2DF /* Terrain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Terrain-Info.plist"; path = "plist/Terrain-Info.plist"; sourceTree = "<group>"; };
 		000E297A0B39E1B8004EA2DF /* Terrain.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Terrain.h; path = include/Terrain.h; sourceTree = SOURCE_ROOT; };
 		000E297B0B39E1C5004EA2DF /* Terrain.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = Terrain.cpp; path = src/Terrain.cpp; sourceTree = SOURCE_ROOT; };
-		000E29870B39E350004EA2DF /* terrain.cfg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = terrain.cfg; path = Media/terrain.cfg; sourceTree = "<group>"; };
+		000E29870B39E350004EA2DF /* terrain.cfg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = terrain.cfg; path = ArcExMedia/terrain.cfg; sourceTree = "<group>"; };
 		0053F52E0BB5908100328359 /* libOIS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOIS.a; path = ../Dependencies/lib/Release/libOIS.a; sourceTree = SOURCE_ROOT; };
 		0062EE270B4ACACE0076F733 /* CEGUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CEGUI.framework; path = ../Dependencies/CEGUI.framework; sourceTree = SOURCE_ROOT; };
 		AA5FCC2F0D2C3B3E007F8E88 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
@@ -80,7 +80,7 @@
 		AA8869560D2BDBF900C08A49 /* OgreCEGUIRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUIRenderer.cpp; path = src/OgreCEGUIRenderer.cpp; sourceTree = SOURCE_ROOT; };
 		AA8869570D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUIResourceProvider.cpp; path = src/OgreCEGUIResourceProvider.cpp; sourceTree = SOURCE_ROOT; };
 		AA8869580D2BDBF900C08A49 /* OgreCEGUITexture.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUITexture.cpp; path = src/OgreCEGUITexture.cpp; sourceTree = SOURCE_ROOT; };
-		DD6ABB100DD4330A00C913C7 /* RobsSnowMaterial.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RobsSnowMaterial.material; path = Media/materials/scripts/RobsSnowMaterial.material; sourceTree = "<group>"; };
+		DDA0B2460DD43A4900B43968 /* RobsSnowMaterial.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RobsSnowMaterial.material; path = ArcExMedia/RobsSnowMaterial.material; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,7 +169,7 @@
 		000E25320B392C4E004EA2DF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DD6ABB100DD4330A00C913C7 /* RobsSnowMaterial.material */,
+				DDA0B2460DD43A4900B43968 /* RobsSnowMaterial.material */,
 				000E263E0B393B0A004EA2DF /* media.cfg */,
 				000E263F0B393B0A004EA2DF /* plugins.cfg */,
 				000E26400B393B0A004EA2DF /* resources.cfg */,
@@ -271,7 +271,7 @@
 				000E29740B39E1A9004EA2DF /* media.cfg in Resources */,
 				000E29750B39E1A9004EA2DF /* plugins.cfg in Resources */,
 				000E29760B39E1A9004EA2DF /* resources.cfg in Resources */,
-				DD6ABB110DD4330A00C913C7 /* RobsSnowMaterial.material in Resources */,
+				DDA0B2470DD43A4900B43968 /* RobsSnowMaterial.material in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
