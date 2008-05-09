@@ -22,6 +22,8 @@ LGPL like the rest of the engine.
 
 #include "ExampleApplication.h"
 
+#define CAMERA_HEIGHT 2
+
 RaySceneQuery* raySceneQuery = 0;
 
 // Event handler to add ability to alter curvature
@@ -51,7 +53,7 @@ public:
         if (i != qryResult.end() && i->worldFragment)
         {
             mCamera->setPosition(mCamera->getPosition().x, 
-                i->worldFragment->singleIntersection.y + 10, 
+                i->worldFragment->singleIntersection.y + CAMERA_HEIGHT,//10, 
                 mCamera->getPosition().z);
         }
 
@@ -114,11 +116,11 @@ protected:
         // Fog
         // NB it's VERY important to set this before calling setWorldGeometry 
         // because the vertex program picked will be different
-        ColourValue fadeColour(0.93, 0.86, 0.76);
+        ColourValue fadeColour(0.76, 0.86, 0.93);
         mSceneMgr->setFog( FOG_LINEAR, fadeColour, .001, 500, 1000);
         mWindow->getViewport(0)->setBackgroundColour(fadeColour);
 
-        std::string terrain_cfg("terrain.cfg");
+        std::string terrain_cfg("../../Arctic-Explorer/Media/terrain.cfg");
         mSceneMgr -> setWorldGeometry( terrain_cfg );
         // Infinite far plane?
         if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(RSC_INFINITE_FAR_PLANE))
