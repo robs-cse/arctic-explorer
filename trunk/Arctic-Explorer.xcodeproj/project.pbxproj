@@ -69,7 +69,7 @@
 		000E296B0B39E162004EA2DF /* Terrain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Terrain-Info.plist"; path = "plist/Terrain-Info.plist"; sourceTree = "<group>"; };
 		000E297A0B39E1B8004EA2DF /* Terrain.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Terrain.h; path = include/Terrain.h; sourceTree = SOURCE_ROOT; };
 		000E297B0B39E1C5004EA2DF /* Terrain.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = Terrain.cpp; path = src/Terrain.cpp; sourceTree = SOURCE_ROOT; };
-		000E29870B39E350004EA2DF /* terrain.cfg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = terrain.cfg; path = ArcExMedia/terrain.cfg; sourceTree = "<group>"; };
+		000E29870B39E350004EA2DF /* arcex_terrain.cfg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = arcex_terrain.cfg; path = ArcExMedia/arcex_terrain.cfg; sourceTree = "<group>"; };
 		0053F52E0BB5908100328359 /* libOIS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOIS.a; path = ../Dependencies/lib/Release/libOIS.a; sourceTree = SOURCE_ROOT; };
 		0062EE270B4ACACE0076F733 /* CEGUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CEGUI.framework; path = ../Dependencies/CEGUI.framework; sourceTree = SOURCE_ROOT; };
 		AA5FCC2F0D2C3B3E007F8E88 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
@@ -123,7 +123,7 @@
 			children = (
 				000E297A0B39E1B8004EA2DF /* Terrain.h */,
 				000E297B0B39E1C5004EA2DF /* Terrain.cpp */,
-				000E29870B39E350004EA2DF /* terrain.cfg */,
+				000E29870B39E350004EA2DF /* arcex_terrain.cfg */,
 			);
 			name = Terrain;
 			sourceTree = "<group>";
