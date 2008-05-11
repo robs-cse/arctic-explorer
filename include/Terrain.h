@@ -22,7 +22,7 @@ LGPL like the rest of the engine.
 
 #include "ExampleApplication.h"
 
-#define CAMERA_HEIGHT 2
+#define CAMERA_HEIGHT 5
 
 RaySceneQuery* raySceneQuery = 0;
 
@@ -104,15 +104,18 @@ protected:
         Plane waterPlane;
 
         // Set ambient light
-        mSceneMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+        mSceneMgr->setAmbientLight(ColourValue(0.7, 0.8, 1.0)); // This colour is kind of nice
+		//mSceneMgr->setAmbientLight(ColourValue(0.1, 0.1, 0.1)); // Sunset
 
         // Create a light
         Light* l = mSceneMgr->createLight("MainLight");
         // Accept default settings: point light, white diffuse, just set position
         // NB I could attach the light to a SceneNode if I wanted it to move automatically with
         //  other objects, but I don't
-        l->setPosition(20,80,50);
-
+		l->setType(Light::LT_DIRECTIONAL);
+        //l->setPosition(20,80,50);
+        l->setDirection(0,-0.15,-1);
+		
         // Fog
         // NB it's VERY important to set this before calling setWorldGeometry 
         // because the vertex program picked will be different
@@ -120,7 +123,7 @@ protected:
         mSceneMgr->setFog( FOG_LINEAR, fadeColour, .001, 500, 1000);
         mWindow->getViewport(0)->setBackgroundColour(fadeColour);
 
-        std::string terrain_cfg("terrain.cfg");
+        std::string terrain_cfg("arcex_terrain.cfg");
         mSceneMgr -> setWorldGeometry( terrain_cfg );
         // Infinite far plane?
         if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(RSC_INFINITE_FAR_PLANE))
