@@ -37,7 +37,7 @@
 		AA88695A0D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA8869570D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp */; };
 		AA88695B0D2BDBF900C08A49 /* OgreCEGUITexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA8869580D2BDBF900C08A49 /* OgreCEGUITexture.cpp */; };
 		AA8869840D2BDF3200C08A49 /* Ogre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000E25230B392BAA004EA2DF /* Ogre.framework */; };
-		DDA0B2470DD43A4900B43968 /* RobsSnowMaterial.material in Resources */ = {isa = PBXBuildFile; fileRef = DDA0B2460DD43A4900B43968 /* RobsSnowMaterial.material */; };
+		EF3315EF0DDA987F00ADC323 /* OgreCEGUIRenderer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA88679D0D2BDAD800C08A49 /* OgreCEGUIRenderer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +80,7 @@
 		AA8869560D2BDBF900C08A49 /* OgreCEGUIRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUIRenderer.cpp; path = src/OgreCEGUIRenderer.cpp; sourceTree = SOURCE_ROOT; };
 		AA8869570D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUIResourceProvider.cpp; path = src/OgreCEGUIResourceProvider.cpp; sourceTree = SOURCE_ROOT; };
 		AA8869580D2BDBF900C08A49 /* OgreCEGUITexture.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUITexture.cpp; path = src/OgreCEGUITexture.cpp; sourceTree = SOURCE_ROOT; };
-		DDA0B2460DD43A4900B43968 /* RobsSnowMaterial.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RobsSnowMaterial.material; path = ArcExMedia/RobsSnowMaterial.material; sourceTree = "<group>"; };
+		EF3316400DDA9E2A00ADC323 /* OgreCEGUIRenderer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "OgreCEGUIRenderer-Info.plist"; path = "plist/OgreCEGUIRenderer-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF3315EF0DDA987F00ADC323 /* OgreCEGUIRenderer.framework in Frameworks */,
 				000E29720B39E19C004EA2DF /* Ogre.framework in Frameworks */,
 				0053F5460BB5908200328359 /* libOIS.a in Frameworks */,
 				AA5FCC4C0D2C3B3E007F8E88 /* IOKit.framework in Frameworks */,
@@ -169,7 +170,7 @@
 		000E25320B392C4E004EA2DF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DDA0B2460DD43A4900B43968 /* RobsSnowMaterial.material */,
+				EF3316400DDA9E2A00ADC323 /* OgreCEGUIRenderer-Info.plist */,
 				000E263E0B393B0A004EA2DF /* media.cfg */,
 				000E263F0B393B0A004EA2DF /* plugins.cfg */,
 				000E26400B393B0A004EA2DF /* resources.cfg */,
@@ -271,7 +272,6 @@
 				000E29740B39E1A9004EA2DF /* media.cfg in Resources */,
 				000E29750B39E1A9004EA2DF /* plugins.cfg in Resources */,
 				000E29760B39E1A9004EA2DF /* resources.cfg in Resources */,
-				DDA0B2470DD43A4900B43968 /* RobsSnowMaterial.material in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
