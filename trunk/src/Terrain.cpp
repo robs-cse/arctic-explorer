@@ -56,6 +56,9 @@ public:
 
     bool frameStarted(const FrameEvent& evt)
     {
+		if( ExampleFrameListener::frameStarted(evt) == false )
+			return false;
+
         mKeyboard->capture();
         
         // Cycling through the hours in a day
@@ -89,10 +92,69 @@ public:
             mToggle = 0.5f;
             summerWinter = !summerWinter;
         }
+	
+		/* Rob added this to see if flare is fired */
 
+		if( !mMouse->buffered() )
+			if( processUnbufferedMouseInput(evt) == false )
+			{
+				return false;
+			}
         return true;
     }
+	
+	bool processUnbufferedMouseInput(const FrameEvent& evt)
+	{
+		using namespace OIS;
 
+		// Clicking fires a flare.
+		const MouseState &ms = mMouse->getMouseState();
+		if( ms.buttonDown( MB_Left ) )
+		{
+		    if (!mMouseDown)
+			{
+			    // Fireworks!!!
+				if (!flareNode)
+				{
+					flareNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+					flareNode->attachObject(mSceneMgr->createParticleSystem("SignalFlare", "ArcEx/SignalFlare"));
+					flareNode->attachObject(mSceneMgr->createParticleSystem("SignalSmoke", "ArcEx/SignalSmoke"));
+					Light *sigLight = mSceneMgr->createLight("SignalLight");
+					sigLight->setDiffuseColour(1, 0.1, 0);
+					flareNode->attachObject(sigLight);
+		        }
+				Ogre::Vector3 camDir = mCamera->getDirection();
+				flareVel = 100*camDir;
+				flareNode->setPosition(mCamera->getPosition());
+				
+				mMouseDown = true;
+			}
+		}
+		else
+		{
+		    mMouseDown = false;
+			if (flareNode)
+			{
+			    Real t = evt.timeSinceLastFrame;
+				Ogre::Vector3 pos = flareNode->getPosition();
+				flareVel.y -= 9.8 * t;
+				pos.x += flareVel.x * t;
+				pos.y += flareVel.y * t;
+				pos.z += flareVel.z * t;
+				flareNode->setPosition(pos);
+				
+			}
+		}
+
+		return true;
+	}
+
+protected:
+    bool mMouseDown;
+	//SceneManager *mSceneMgr;
+	SceneNode *flareNode;
+	Vector3 flareVel;
+	
 private:
     // The time left until next toggle
     Real mToggle;
@@ -171,10 +233,11 @@ private:
 
     void createScene(void)
     {
-        mSceneMgr->setAmbientLight( ColourValue(0.2,0.2,0.2) );
-
-        // Set terrain
-		mSceneMgr->setWorldGeometry("terrain.cfg");
+        //mSceneMgr->setAmbientLight( ColourValue(0.2,0.2,0.2) );
+		mSceneMgr->setAmbientLight(ColourValue(0.7, 0.8, 1.0)); // robs: This colour is kind of nice
+        
+		// Set terrain
+		mSceneMgr->setWorldGeometry("arcex_terrain.cfg");
 		ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
         // Set sky plane
@@ -187,20 +250,16 @@ private:
         
         // Add more here
         
-        
-        
-        
-        
-        
+		// Create a light
+        Light* l = mSceneMgr->createLight("MainLight");
+		l->setType(Light::LT_DIRECTIONAL);
+        l->setDirection(0,-0.15,-1);			// TODO: Should reference variable for sun direction
+
     }
     void createFrameListener(void)
     {
-        // Create the FrameListener (default one from example frame listener)
-        mFrameListener = new ExampleFrameListener(mWindow, mCamera, false, false);
-		mRoot->addFrameListener(mFrameListener);
-
         mFrameListener = new SkyWeatherFrameListener(mWindow, mCamera, mSceneMgr);
-		mRoot->addFrameListener(mFrameListener);        
+		mRoot->addFrameListener(mFrameListener);           
     }
 };
 

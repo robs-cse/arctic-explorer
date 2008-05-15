@@ -22,6 +22,7 @@ LGPL like the rest of the engine.
 
 #include "ExampleApplication.h"
 
+/*
 #define CAMERA_HEIGHT 5
 
 RaySceneQuery* raySceneQuery = 0;
@@ -30,11 +31,12 @@ RaySceneQuery* raySceneQuery = 0;
 class TerrainFrameListener : public ExampleFrameListener
 {
 public:
-    TerrainFrameListener(RenderWindow* win, Camera* cam)
-        : ExampleFrameListener(win, cam)
+    TerrainFrameListener(RenderWindow* win, Camera* cam, SceneManager* sceneMgr)
+        : ExampleFrameListener(win, cam, false, false)
     {
         // Reduce move speed
         mMoveSpeed = 50;
+		mSceneMgr = sceneMgr;
 
     }
 
@@ -57,12 +59,69 @@ public:
                 mCamera->getPosition().z);
         }
 
+	    // Rob added this to see if flare is fired
+
+		if( !mMouse->buffered() )
+			if( processUnbufferedMouseInput(evt) == false )
+			{
+				return false;
+			}
         return true;
-
     }
+	
+	bool processUnbufferedMouseInput(const FrameEvent& evt)
+	{
+		using namespace OIS;
 
+		// Clicking fires a flare.
+		const MouseState &ms = mMouse->getMouseState();
+		if( ms.buttonDown( MB_Left ) )
+		{
+		    if (!mMouseDown)
+			{
+			    // Fireworks!!!
+				if (!flareNode)
+				{
+					flareNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+					flareNode->attachObject(mSceneMgr->createParticleSystem("SignalFlare", "ArcEx/SignalFlare"));
+					flareNode->attachObject(mSceneMgr->createParticleSystem("SignalSmoke", "ArcEx/SignalSmoke"));
+					Light *sigLight = mSceneMgr->createLight("SignalLight");
+					sigLight->setDiffuseColour(1, 0.1, 0);
+					flareNode->attachObject(sigLight);
+		        }
+				Ogre::Vector3 camDir = mCamera->getDirection();
+				flareVel = 100*camDir;
+				flareNode->setPosition(mCamera->getPosition());
+				
+				mMouseDown = true;
+			}
+		}
+		else
+		{
+		    mMouseDown = false;
+			if (flareNode)
+			{
+			    Real t = evt.timeSinceLastFrame;
+				Ogre::Vector3 pos = flareNode->getPosition();
+				flareVel.y -= 9.8 * t;
+				pos.x += flareVel.x * t;
+				pos.y += flareVel.y * t;
+				pos.z += flareVel.z * t;
+				flareNode->setPosition(pos);
+				
+			}
+		}
+
+		return true;
+	}
+
+protected:
+    bool mMouseDown;
+	SceneManager *mSceneMgr;
+	SceneNode *flareNode;
+	Vector3 flareVel;
+	
 };
-
 
 
 class TerrainApplication : public ExampleApplication
@@ -76,8 +135,6 @@ public:
     }
 
 protected:
-
-
     virtual void chooseSceneManager(void)
     {
         // Get the SceneManager, in this case a generic one
@@ -103,28 +160,14 @@ protected:
     {
         Plane waterPlane;
 
-        // Set ambient light
-        mSceneMgr->setAmbientLight(ColourValue(0.7, 0.8, 1.0)); // This colour is kind of nice
-		//mSceneMgr->setAmbientLight(ColourValue(0.1, 0.1, 0.1)); // Sunset
-
-        // Create a light
-        Light* l = mSceneMgr->createLight("MainLight");
-        // Accept default settings: point light, white diffuse, just set position
-        // NB I could attach the light to a SceneNode if I wanted it to move automatically with
-        //  other objects, but I don't
-		l->setType(Light::LT_DIRECTIONAL);
-        //l->setPosition(20,80,50);
-        l->setDirection(0,-0.15,-1);
-		
         // Fog
         // NB it's VERY important to set this before calling setWorldGeometry 
         // because the vertex program picked will be different
-        ColourValue fadeColour(0.76, 0.86, 0.93);
-        mSceneMgr->setFog( FOG_LINEAR, fadeColour, .001, 500, 1000);
+        //ColourValue fadeColour(0.76, 0.86, 0.93);
+		ColourValue fadeColour(0.1, 0.1, 0.2);
+        //mSceneMgr->setFog( FOG_LINEAR, fadeColour, .001, 500, 1000);
         mWindow->getViewport(0)->setBackgroundColour(fadeColour);
 
-        std::string terrain_cfg("arcex_terrain.cfg");
-        mSceneMgr -> setWorldGeometry( terrain_cfg );
         // Infinite far plane?
         if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(RSC_INFINITE_FAR_PLANE))
         {
@@ -145,14 +188,20 @@ protected:
 
         raySceneQuery = mSceneMgr->createRayQuery(
             Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
-
-
+			
     }
     // Create new frame listener
     void createFrameListener(void)
     {
-        mFrameListener= new TerrainFrameListener(mWindow, mCamera);
+        mFrameListener= new TerrainFrameListener(mWindow, mCamera, mSceneMgr);
         mRoot->addFrameListener(mFrameListener);
     }
 
+    void fireFlare(void)
+	{
+
+    }
+	
 };
+
+*/
