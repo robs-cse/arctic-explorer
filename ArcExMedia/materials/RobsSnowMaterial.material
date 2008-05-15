@@ -1,0 +1,17 @@
+material RobsSnowMaterial
+{
+   technique
+   {
+      pass
+	  {
+	     shading phong
+		 
+		 //texture_unit
+         //{
+         //  texture SnowTexture_wrapped.jpg
+         //  scale 0.1 0.1
+           //It mean that the texture will be tiled 10 times (1/10 = 0.1)
+         //}
+      }   
+   }
+}

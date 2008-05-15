@@ -14,7 +14,6 @@
  ********************************************************************************/
 
 #include "Terrain.h"
-#include "SkyManager.h"
 #include "ExampleApplication.h"
 // #include "TerrainApplication.h"  // not working yet
 
