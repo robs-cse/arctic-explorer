@@ -26,12 +26,19 @@ material ArcticSkyMaterial
          fragment_program_ref arcticSkyFrag
          {
 	        param_named skyColour int 0
+	        param_named atmosphereDensity int 1
          }
 
 		texture_unit
 		{
 			texture skyColour.png
 	        tex_coord_set 0
+		}
+		
+		texture_unit
+		{
+			skyAtmosphereDensity.png
+	        tex_coord_set 1
 		}
       }
    }
