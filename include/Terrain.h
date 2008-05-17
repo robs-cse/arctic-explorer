@@ -42,8 +42,8 @@ public:
 
     bool frameStarted(const FrameEvent& evt)
     {
-        if( ExampleFrameListener::frameStarted(evt) == false )
-		return false;
+//        if( ExampleFrameListener::frameStarted(evt) == false )
+//		return false;
 
         // clamp to terrain
         static Ray updateRay;

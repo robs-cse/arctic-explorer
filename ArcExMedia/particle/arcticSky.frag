@@ -1,39 +1,29 @@
 uniform sampler2D skyColour;
-uniform sampler2D cloudsDay;
-uniform sampler2D cloudsNight;
+uniform sampler2D atmosphereDensity;
+uniform float sunHeightRel;
 
-varying vec2 skyTexCoords;
+varying vec3 sunPos;
+
+varying vec3 sunDirection;
+varying vec3 vertDirection;
+
+#define PI 3.14159265
 
 
 void main (void)
 {
-/*
-//   gl_FragColor = vec4(0.0,0.0,0.0,0.0);
-   gl_FragColor = colour;
-*/
-/*
+	vec2 skyTexCoords;
 
+	vec3 normSunDirection = normalize(sunDirection);
 	
-	vec2 skyST = skyTexCoords;
-
-	if (skyST.t  <= 0.2)
-	{
-	skyST.t = 0.2; //yellow
-	}
-	else
-	{
-	skyST.t = 1.0; //blue
-	}
-
-//	skyST.t = 0.001; //blue
-
-*/
-/*
-*/
+	// Calculating what time of day it is (height of sun relative to its spinning axis)
+	skyTexCoords.s = clamp(sunHeightRel, 0.0, 1.0);
 	
-//   vec4 colour = texture2D(skyColour, skyST);
-//   vec4 colour = texture2D(skyColour, gl_TexCoord[0].st);
-	
-   vec4 colour = texture2D(skyColour, skyTexCoords.st);
-   gl_FragColor = colour;
+	// Calculating angle between sun and fragment (with respect to viewer)
+	skyTexCoords.t = acos(dot(normalize(vertDirection), normalize(sunDirection)))/PI;
+
+
+
+    vec4 colour = texture2D(skyColour, skyTexCoords.st);
+    gl_FragColor = colour;
 }

@@ -14,10 +14,12 @@
  ********************************************************************************/
 
 #include "Terrain.h"
+
 #include "ExampleApplication.h"
 // #include "TerrainApplication.h"  // not working yet
 
 
+#define sunAxisRadius 600
 
 
 /********************************************************************************
@@ -38,20 +40,32 @@ public:
         timeOfDay = 0.0;
         secondsInADay = 4.0; // default seconds in a day
 
-        // Sky plane shader
+        // Parameter setting for sky plane shader
         MaterialPtr mat = (MaterialPtr)MaterialManager::getSingleton().getByName("ArcticSkyMaterial");
-        skyParams = mat->getTechnique(0)->getPass(0)->getVertexProgramParameters();   
-        skyParams->setNamedConstant("timeOfDay", timeOfDay);
+        skyVertParams = mat->getTechnique(0)->getPass(0)->getVertexProgramParameters();
+        skyFragParams = mat->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
 
 
         // Sun currently just moves up and down. Work out how to get sun to go in a circular path
-        sunNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("SunNode");
-        sunNode->translate(Vector3(800.0, 0.0, 0.0));
+        sunMoveAxis = mSceneMgr->getRootSceneNode()->createChildSceneNode("SunMoveAxis");
+        sunMoveAxis->translate(Vector3(2000.0, 0.0, 800.0));
 
-        skyParams->setNamedConstant("sunPosition", sunNode->getWorldPosition());
-        //        Entity *ent1 = mSceneMgr->createEntity( "Robot", "robot.mesh" );
-        //        sunNode->attachObject( ent1 ); // Should attach a sun shader or something to this.
+        sunNode = sunMoveAxis->createChildSceneNode("SunNode");
+        sunNode->translate(Vector3(0.0, sunAxisRadius-10, 0.0)); 
+        // Note the -10 is a hack. Otherwise the sky colout texture doesn't seem to work correctly
         
+        // Attach a light to the sun node
+        sunLight = mSceneMgr->createLight("MainLight");
+		sunLight->setType(Light::LT_POINT);
+        sunNode->attachObject(sunLight);
+  
+        // TODO: change the colour of the light depending on the position of the sun      
+        sunLight->setDiffuseColour(0.4, 0.4, 0.4);
+        sunLight->setSpecularColour(0.4, 0.4, 0.4);
+       
+//		sunLight->setType(Light::LT_DIRECTIONAL);
+//        sunLight->setDirection(0,-0.15,-1);			// TODO: Should reference variable for sun direction
+
     }
 
     bool frameStarted(const FrameEvent& evt)
@@ -63,23 +77,22 @@ public:
         
         // Cycling through the hours in a day
         timeOfDay += evt.timeSinceLastFrame;
-        sunNode->translate(Vector3(0.0, 0.1, 0.0));
+        sunMoveAxis->pitch(Degree(180/secondsInADay*evt.timeSinceLastFrame));
 
         if (timeOfDay >= secondsInADay)
         {
             timeOfDay = 0.0;
-            sunNode->setPosition(Vector3(800.0, 0.0, 0.0));
         }
         // Passing parameters to the sky vertex shader
-        skyParams->setNamedConstant("timeOfDay", timeOfDay/(secondsInADay));
-        skyParams->setNamedConstant("sunPosition", sunNode->getWorldPosition());
-        skyParams->setNamedConstant("camPosition", mCamera->getDerivedPosition());
+        skyVertParams->setNamedConstant("sunPosition", sunNode->getWorldPosition());
+        skyVertParams->setNamedConstant("camPosition", mCamera->getWorldPosition());
         
+        Real sunHeight = (sunNode->getWorldPosition().y + sunAxisRadius - sunMoveAxis->getWorldPosition().y)/(2*sunAxisRadius);
+        skyFragParams->setNamedConstant("sunHeightRel", sunHeight);
 
         
         // key can only be pressed once every 0.5  (1 second?)
 		mToggle -= evt.timeSinceLastFrame;
-
         // ToDo:
         // toggle fog on/off
         // toggle snow on/off
@@ -94,7 +107,6 @@ public:
         }
 	
 		/* Rob added this to see if flare is fired */
-
 		if( !mMouse->buffered() )
 			if( processUnbufferedMouseInput(evt) == false )
 			{
@@ -103,6 +115,7 @@ public:
         return true;
     }
 	
+    
 	bool processUnbufferedMouseInput(const FrameEvent& evt)
 	{
 		using namespace OIS;
@@ -164,16 +177,18 @@ private:
     Real timeOfDay;
     // time in seconds taken to cycle through 1 day
     Real secondsInADay; 
-    // parametners to pass to sky shader (vertex shader)
-    GpuProgramParametersSharedPtr skyParams;
+    // parametners to pass to sky shaders
+    GpuProgramParametersSharedPtr skyVertParams;
+    GpuProgramParametersSharedPtr skyFragParams;
     
     bool summerWinter;
     bool snow;
     bool fog;
     
+    SceneNode *sunMoveAxis;
     SceneNode *sunNode;
     Vector3 sunPosition;
-    
+    Light* sunLight;
     
     
     void adjustFog()
@@ -247,19 +262,15 @@ private:
 		plane.normal = Vector3::NEGATIVE_UNIT_Y;
 		mSceneMgr->setSkyPlane(true, plane, "ArcticSkyMaterial", 1500, 40, true, 0.3f, 150, 150);
         
-        
-        // Add more here
-        
-		// Create a light
-        Light* l = mSceneMgr->createLight("MainLight");
-		l->setType(Light::LT_DIRECTIONAL);
-        l->setDirection(0,-0.15,-1);			// TODO: Should reference variable for sun direction
 
+                
+        // Add more here
     }
     void createFrameListener(void)
     {
         mFrameListener = new SkyWeatherFrameListener(mWindow, mCamera, mSceneMgr);
-		mRoot->addFrameListener(mFrameListener);           
+		mRoot->addFrameListener(mFrameListener);
+
     }
 };
 
