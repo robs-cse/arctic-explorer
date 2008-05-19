@@ -38,7 +38,7 @@ public:
         // Set initial time of day
         // Time of day goes in cycles representing the 24 hours in a day
         timeOfDay = 0.0;
-        secondsInADay = 4.0; // default seconds in a day
+        secondsInADay = 16.0; // default seconds in a day
 
         // Parameter setting for sky plane shader
         MaterialPtr mat = (MaterialPtr)MaterialManager::getSingleton().getByName("ArcticSkyMaterial");
@@ -77,12 +77,18 @@ public:
         
         // Cycling through the hours in a day
         timeOfDay += evt.timeSinceLastFrame;
-        sunMoveAxis->pitch(Degree(180/secondsInADay*evt.timeSinceLastFrame));
+        sunMoveAxis->pitch(Degree(360/secondsInADay*evt.timeSinceLastFrame));
 
         if (timeOfDay >= secondsInADay)
         {
             timeOfDay = 0.0;
         }
+		
+		Real timeFactor = (1 + cos(2*M_PI*timeOfDay/secondsInADay))/2;
+		
+		// Changing the ambient light to reflect the time of day
+	    mSceneMgr->setAmbientLight(ColourValue(0.7*timeFactor, 0.8*timeFactor, 1.0*timeFactor)); 
+		
         // Passing parameters to the sky vertex shader
         skyVertParams->setNamedConstant("sunPosition", sunNode->getWorldPosition());
         skyVertParams->setNamedConstant("camPosition", mCamera->getWorldPosition());
@@ -248,7 +254,7 @@ private:
 
     void createScene(void)
     {
-        //mSceneMgr->setAmbientLight( ColourValue(0.2,0.2,0.2) );
+        //mSceneMgr->setAmbientLight( ColourValue(0,0,0) );
 		mSceneMgr->setAmbientLight(ColourValue(0.7, 0.8, 1.0)); // robs: This colour is kind of nice
         
 		// Set terrain
