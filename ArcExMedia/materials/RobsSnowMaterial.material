@@ -1,5 +1,7 @@
 material RobsSnowMaterial
 {
+   receive_shadows on
+   
    technique
    {
       pass

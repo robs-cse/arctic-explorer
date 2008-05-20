@@ -37,6 +37,9 @@
 		AA88695A0D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA8869570D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp */; };
 		AA88695B0D2BDBF900C08A49 /* OgreCEGUITexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA8869580D2BDBF900C08A49 /* OgreCEGUITexture.cpp */; };
 		AA8869840D2BDF3200C08A49 /* Ogre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000E25230B392BAA004EA2DF /* Ogre.framework */; };
+		DD73F20E0DE19E5F00FC8BA6 /* RobsSnowMaterial.material in Resources */ = {isa = PBXBuildFile; fileRef = DD73F20D0DE19E5F00FC8BA6 /* RobsSnowMaterial.material */; };
+		DD73F2190DE1A36700FC8BA6 /* arcticSky.frag in Resources */ = {isa = PBXBuildFile; fileRef = DD73F2170DE1A36700FC8BA6 /* arcticSky.frag */; };
+		DD73F21A0DE1A36700FC8BA6 /* arcticSky.vert in Resources */ = {isa = PBXBuildFile; fileRef = DD73F2180DE1A36700FC8BA6 /* arcticSky.vert */; };
 		EF3315EF0DDA987F00ADC323 /* OgreCEGUIRenderer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA88679D0D2BDAD800C08A49 /* OgreCEGUIRenderer.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +83,9 @@
 		AA8869560D2BDBF900C08A49 /* OgreCEGUIRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUIRenderer.cpp; path = src/OgreCEGUIRenderer.cpp; sourceTree = SOURCE_ROOT; };
 		AA8869570D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUIResourceProvider.cpp; path = src/OgreCEGUIResourceProvider.cpp; sourceTree = SOURCE_ROOT; };
 		AA8869580D2BDBF900C08A49 /* OgreCEGUITexture.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUITexture.cpp; path = src/OgreCEGUITexture.cpp; sourceTree = SOURCE_ROOT; };
+		DD73F20D0DE19E5F00FC8BA6 /* RobsSnowMaterial.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RobsSnowMaterial.material; path = ArcExMedia/materials/RobsSnowMaterial.material; sourceTree = "<group>"; };
+		DD73F2170DE1A36700FC8BA6 /* arcticSky.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arcticSky.frag; path = ArcExMedia/particle/arcticSky.frag; sourceTree = "<group>"; };
+		DD73F2180DE1A36700FC8BA6 /* arcticSky.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arcticSky.vert; path = ArcExMedia/particle/arcticSky.vert; sourceTree = "<group>"; };
 		EF3316400DDA9E2A00ADC323 /* OgreCEGUIRenderer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "OgreCEGUIRenderer-Info.plist"; path = "plist/OgreCEGUIRenderer-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,6 +176,9 @@
 		000E25320B392C4E004EA2DF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DD73F2170DE1A36700FC8BA6 /* arcticSky.frag */,
+				DD73F2180DE1A36700FC8BA6 /* arcticSky.vert */,
+				DD73F20D0DE19E5F00FC8BA6 /* RobsSnowMaterial.material */,
 				EF3316400DDA9E2A00ADC323 /* OgreCEGUIRenderer-Info.plist */,
 				000E263E0B393B0A004EA2DF /* media.cfg */,
 				000E263F0B393B0A004EA2DF /* plugins.cfg */,
@@ -272,6 +281,9 @@
 				000E29740B39E1A9004EA2DF /* media.cfg in Resources */,
 				000E29750B39E1A9004EA2DF /* plugins.cfg in Resources */,
 				000E29760B39E1A9004EA2DF /* resources.cfg in Resources */,
+				DD73F20E0DE19E5F00FC8BA6 /* RobsSnowMaterial.material in Resources */,
+				DD73F2190DE1A36700FC8BA6 /* arcticSky.frag in Resources */,
+				DD73F21A0DE1A36700FC8BA6 /* arcticSky.vert in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

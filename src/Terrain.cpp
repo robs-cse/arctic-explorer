@@ -18,6 +18,9 @@
 #include "ExampleApplication.h"
 // #include "TerrainApplication.h"  // not working yet
 
+#define CAMERA_HEIGHT 5
+
+RaySceneQuery* raySceneQuery = 0;
 
 #define sunAxisRadius 600
 
@@ -38,7 +41,7 @@ public:
         // Set initial time of day
         // Time of day goes in cycles representing the 24 hours in a day
         timeOfDay = 0.0;
-        secondsInADay = 16.0; // default seconds in a day
+        secondsInADay = 64.0; // default seconds in a day
 
         // Parameter setting for sky plane shader
         MaterialPtr mat = (MaterialPtr)MaterialManager::getSingleton().getByName("ArcticSkyMaterial");
@@ -60,11 +63,11 @@ public:
         sunNode->attachObject(sunLight);
   
         // TODO: change the colour of the light depending on the position of the sun      
-        sunLight->setDiffuseColour(0.4, 0.4, 0.4);
-        sunLight->setSpecularColour(0.4, 0.4, 0.4);
+        sunLight->setDiffuseColour(1, 1, 0.5);
+        sunLight->setSpecularColour(1, 1, 0.5);
        
 //		sunLight->setType(Light::LT_DIRECTIONAL);
-//        sunLight->setDirection(0,-0.15,-1);			// TODO: Should reference variable for sun direction
+//      sunLight->setDirection(0,-0.15,-1);			// TODO: Should reference variable for sun direction
 
     }
 
@@ -103,6 +106,7 @@ public:
         // toggle fog on/off
         // toggle snow on/off
         // toggle winter/summer
+		// toggle walk/fly
         // set secondsInADay (speed up mode)
 
         // Example, this not ready yet // change the position of the sun
@@ -110,6 +114,20 @@ public:
         {
             mToggle = 0.5f;
             summerWinter = !summerWinter;
+        }
+	
+	    // Rob added this to clamp to terrain
+        static Ray updateRay;
+        updateRay.setOrigin(mCamera->getPosition());
+        updateRay.setDirection(Vector3::NEGATIVE_UNIT_Y);
+        raySceneQuery->setRay(updateRay);
+        RaySceneQueryResult& qryResult = raySceneQuery->execute();
+        RaySceneQueryResult::iterator i = qryResult.begin();
+        if (i != qryResult.end() && i->worldFragment)
+        {
+            mCamera->setPosition(mCamera->getPosition().x, 
+                i->worldFragment->singleIntersection.y + CAMERA_HEIGHT,//10, 
+                mCamera->getPosition().z);
         }
 	
 		/* Rob added this to see if flare is fired */
@@ -219,6 +237,7 @@ public:
     }
     ~ArcticExplorerApplication() 
     {
+	        delete raySceneQuery;
     }
 
 private:
@@ -250,6 +269,7 @@ private:
     void chooseSceneManager(void)
     {
 		mSceneMgr = mRoot->createSceneManager(ST_EXTERIOR_CLOSE, "terrainManager");
+		mSceneMgr->setShadowTechnique(SHADOWTYPE_STENCIL_ADDITIVE);
     }
 
     void createScene(void)
@@ -268,7 +288,9 @@ private:
 		plane.normal = Vector3::NEGATIVE_UNIT_Y;
 		mSceneMgr->setSkyPlane(true, plane, "ArcticSkyMaterial", 1500, 40, true, 0.3f, 150, 150);
         
-
+		// For terrain clamping in "walk" mode
+        raySceneQuery = mSceneMgr->createRayQuery(
+            Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
                 
         // Add more here
     }
