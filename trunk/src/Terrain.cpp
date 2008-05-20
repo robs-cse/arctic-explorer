@@ -170,15 +170,35 @@ public:
 				if (!flareNode)
 				{
 					flareNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-					flareNode->attachObject(mSceneMgr->createParticleSystem("SignalFlare", "ArcEx/SignalFlare"));
-					flareNode->attachObject(mSceneMgr->createParticleSystem("SignalSmoke", "ArcEx/SignalSmoke"));
-					Light *sigLight = mSceneMgr->createLight("SignalLight");
-					sigLight->setDiffuseColour(1, 0.1, 0);
+					
+					sigFlareParticle = mSceneMgr->createParticleSystem("SignalFlare", "ArcEx/SignalFlare");
+					sigSmokeParticle = mSceneMgr->createParticleSystem("SignalSmoke", "ArcEx/SignalSmoke");
+					
+					flareNode->attachObject(sigFlareParticle);
+					flareNode->attachObject(sigSmokeParticle);
+					sigLight = mSceneMgr->createLight("SignalLight");
+					sigLight->setAttenuation(3250, 1, 0.0014, 0.000007);
 					flareNode->attachObject(sigLight);
+					
+					launchNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+					launchLight = mSceneMgr->createLight("LaunchLight");
+					//launchLight->setAttenuation(3250, 1, 0.0014, 0.000007);
+					launchLight->setAttenuation(600, 1, 0.007, 0.0002);
+					//launchLight->setAttenuation(200, 1, 0.022, 0.0019);
+					launchNode->attachObject(launchLight);
 		        }
 				Ogre::Vector3 camDir = mCamera->getDirection();
+				
+				sigFlareParticle->clear();
+				sigSmokeParticle->clear();
+				
 				flareVel = FLARE_LAUNCH_VELOCITY*camDir;
 				flareNode->setPosition(mCamera->getPosition());
+
+				sigLight->setDiffuseColour(0.001, 0, 0);
+
+				launchLight->setDiffuseColour(5,5,2.5);
+				launchNode->setPosition(mCamera->getPosition());
 				
 				mMouseDown = true;
 			}
@@ -195,7 +215,14 @@ public:
 				pos.y += flareVel.y * t;
 				pos.z += flareVel.z * t;
 				flareNode->setPosition(pos);
-				
+			
+				ColourValue col = launchLight->getDiffuseColour();
+				launchLight->setDiffuseColour(col*0.9);
+			    
+				col = sigLight->getDiffuseColour();
+				col *= 1.1;
+				col.saturate();
+				sigLight->setDiffuseColour(col);
 			}
 		}
 
@@ -206,6 +233,9 @@ protected:
     bool mMouseDown;
 	//SceneManager *mSceneMgr;
 	SceneNode *flareNode;
+	SceneNode *launchNode;
+	Light *launchLight, *sigLight;
+	ParticleSystem *sigFlareParticle, *sigSmokeParticle;
 	Vector3 flareVel;
 	
 private:
@@ -269,7 +299,7 @@ private:
 
 		mCamera->setPosition(Vector3(0,200,0));
 		mCamera->lookAt(Vector3(1,200,0));
-		mCamera->setNearClipDistance(5);
+		mCamera->setNearClipDistance(1);
     }
 
     void createViewports(void)
