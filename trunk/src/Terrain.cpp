@@ -19,6 +19,9 @@
 // #include "TerrainApplication.h"  // not working yet
 
 #define CAMERA_HEIGHT 5
+#define FLARE_LAUNCH_VELOCITY 75
+#define WALK_SPEED 20
+#define FLY_SPEED 100
 
 RaySceneQuery* raySceneQuery = 0;
 
@@ -35,6 +38,10 @@ public:
     SkyWeatherFrameListener(RenderWindow* win, Camera* cam, SceneManager *sceneMgr)
         : ExampleFrameListener(win, cam, false, false)
     {
+		mStatsOn = false;
+		mDebugOverlay->hide();
+		mMoveSpeed = WALK_SPEED;
+		
         mSceneMgr = sceneMgr;
         mToggle = 0.0;
         
@@ -115,21 +122,30 @@ public:
             mToggle = 0.5f;
             summerWinter = !summerWinter;
         }
-	
-	    // Rob added this to clamp to terrain
-        static Ray updateRay;
-        updateRay.setOrigin(mCamera->getPosition());
-        updateRay.setDirection(Vector3::NEGATIVE_UNIT_Y);
-        raySceneQuery->setRay(updateRay);
-        RaySceneQueryResult& qryResult = raySceneQuery->execute();
-        RaySceneQueryResult::iterator i = qryResult.begin();
-        if (i != qryResult.end() && i->worldFragment)
+		
+		if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_F))
         {
-            mCamera->setPosition(mCamera->getPosition().x, 
-                i->worldFragment->singleIntersection.y + CAMERA_HEIGHT,//10, 
-                mCamera->getPosition().z);
+            mToggle = 0.5f;
+            flyMode = !flyMode;
+			mMoveSpeed = (flyMode ? FLY_SPEED : WALK_SPEED);
         }
 	
+	    // Rob added this to clamp to terrain
+		if (!flyMode)
+		{
+			static Ray updateRay;
+			updateRay.setOrigin(mCamera->getPosition());
+			updateRay.setDirection(Vector3::NEGATIVE_UNIT_Y);
+			raySceneQuery->setRay(updateRay);
+			RaySceneQueryResult& qryResult = raySceneQuery->execute();
+			RaySceneQueryResult::iterator i = qryResult.begin();
+			if (i != qryResult.end() && i->worldFragment)
+			{
+				mCamera->setPosition(mCamera->getPosition().x, 
+				i->worldFragment->singleIntersection.y + CAMERA_HEIGHT,//10, 
+				mCamera->getPosition().z);
+			}
+		}
 		/* Rob added this to see if flare is fired */
 		if( !mMouse->buffered() )
 			if( processUnbufferedMouseInput(evt) == false )
@@ -161,7 +177,7 @@ public:
 					flareNode->attachObject(sigLight);
 		        }
 				Ogre::Vector3 camDir = mCamera->getDirection();
-				flareVel = 100*camDir;
+				flareVel = FLARE_LAUNCH_VELOCITY*camDir;
 				flareNode->setPosition(mCamera->getPosition());
 				
 				mMouseDown = true;
@@ -208,6 +224,7 @@ private:
     bool summerWinter;
     bool snow;
     bool fog;
+	bool flyMode;
     
     SceneNode *sunMoveAxis;
     SceneNode *sunNode;
