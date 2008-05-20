@@ -40,6 +40,7 @@
 		DD73F20E0DE19E5F00FC8BA6 /* RobsSnowMaterial.material in Resources */ = {isa = PBXBuildFile; fileRef = DD73F20D0DE19E5F00FC8BA6 /* RobsSnowMaterial.material */; };
 		DD73F2190DE1A36700FC8BA6 /* arcticSky.frag in Resources */ = {isa = PBXBuildFile; fileRef = DD73F2170DE1A36700FC8BA6 /* arcticSky.frag */; };
 		DD73F21A0DE1A36700FC8BA6 /* arcticSky.vert in Resources */ = {isa = PBXBuildFile; fileRef = DD73F2180DE1A36700FC8BA6 /* arcticSky.vert */; };
+		DDCB1B740DE2A81300F97E5C /* SignalFlare.particle in Resources */ = {isa = PBXBuildFile; fileRef = DDCB1B730DE2A81300F97E5C /* SignalFlare.particle */; };
 		EF3315EF0DDA987F00ADC323 /* OgreCEGUIRenderer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA88679D0D2BDAD800C08A49 /* OgreCEGUIRenderer.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,7 @@
 		DD73F20D0DE19E5F00FC8BA6 /* RobsSnowMaterial.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RobsSnowMaterial.material; path = ArcExMedia/materials/RobsSnowMaterial.material; sourceTree = "<group>"; };
 		DD73F2170DE1A36700FC8BA6 /* arcticSky.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arcticSky.frag; path = ArcExMedia/particle/arcticSky.frag; sourceTree = "<group>"; };
 		DD73F2180DE1A36700FC8BA6 /* arcticSky.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arcticSky.vert; path = ArcExMedia/particle/arcticSky.vert; sourceTree = "<group>"; };
+		DDCB1B730DE2A81300F97E5C /* SignalFlare.particle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SignalFlare.particle; path = ArcExMedia/particle/SignalFlare.particle; sourceTree = "<group>"; };
 		EF3316400DDA9E2A00ADC323 /* OgreCEGUIRenderer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "OgreCEGUIRenderer-Info.plist"; path = "plist/OgreCEGUIRenderer-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +178,7 @@
 		000E25320B392C4E004EA2DF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DDCB1B730DE2A81300F97E5C /* SignalFlare.particle */,
 				DD73F2170DE1A36700FC8BA6 /* arcticSky.frag */,
 				DD73F2180DE1A36700FC8BA6 /* arcticSky.vert */,
 				DD73F20D0DE19E5F00FC8BA6 /* RobsSnowMaterial.material */,
@@ -284,6 +287,7 @@
 				DD73F20E0DE19E5F00FC8BA6 /* RobsSnowMaterial.material in Resources */,
 				DD73F2190DE1A36700FC8BA6 /* arcticSky.frag in Resources */,
 				DD73F21A0DE1A36700FC8BA6 /* arcticSky.vert in Resources */,
+				DDCB1B740DE2A81300F97E5C /* SignalFlare.particle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
