@@ -25,7 +25,11 @@
 
 RaySceneQuery* raySceneQuery = 0;
 
-#define sunAxisRadius 600
+#define SUN_AXIS_RADIUS 600
+#define MOON_AXIS_RADIUS 400
+
+#define DEFAULT_SECONDS_IN_A_DAY 64.0
+#define TIME_LAPSE_SECONDS_IN_A_DAY 12.0
 
 
 /********************************************************************************
@@ -48,7 +52,8 @@ public:
         // Set initial time of day
         // Time of day goes in cycles representing the 24 hours in a day
         timeOfDay = 0.0;
-        secondsInADay = 64.0; // default seconds in a day
+        secondsInADay = DEFAULT_SECONDS_IN_A_DAY; // default seconds in a day
+        timeLapseMode = false;
 
         // Parameter setting for sky plane shader
         MaterialPtr mat = (MaterialPtr)MaterialManager::getSingleton().getByName("ArcticSkyMaterial");
@@ -61,7 +66,7 @@ public:
         sunMoveAxis->translate(Vector3(2000.0, 0.0, 800.0));
 
         sunNode = sunMoveAxis->createChildSceneNode("SunNode");
-        sunNode->translate(Vector3(0.0, sunAxisRadius-10, 0.0)); 
+        sunNode->translate(Vector3(0.0, SUN_AXIS_RADIUS - 10, 0.0)); 
         // Note the -10 is a hack. Otherwise the sky colout texture doesn't seem to work correctly
         
         // Attach a light to the sun node
@@ -72,10 +77,18 @@ public:
         // TODO: change the colour of the light depending on the position of the sun      
         sunLight->setDiffuseColour(1, 1, 0.5);
         sunLight->setSpecularColour(1, 1, 0.5);
-       
-//		sunLight->setType(Light::LT_DIRECTIONAL);
-//      sunLight->setDirection(0,-0.15,-1);			// TODO: Should reference variable for sun direction
 
+        // TODO make moon mesh? texture? and a blinking star map
+        
+        // Moon Node to give some lighting at night
+        // The moon rotates on the same plane as the sun (though the radius of the path is smaller
+        SceneNode* moonNode = sunMoveAxis->createChildSceneNode("MoonNode");
+        moonNode->translate(Vector3(0.0, - MOON_AXIS_RADIUS, 0.0)); 
+        // Attach a dim diffuse light to the moon node
+        Light* moonLight = mSceneMgr->createLight("MoonLight");
+		moonLight->setType(Light::LT_POINT);
+        moonNode->attachObject(moonLight);
+        moonLight->setDiffuseColour(0.1, 0.1, 0.1);
     }
 
     bool frameStarted(const FrameEvent& evt)
@@ -86,25 +99,28 @@ public:
         mKeyboard->capture();
         
         // Cycling through the hours in a day
+        sunMoveAxis->pitch(-Degree(timeOfDay/secondsInADay*360)); // undo last rotate
         timeOfDay += evt.timeSinceLastFrame;
-        sunMoveAxis->pitch(Degree(360/secondsInADay*evt.timeSinceLastFrame));
+        sunMoveAxis->pitch(Degree(timeOfDay/secondsInADay*360)); // do new rotate
 
         if (timeOfDay >= secondsInADay)
-        {
             timeOfDay = 0.0;
-        }
 		
-		Real timeFactor = (1 + cos(2*M_PI*timeOfDay/secondsInADay))/2;
-		
-		// Changing the ambient light to reflect the time of day
-	    mSceneMgr->setAmbientLight(ColourValue(0.7*timeFactor, 0.8*timeFactor, 1.0*timeFactor)); 
-		
+        
+		Real timeFactor = (1 + cos(2*M_PI*timeOfDay/secondsInADay))/2;		
+        
         // Passing parameters to the sky vertex shader
         skyVertParams->setNamedConstant("sunPosition", sunNode->getWorldPosition());
         skyVertParams->setNamedConstant("camPosition", mCamera->getWorldPosition());
         
-        Real sunHeight = (sunNode->getWorldPosition().y + sunAxisRadius - sunMoveAxis->getWorldPosition().y)/(2*sunAxisRadius);
+        Real sunHeight = (sunNode->getWorldPosition().y + SUN_AXIS_RADIUS - sunMoveAxis->getWorldPosition().y)/(2*SUN_AXIS_RADIUS);
         skyFragParams->setNamedConstant("sunHeightRel", sunHeight);
+
+
+        // Set light changes according to time
+        sunLight->setDiffuseColour(ColourValue(0.9*sunHeight, 0.9*sunHeight, 0.9*sunHeight));
+        sunLight->setSpecularColour(ColourValue(0.9*sunHeight, 0.9*sunHeight, 0.9*sunHeight));
+	    mSceneMgr->setAmbientLight(ColourValue(0.7*sunHeight, 0.8*sunHeight, 1.0*sunHeight)); 
 
         
         // key can only be pressed once every 0.5  (1 second?)
@@ -121,6 +137,23 @@ public:
         {
             mToggle = 0.5f;
             summerWinter = !summerWinter;
+        }
+        
+        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_T))
+        {
+            mToggle = 0.5f;
+            timeLapseMode = !timeLapseMode;
+            if (timeLapseMode)
+            {
+                timeOfDay *= TIME_LAPSE_SECONDS_IN_A_DAY/DEFAULT_SECONDS_IN_A_DAY; 
+                secondsInADay = TIME_LAPSE_SECONDS_IN_A_DAY;
+            }
+            else
+            {
+                timeOfDay *= DEFAULT_SECONDS_IN_A_DAY/TIME_LAPSE_SECONDS_IN_A_DAY; 
+                secondsInADay = DEFAULT_SECONDS_IN_A_DAY;
+            }
+
         }
 		
 		if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_F))
@@ -239,22 +272,25 @@ protected:
 	Vector3 flareVel;
 	
 private:
-    // The time left until next toggle
-    Real mToggle;
     SceneManager *mSceneMgr;
 
     // time of day in seconds. between 0 and secondsInADay
     Real timeOfDay;
     // time in seconds taken to cycle through 1 day
     Real secondsInADay; 
+
     // parametners to pass to sky shaders
     GpuProgramParametersSharedPtr skyVertParams;
     GpuProgramParametersSharedPtr skyFragParams;
     
+    // The time left until next toggle
+    Real mToggle;
+    // Toggle values
     bool summerWinter;
     bool snow;
     bool fog;
 	bool flyMode;
+    bool timeLapseMode;
     
     SceneNode *sunMoveAxis;
     SceneNode *sunNode;
@@ -291,6 +327,7 @@ private:
     OIS::Keyboard *mKeyboard;
     OIS::InputManager *mInputManager;
     SkyWeatherFrameListener* mSkyListener;
+    Viewport* viewPort;
     
 	// Note: this replaces the default function in the ExampleApplication
     void createCamera(void)
@@ -305,11 +342,11 @@ private:
     void createViewports(void)
     {
 		// create viewport, entire window, set colour
-		Viewport* vp = mWindow->addViewport(mCamera);
-		vp->setBackgroundColour(ColourValue(0,0,0));
+		Viewport* viewPort = mWindow->addViewport(mCamera);
+		viewPort->setBackgroundColour(ColourValue(0,0,0));
 				
 		// set camera aspect ratio - match that of viewport
-		mCamera->setAspectRatio(Real(vp->getActualWidth()) / Real(vp->getActualHeight()));
+		mCamera->setAspectRatio(Real(viewPort->getActualWidth()) / Real(viewPort->getActualHeight()));
     }
 
 
@@ -323,6 +360,12 @@ private:
     {
         //mSceneMgr->setAmbientLight( ColourValue(0,0,0) );
 		mSceneMgr->setAmbientLight(ColourValue(0.7, 0.8, 1.0)); // robs: This colour is kind of nice
+
+/*        
+        ColourValue fadeColour(0.9, 0.9, 0.9);
+        mSceneMgr->setFog(FOG_LINEAR, fadeColour, 0.0, 50, 515);
+        mSceneMgr->setFog(FOG_EXP, fadeColour, 0.005);
+*/
         
 		// Set terrain
 		mSceneMgr->setWorldGeometry("arcex_terrain.cfg");
@@ -338,8 +381,11 @@ private:
 		// For terrain clamping in "walk" mode
         raySceneQuery = mSceneMgr->createRayQuery(
             Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
-                
-        // Add more here
+        
+        
+//        CompositorManager::getSingleton().addCompositor(viewPort, "Bloom");
+//        CompositorManager::getSingleton().setCompositorEnabled(viewPort, "Bloom", true);
+
     }
     void createFrameListener(void)
     {

@@ -27,6 +27,7 @@ material ArcticSkyMaterial
          {
 	        param_named skyColour int 0
 	        param_named atmosphereDensity int 1
+	        param_named earthClouds int 2
          }
 
 		texture_unit
@@ -40,6 +41,13 @@ material ArcticSkyMaterial
 			skyAtmosphereDensity.png
 	        tex_coord_set 1
 		}
+		
+		texture_unit
+		{
+			earthClouds.jpg
+	        tex_coord_set 2
+		}
+		
       }
    }
 } 
