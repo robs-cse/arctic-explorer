@@ -16,20 +16,26 @@
 #include "Terrain.h"
 
 #include "ExampleApplication.h"
+#include <OgreStringConverter.h>
+
 // #include "TerrainApplication.h"  // not working yet
 
 #define CAMERA_HEIGHT 5
+#define LIGHT_HEIGHT 2
 #define FLARE_LAUNCH_VELOCITY 75
 #define WALK_SPEED 20
 #define FLY_SPEED 100
-
-RaySceneQuery* raySceneQuery = 0;
 
 #define SUN_AXIS_RADIUS 800
 #define MOON_AXIS_RADIUS 600
 
 #define DEFAULT_SECONDS_IN_A_DAY 64.0
 #define TIME_LAPSE_SECONDS_IN_A_DAY 12.0
+
+#include "Beacon.h"
+
+RaySceneQuery *raySceneQuery = 0;
+BeaconManager *mBeaconManager = 0;
 
 
 /********************************************************************************
@@ -192,6 +198,54 @@ public:
 			{
 				return false;
 			}
+			
+					
+		if (flareNode)
+		{
+			Real t = evt.timeSinceLastFrame;
+			Ogre::Vector3 pos = flareNode->getPosition();
+			flareVel.y -= 9.8 * t;
+			pos.x += flareVel.x * t;
+			pos.y += flareVel.y * t;
+			pos.z += flareVel.z * t;
+			flareNode->setPosition(pos);
+
+			flareNode->setOrientation(mCamera->getOrientation());
+			
+			ColourValue col = launchLight->getDiffuseColour();
+			launchLight->setDiffuseColour(col*0.9);
+			
+			col = sigLight->getDiffuseColour();
+			col *= 1.1;
+			col.saturate();
+			sigLight->setDiffuseColour(col);
+			
+			// Test if the flare has hit the ground
+			
+			if (mFlareAirborne)
+			{
+				static Ray flareImpactRay;
+				flareImpactRay.setOrigin(flareNode->getPosition());
+				flareImpactRay.setDirection(Vector3::UNIT_Y);
+				raySceneQuery->setRay(flareImpactRay);
+				RaySceneQueryResult& qryResult = raySceneQuery->execute();
+				RaySceneQueryResult::iterator i = qryResult.begin();
+				if (i != qryResult.end() && i->worldFragment)
+				{
+					beaconNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+					mBeaconManager->newBeacon
+					(
+						Vector3(flareNode->getPosition().x, 
+						i->worldFragment->singleIntersection.y + LIGHT_HEIGHT, 
+						flareNode->getPosition().z)
+					);
+
+					mFlareAirborne = false;
+				}
+			}
+
+		}
+			
         return true;
     }
 	
@@ -213,32 +267,38 @@ public:
 					
 					sigFlareParticle = mSceneMgr->createParticleSystem("SignalFlare", "ArcEx/SignalFlare");
 					sigSmokeParticle = mSceneMgr->createParticleSystem("SignalSmoke", "ArcEx/SignalSmoke");
+					sigLight = mSceneMgr->createLight("SignalLight");
+					sigLight->setAttenuation(3250, 1, 0.0014, 0.000007);
+
+					launchNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+					launchLight = mSceneMgr->createLight("LaunchLight");
+					launchLight->setAttenuation(600, 1, 0.007, 0.0002);
+					//launchLight->setAttenuation(200, 1, 0.022, 0.0019);
 					
 					flareNode->attachObject(sigFlareParticle);
 					flareNode->attachObject(sigSmokeParticle);
-					sigLight = mSceneMgr->createLight("SignalLight");
-					sigLight->setAttenuation(3250, 1, 0.0014, 0.000007);
 					flareNode->attachObject(sigLight);
 					
-					launchNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-					launchLight = mSceneMgr->createLight("LaunchLight");
-					//launchLight->setAttenuation(3250, 1, 0.0014, 0.000007);
-					launchLight->setAttenuation(600, 1, 0.007, 0.0002);
-					//launchLight->setAttenuation(200, 1, 0.022, 0.0019);
 					launchNode->attachObject(launchLight);
-		        }
-				Ogre::Vector3 camDir = mCamera->getDirection();
+				}
 				
-				sigFlareParticle->clear();
-				sigSmokeParticle->clear();
+				if (!mFlareAirborne)
+				{
+					Ogre::Vector3 camDir = mCamera->getDirection();
 				
-				flareVel = FLARE_LAUNCH_VELOCITY*camDir;
-				flareNode->setPosition(mCamera->getPosition());
+					sigFlareParticle->clear();
+					sigSmokeParticle->clear();
+				
+					flareVel = FLARE_LAUNCH_VELOCITY*camDir;
+					flareNode->setPosition(mCamera->getPosition());
 
-				sigLight->setDiffuseColour(0.001, 0, 0);
+					sigLight->setDiffuseColour(0.001, 0, 0);
 
-				launchLight->setDiffuseColour(5,5,2.5);
-				launchNode->setPosition(mCamera->getPosition());
+					launchLight->setDiffuseColour(5,5,2.5);
+					launchNode->setPosition(mCamera->getPosition());
+					
+					mFlareAirborne = true;
+				}
 				
 				mMouseDown = true;
 			}
@@ -246,34 +306,14 @@ public:
 		else
 		{
 		    mMouseDown = false;
-			if (flareNode)
-			{
-			    Real t = evt.timeSinceLastFrame;
-				Ogre::Vector3 pos = flareNode->getPosition();
-				flareVel.y -= 9.8 * t;
-				pos.x += flareVel.x * t;
-				pos.y += flareVel.y * t;
-				pos.z += flareVel.z * t;
-				flareNode->setPosition(pos);
-			
-				ColourValue col = launchLight->getDiffuseColour();
-				launchLight->setDiffuseColour(col*0.9);
-			    
-				col = sigLight->getDiffuseColour();
-				col *= 1.1;
-				col.saturate();
-				sigLight->setDiffuseColour(col);
-			}
-		}
-
+		}	
 		return true;
 	}
 
 protected:
-    bool mMouseDown;
+    bool mMouseDown, mFlareAirborne;
 	//SceneManager *mSceneMgr;
-	SceneNode *flareNode;
-	SceneNode *launchNode;
+	SceneNode *flareNode, *launchNode, *beaconNode;
 	Light *launchLight, *sigLight;
 	ParticleSystem *sigFlareParticle, *sigSmokeParticle;
 	Vector3 flareVel;
@@ -389,6 +429,8 @@ private:
 		// For terrain clamping in "walk" mode
         raySceneQuery = mSceneMgr->createRayQuery(
             Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
+		
+		createBeaconManager();
 
 //        CompositorManager::getSingleton().addCompositor(viewPort, "Bloom");
 //        CompositorManager::getSingleton().setCompositorEnabled(viewPort, "Bloom", true);
@@ -400,6 +442,10 @@ private:
 		mRoot->addFrameListener(mFrameListener);
 
     }
+	void createBeaconManager(void)
+	{
+		mBeaconManager = new BeaconManager(mSceneMgr);
+	}
 };
 
 

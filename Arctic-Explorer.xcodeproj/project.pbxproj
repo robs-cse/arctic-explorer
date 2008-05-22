@@ -88,6 +88,7 @@
 		DD73F2170DE1A36700FC8BA6 /* arcticSky.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arcticSky.frag; path = ArcExMedia/particle/arcticSky.frag; sourceTree = "<group>"; };
 		DD73F2180DE1A36700FC8BA6 /* arcticSky.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arcticSky.vert; path = ArcExMedia/particle/arcticSky.vert; sourceTree = "<group>"; };
 		DDCB1B730DE2A81300F97E5C /* SignalFlare.particle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SignalFlare.particle; path = ArcExMedia/particle/SignalFlare.particle; sourceTree = "<group>"; };
+		DDD898A20DE3EC390060FDFB /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Beacon.h; path = include/Beacon.h; sourceTree = "<group>"; };
 		EF3316400DDA9E2A00ADC323 /* OgreCEGUIRenderer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "OgreCEGUIRenderer-Info.plist"; path = "plist/OgreCEGUIRenderer-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +133,7 @@
 			children = (
 				000E297A0B39E1B8004EA2DF /* Terrain.h */,
 				000E297B0B39E1C5004EA2DF /* Terrain.cpp */,
+				DDD898A20DE3EC390060FDFB /* Beacon.h */,
 				000E29870B39E350004EA2DF /* arcex_terrain.cfg */,
 			);
 			name = Terrain;
