@@ -7,19 +7,25 @@
  *
  */
 
+#define SMOKE_HEIGHT 1
+#define FLAME_HEIGHT 0
+#define LIGHT_HEIGHT 3
+
 class Beacon
 {
 public:
-	Beacon(Light *l, SceneNode *n, ParticleSystem *p)
+	Beacon(Light *l, SceneNode *n, ParticleSystem *sp, ParticleSystem *fp)
 	{
 		light = l;
 		node = n;
-		parts = p;
+		smoke = sp;
+		fire = fp;
 	}
 
 	Light *light;
 	SceneNode *node;
-	ParticleSystem *parts;
+	ParticleSystem *smoke;
+	ParticleSystem *fire;
 };
 
 class BeaconManager
@@ -38,20 +44,28 @@ public:
 		String beaconNumStr = StringConverter::toString(beaconCounter);
 		std::cout << beaconNumStr;
 
-		SceneNode *n = mSceneMgr->getRootSceneNode()->createChildSceneNode("beaconNode"+beaconNumStr);
-		n->setPosition(position);
+		SceneNode *bn = mSceneMgr->getRootSceneNode()->createChildSceneNode("beaconNode"+beaconNumStr);
+		bn->setPosition(position);
+		bn->translate(0, FLAME_HEIGHT, 0);
+
+		SceneNode *bsn = bn->createChildSceneNode("beaconSmokeNode"+beaconNumStr);
+		bsn->translate(0, LIGHT_HEIGHT, 0);
 		
 		Light *l = mSceneMgr->createLight("beaconLight"+beaconNumStr);
 		//l->setAttenuation(3250, 1, 0.0014, 0.000007);
 		l->setAttenuation(200, 1, 0.022, 0.0019);
 		l->setDiffuseColour(1, 0, 0);
 		
-		ParticleSystem *p = mSceneMgr->createParticleSystem("beaconPart"+beaconNumStr, "ArcEx/SignalSmoke");
+		ParticleSystem *sp = mSceneMgr->createParticleSystem("beaconSmoke"+beaconNumStr, "ArcEx/SignalSmoke");
+		ParticleSystem *fp = mSceneMgr->createParticleSystem("beaconFire"+beaconNumStr, "ArcEx/SignalBeacon");
 
-		n->attachObject(l);
-		n->attachObject(p);
+		bsn->attachObject(l);
+		bsn->attachObject(sp);
+		bn->attachObject(fp);
 
-		Beacon b = Beacon(l, n, p);
+		sp->setVisible(false); // test
+
+		Beacon b = Beacon(l, bn, sp, fp);
 		mBeacons.push(b);
 		
 		beaconCounter++;		
