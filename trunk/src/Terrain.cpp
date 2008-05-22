@@ -20,10 +20,9 @@
 
 // #include "TerrainApplication.h"  // not working yet
 
-#define CAMERA_HEIGHT 5
-#define LIGHT_HEIGHT 2
+#define CAMERA_HEIGHT 2
 #define FLARE_LAUNCH_VELOCITY 75
-#define WALK_SPEED 20
+#define WALK_SPEED 5
 #define FLY_SPEED 100
 
 #define SUN_AXIS_RADIUS 800
@@ -31,6 +30,11 @@
 
 #define DEFAULT_SECONDS_IN_A_DAY 64.0
 #define TIME_LAPSE_SECONDS_IN_A_DAY 12.0
+
+#define START_X 1000
+#define START_Z 800
+
+#define MEL_SUNLIGHT
 
 #include "Beacon.h"
 
@@ -96,7 +100,7 @@ public:
         Light* moonLight = mSceneMgr->createLight("MoonLight");
 		moonLight->setType(Light::LT_POINT);
         moonNode->attachObject(moonLight);
-        moonLight->setDiffuseColour(0.1, 0.1, 0.15);
+        moonLight->setDiffuseColour(0.05, 0.05, 0.075);
     }
 
     bool frameStarted(const FrameEvent& evt)
@@ -107,18 +111,20 @@ public:
         mKeyboard->capture();
 
         // Cycling through the hours in a day
-        sunMoveAxis->pitch(-Degree(timeOfDay/secondsInADay*360)); // undo last rotate
-        timeOfDay += evt.timeSinceLastFrame;
+		sunMoveAxis->pitch(-Degree(timeOfDay/secondsInADay*360)); // undo last rotate
+		timeOfDay += evt.timeSinceLastFrame;
         sunMoveAxis->pitch(Degree(timeOfDay/secondsInADay*360)); // do new rotate
 
         starMoveTime += evt.timeSinceLastFrame/2.0;
 
-
         if (timeOfDay >= secondsInADay)
             timeOfDay = 0.0;
-        if (starMoveTime >= secondsInADay) // a slower changing timeOfDay (determines movement of starmap)
+        
+		if (starMoveTime >= secondsInADay) // a slower changing timeOfDay (determines movement of starmap)
             starMoveTime = 0.0;
 		
+		Real timeFactor = (1 + cos(2*M_PI*timeOfDay/secondsInADay))/2;
+
         // Passing parameters to the sky vertex shader
         skyVertParams->setNamedConstant("sunPosition", sunNode->getWorldPosition());
         skyVertParams->setNamedConstant("camPosition", mCamera->getWorldPosition());
@@ -127,11 +133,13 @@ public:
         Real sunHeight = (sunNode->getWorldPosition().y + SUN_AXIS_RADIUS - sunMoveAxis->getWorldPosition().y)/(2*SUN_AXIS_RADIUS);
         skyFragParams->setNamedConstant("sunHeightRel", sunHeight);
 
-
+#ifdef MEL_SUNLIGHT
+		timeFactor = sunHeight;
+#endif
         // Set light changes according to time
-        sunLight->setDiffuseColour(ColourValue(0.9, 0.9, 0.6)*sunHeight);
-        sunLight->setSpecularColour(ColourValue(0.9, 0.9, 0.9)*sunHeight);
-	    mSceneMgr->setAmbientLight(ColourValue(0.5, 0.6, 0.8)*sunHeight); 
+        sunLight->setDiffuseColour(ColourValue(0.9, 0.9, 0.6)*timeFactor);
+        sunLight->setSpecularColour(ColourValue(0.9, 0.9, 0.9)*timeFactor);
+	    mSceneMgr->setAmbientLight(ColourValue(0.5, 0.6, 0.8)*timeFactor); 
 
         
         // key can only be pressed once every 0.5  (1 second?)
@@ -236,7 +244,7 @@ public:
 					mBeaconManager->newBeacon
 					(
 						Vector3(flareNode->getPosition().x, 
-						i->worldFragment->singleIntersection.y + LIGHT_HEIGHT, 
+						i->worldFragment->singleIntersection.y, 
 						flareNode->getPosition().z)
 					);
 
@@ -375,15 +383,15 @@ private:
     OIS::Keyboard *mKeyboard;
     OIS::InputManager *mInputManager;
     SkyWeatherFrameListener* mSkyListener;
-    Viewport* viewPort;
+    //Viewport* viewPort;
     
 	// Note: this replaces the default function in the ExampleApplication
     void createCamera(void)
     {
 		mCamera = mSceneMgr->createCamera("PlayerCam");
 
-		mCamera->setPosition(Vector3(0,200,0));
-		mCamera->lookAt(Vector3(1,200,1));
+		mCamera->setPosition(Vector3(START_X,200,START_Z));
+		mCamera->lookAt(Vector3(START_X*2,200,START_Z*2));
 		mCamera->setNearClipDistance(1);
     }
 
@@ -431,16 +439,22 @@ private:
             Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
 		
 		createBeaconManager();
-
-//        CompositorManager::getSingleton().addCompositor(viewPort, "Bloom");
-//        CompositorManager::getSingleton().setCompositorEnabled(viewPort, "Bloom", true);
-
+		
     }
     void createFrameListener(void)
     {
         mFrameListener = new SkyWeatherFrameListener(mWindow, mCamera, mSceneMgr);
 		mRoot->addFrameListener(mFrameListener);
-
+		
+		// turn on bloom
+		Ogre::Viewport* viewPort = mWindow->getViewport(0);
+	
+		CompositorManager::getSingleton().addCompositor(viewPort, "Bloom");
+        CompositorManager::getSingleton().setCompositorEnabled(viewPort, "Bloom", true);
+	
+		CompositorManager::getSingleton().addCompositor(viewPort, "Sharpen Edges");
+        CompositorManager::getSingleton().setCompositorEnabled(viewPort, "Sharpen Edges", true);
+	
     }
 	void createBeaconManager(void)
 	{
