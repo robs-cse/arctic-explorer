@@ -19,7 +19,7 @@ LGPL like the rest of the engine.
         Specialisation of OGRE's framework application to show the
         terrain rendering plugin 
 */
-
+#pragma once
 #include "ExampleApplication.h"
 
 /*
