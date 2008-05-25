@@ -16,7 +16,7 @@ material ArcticSkyMaterial
       {
          lighting off      
          depth_write off
-//         fog_override true none
+         fog_override true none
          
          vertex_program_ref arcticSkyVert
          {	         
@@ -26,25 +26,18 @@ material ArcticSkyMaterial
          {
 	        param_named starMap int 0
 	        param_named skyColour int 1
-	        param_named atmosphereDensity int 2
-	        param_named earthClouds int 3
+	        param_named earthClouds int 2
          }
 
 		texture_unit
 		{
 			texture starMap.jpg
-			
 		}
 
 		texture_unit
 		{
 			texture skyColour.png
 //	        tex_coord_set 0 // default, meshes can specify multiple coords
-		}
-		
-		texture_unit
-		{
-			texture skyAtmosphereDensity.png
 		}
 		
 		texture_unit

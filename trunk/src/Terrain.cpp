@@ -100,7 +100,7 @@ public:
         Light* moonLight = mSceneMgr->createLight("MoonLight");
 		moonLight->setType(Light::LT_POINT);
         moonNode->attachObject(moonLight);
-        moonLight->setDiffuseColour(0.05, 0.05, 0.075);
+        moonLight->setDiffuseColour(0.1, 0.1, 0.15);
     }
 
     bool frameStarted(const FrameEvent& evt)
@@ -137,9 +137,9 @@ public:
 		timeFactor = sunHeight;
 #endif
         // Set light changes according to time
-        sunLight->setDiffuseColour(ColourValue(0.9, 0.9, 0.6)*timeFactor);
-        sunLight->setSpecularColour(ColourValue(0.9, 0.9, 0.9)*timeFactor);
-	    mSceneMgr->setAmbientLight(ColourValue(0.5, 0.6, 0.8)*timeFactor); 
+        sunLight->setDiffuseColour(ColourValue(0.85, 0.85, 0.65)*timeFactor);
+        sunLight->setSpecularColour(ColourValue(0.8, 0.8, 0.8)*timeFactor);
+	    mSceneMgr->setAmbientLight(ColourValue(0.3, 0.4, 0.6)*timeFactor); 
 
         
         // key can only be pressed once every 0.5  (1 second?)
