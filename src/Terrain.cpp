@@ -175,7 +175,7 @@ public:
             mToggle = 0.5f;
             snow = !snow;
         }
-        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_F))
+        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_W))
         {
             mToggle = 0.5f;
             fog = !fog;
@@ -458,18 +458,6 @@ private:
 		plane.normal = Vector3::NEGATIVE_UNIT_Y;
 		mSceneMgr->setSkyPlane(true, plane, "ArcticSkyMaterial", 1500, 20, true, 0.3f, 150, 150);
 
-		plane.d = 1000;
-		plane.normal = Vector3::NEGATIVE_UNIT_Y;
-		mSceneMgr->setSkyPlane(true, plane, "ArcticSkyMaterial", 1500, 20, true, 0.3f, 150, 150);
-
-/*
-   oceanSurface.normal = Ogre::Vector3::UNIT_Y;
-   oceanSurface.d = 0; //sets the height to 0
-   Ogre::MeshManager::getSingleton().createPlane("OceanSurface",
-         Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-         oceanSurface,
-         10000, 10000, 50, 50, true, 1, 1, 1, Ogre::Vector3::UNIT_Z); 
-         */
         
 		// For terrain clamping in "walk" mode
         raySceneQuery = mSceneMgr->createRayQuery(
