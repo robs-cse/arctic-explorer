@@ -37,6 +37,7 @@
 #define MEL_SUNLIGHT
 
 #include "Beacon.h"
+#include "Snow.h"
 
 RaySceneQuery *raySceneQuery = 0;
 BeaconManager *mBeaconManager = 0;
@@ -66,6 +67,8 @@ public:
         secondsInADay = DEFAULT_SECONDS_IN_A_DAY; // default seconds in a day
         timeLapseMode = false;
         flyMode = false;
+        snow = false;
+        fog = false;
 
         // Parameter setting for sky plane shader
         MaterialPtr mat = (MaterialPtr)MaterialManager::getSingleton().getByName("ArcticSkyMaterial");
@@ -101,6 +104,21 @@ public:
 		moonLight->setType(Light::LT_POINT);
         moonNode->attachObject(moonLight);
         moonLight->setDiffuseColour(0.1, 0.1, 0.15);
+        
+
+        weatherNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("snowNode");
+        arcticSnow = new ArcticSnowManager(weatherNode, mSceneMgr);
+        weatherNode->setPosition(mCamera->getPosition());
+
+
+//        mCamera->getParentSceneNode()->
+
+//        snowNode = mCamera->getParentSceneNode()->createChildSceneNode("snowNode");
+/*        
+*/		
+
+
+        
     }
 
     bool frameStarted(const FrameEvent& evt)
@@ -151,12 +169,21 @@ public:
 		// toggle walk/fly
         // set secondsInADay (speed up mode)
 
-        // Example, this not ready yet // change the position of the sun
-        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_1))
+        // Setting snow, fog (particle fog)     see Snow.h
+        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_S))
         {
             mToggle = 0.5f;
-            summerWinter = !summerWinter;
+            snow = !snow;
         }
+        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_F))
+        {
+            mToggle = 0.5f;
+            fog = !fog;
+        }
+        weatherNode->setPosition(mCamera->getPosition());
+        arcticSnow->adjustSnow(snow, sunHeight);
+        arcticSnow->adjustFog(fog, sunHeight);
+        
         
         if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_T))
         {
@@ -342,21 +369,18 @@ private:
     // The time left until next toggle
     Real mToggle;
     // Toggle values
-    bool summerWinter;
     bool snow;
     bool fog;
 	bool flyMode;
     bool timeLapseMode;
     
+    ArcticSnowManager *arcticSnow;
+    SceneNode *weatherNode;
     SceneNode *sunMoveAxis;
     SceneNode *sunNode;
     Vector3 sunPosition;
     Light* sunLight;
     
-    
-    void adjustFog()
-    {
-    }
 };
 
 
@@ -433,13 +457,25 @@ private:
 		plane.d = 1000;
 		plane.normal = Vector3::NEGATIVE_UNIT_Y;
 		mSceneMgr->setSkyPlane(true, plane, "ArcticSkyMaterial", 1500, 20, true, 0.3f, 150, 150);
+
+		plane.d = 1000;
+		plane.normal = Vector3::NEGATIVE_UNIT_Y;
+		mSceneMgr->setSkyPlane(true, plane, "ArcticSkyMaterial", 1500, 20, true, 0.3f, 150, 150);
+
+/*
+   oceanSurface.normal = Ogre::Vector3::UNIT_Y;
+   oceanSurface.d = 0; //sets the height to 0
+   Ogre::MeshManager::getSingleton().createPlane("OceanSurface",
+         Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+         oceanSurface,
+         10000, 10000, 50, 50, true, 1, 1, 1, Ogre::Vector3::UNIT_Z); 
+         */
         
 		// For terrain clamping in "walk" mode
         raySceneQuery = mSceneMgr->createRayQuery(
             Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
 		
 		createBeaconManager();
-		
     }
     void createFrameListener(void)
     {
@@ -452,8 +488,8 @@ private:
 		CompositorManager::getSingleton().addCompositor(viewPort, "Bloom");
         CompositorManager::getSingleton().setCompositorEnabled(viewPort, "Bloom", true);
 	
-		CompositorManager::getSingleton().addCompositor(viewPort, "Sharpen Edges");
-        CompositorManager::getSingleton().setCompositorEnabled(viewPort, "Sharpen Edges", true);
+//		CompositorManager::getSingleton().addCompositor(viewPort, "Sharpen Edges");
+//        CompositorManager::getSingleton().setCompositorEnabled(viewPort, "Sharpen Edges", true);
 	
     }
 	void createBeaconManager(void)

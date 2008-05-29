@@ -90,6 +90,7 @@
 		DDCB1B730DE2A81300F97E5C /* SignalFlare.particle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SignalFlare.particle; path = ArcExMedia/particle/SignalFlare.particle; sourceTree = "<group>"; };
 		DDD898A20DE3EC390060FDFB /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Beacon.h; path = include/Beacon.h; sourceTree = "<group>"; };
 		EF3316400DDA9E2A00ADC323 /* OgreCEGUIRenderer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "OgreCEGUIRenderer-Info.plist"; path = "plist/OgreCEGUIRenderer-Info.plist"; sourceTree = "<group>"; };
+		EF697D470DED7B2600431F04 /* Snow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Snow.h; path = include/Snow.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +132,7 @@
 		000E25180B392A1E004EA2DF /* Terrain */ = {
 			isa = PBXGroup;
 			children = (
+				EF697D470DED7B2600431F04 /* Snow.h */,
 				000E297A0B39E1B8004EA2DF /* Terrain.h */,
 				000E297B0B39E1C5004EA2DF /* Terrain.cpp */,
 				DDD898A20DE3EC390060FDFB /* Beacon.h */,
