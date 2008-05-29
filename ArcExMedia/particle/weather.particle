@@ -1,0 +1,105 @@
+
+ArcEx/SnowParticle
+{
+	quota	10000
+	material	ArcticEx/snow
+	particle_width	2.5
+	particle_height	2.5
+	cull_each	true
+	renderer	billboard
+	sorted	false
+	local_space	false
+	iteration_interval	0
+	nonvisible_update_timeout	0
+	billboard_type	point
+	billboard_origin	center
+	billboard_rotation_type	texcoord
+	common_up_vector	0 1 0
+	point_rendering	false
+	accurate_facing	false
+
+	emitter Box
+	{
+		angle	20
+		colour	1 1 1 1
+		colour_range_start	1 1 1 1
+		colour_range_end	1 1 1 1
+		direction	0 -1 0
+		emission_rate	950
+		position	0 50 0
+		velocity	40
+		velocity_min	40
+		velocity_max	100
+		time_to_live	2
+		time_to_live_min	2
+		time_to_live_max	2
+		duration	0
+		duration_min	0
+		duration_max	0
+		repeat_delay	0
+		repeat_delay_min	0
+		repeat_delay_max	0
+		width	200
+		height	200
+		depth	1
+	}
+
+	affector DirectionRandomiser
+	{
+		randomness	0
+		scope	1
+		keep_velocity	true
+	}
+}
+
+
+ArcEx/Fog
+{
+	quota	6000
+	material	ArcticEx/fog
+	particle_width	30
+	particle_height	30
+	cull_each	false
+	renderer	billboard
+	sorted	false
+	local_space	false
+	iteration_interval	0
+	nonvisible_update_timeout	0
+	billboard_type	point
+	billboard_origin	center
+	billboard_rotation_type	texcoord
+	common_up_vector	0 1 0
+	point_rendering	false
+	accurate_facing	false
+
+	emitter Box
+	{
+		angle	110
+		colour	1 1 1 1
+		colour_range_start	1 1 1 1
+		colour_range_end	1 1 1 1
+		direction	0 0 1
+		emission_rate	400
+		position	0 -50 0
+		velocity	100
+		velocity_min	100
+		velocity_max	100
+		time_to_live	3.077
+		time_to_live_min	3.077
+		time_to_live_max	3.077
+		duration	0
+		duration_min	0
+		duration_max	0
+		repeat_delay	0
+		repeat_delay_min	0
+		repeat_delay_max	0
+		width	100
+		height	100
+		depth	100
+	}
+}
+
+
+
+
+
