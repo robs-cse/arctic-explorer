@@ -195,14 +195,14 @@ public:
 
 		if( mKeyboard->isKeyDown(KC_ESCAPE) || mKeyboard->isKeyDown(KC_Q) )
 			return false;
-/*
+
        	if( mKeyboard->isKeyDown(KC_F) && mTimeUntilNextToggle <= 0 )
 		{
 			mStatsOn = !mStatsOn;
 			showDebugOverlay(mStatsOn);
 			mTimeUntilNextToggle = 1;
 		}
-*/
+
 		if( mKeyboard->isKeyDown(KC_T) && mTimeUntilNextToggle <= 0 )
 		{
 			switch(mFiltering)
