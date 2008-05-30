@@ -409,6 +409,32 @@ private:
     SkyWeatherFrameListener* mSkyListener;
     //Viewport* viewPort;
     
+	// Override ExampleApplication, manually specify configuration
+	bool configure()
+	{
+		// Show the configuration dialog and initialise the system
+        // You can skip this and use root.restoreConfig() to load configuration
+        // settings if you were sure there are valid ones saved in ogre.cfg
+        if(mRoot->showConfigDialog())
+        {
+            // If returned true, user clicked OK so initialise
+            // Here we choose to let the system create a default rendering window by passing 'true'
+			
+			// robs: Since there is no config dialog for Mac OS, specify configuration manually
+			// and resave the file using these settings.
+			mRoot->getRenderSystem()->setConfigOption("FSAA", "4");
+			mRoot->getRenderSystem()->setConfigOption("Video Mode", "1440 x 900");
+			mRoot->saveConfig();
+			
+            mWindow = mRoot->initialise(true);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+	}
+	
 	// Note: this replaces the default function in the ExampleApplication
     void createCamera(void)
     {
