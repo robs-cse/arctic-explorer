@@ -3,8 +3,8 @@ ArcEx/SnowParticle
 {
 	quota	10000
 	material	ArcticEx/snow
-	particle_width	2.5
-	particle_height	2.5
+	particle_width	1
+	particle_height	1
 	cull_each	true
 	renderer	billboard
 	sorted	false

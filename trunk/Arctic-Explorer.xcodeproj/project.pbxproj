@@ -44,7 +44,6 @@
 		DDA2A3750DEF95DF00F16117 /* flame.vert in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A34C0DEF95DF00F16117 /* flame.vert */; };
 		DDA2A3770DEF95DF00F16117 /* arcticSky.material in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A34F0DEF95DF00F16117 /* arcticSky.material */; };
 		DDA2A3780DEF95DF00F16117 /* RobsSnowMaterial.material in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3500DEF95DF00F16117 /* RobsSnowMaterial.material */; };
-		DDA2A3790DEF95DF00F16117 /* .weather.particle.swp in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3530DEF95DF00F16117 /* .weather.particle.swp */; };
 		DDA2A37A0DEF95DF00F16117 /* arcticSky.frag in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3540DEF95DF00F16117 /* arcticSky.frag */; };
 		DDA2A37B0DEF95DF00F16117 /* arcticSky.vert in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3550DEF95DF00F16117 /* arcticSky.vert */; };
 		DDA2A37C0DEF95DF00F16117 /* SignalFlare.particle in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3560DEF95DF00F16117 /* SignalFlare.particle */; };
@@ -121,7 +120,6 @@
 		DDA2A34C0DEF95DF00F16117 /* flame.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flame.vert; sourceTree = "<group>"; };
 		DDA2A34F0DEF95DF00F16117 /* arcticSky.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticSky.material; sourceTree = "<group>"; };
 		DDA2A3500DEF95DF00F16117 /* RobsSnowMaterial.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RobsSnowMaterial.material; sourceTree = "<group>"; };
-		DDA2A3530DEF95DF00F16117 /* .weather.particle.swp */ = {isa = PBXFileReference; lastKnownFileType = file; path = .weather.particle.swp; sourceTree = "<group>"; };
 		DDA2A3540DEF95DF00F16117 /* arcticSky.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticSky.frag; sourceTree = "<group>"; };
 		DDA2A3550DEF95DF00F16117 /* arcticSky.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticSky.vert; sourceTree = "<group>"; };
 		DDA2A3560DEF95DF00F16117 /* SignalFlare.particle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SignalFlare.particle; sourceTree = "<group>"; };
@@ -300,7 +298,6 @@
 		DDA2A3520DEF95DF00F16117 /* particle */ = {
 			isa = PBXGroup;
 			children = (
-				DDA2A3530DEF95DF00F16117 /* .weather.particle.swp */,
 				DDA2A3540DEF95DF00F16117 /* arcticSky.frag */,
 				DDA2A3550DEF95DF00F16117 /* arcticSky.vert */,
 				DDA2A3560DEF95DF00F16117 /* SignalFlare.particle */,
@@ -425,7 +422,6 @@
 				DDA2A3750DEF95DF00F16117 /* flame.vert in Resources */,
 				DDA2A3770DEF95DF00F16117 /* arcticSky.material in Resources */,
 				DDA2A3780DEF95DF00F16117 /* RobsSnowMaterial.material in Resources */,
-				DDA2A3790DEF95DF00F16117 /* .weather.particle.swp in Resources */,
 				DDA2A37A0DEF95DF00F16117 /* arcticSky.frag in Resources */,
 				DDA2A37B0DEF95DF00F16117 /* arcticSky.vert in Resources */,
 				DDA2A37C0DEF95DF00F16117 /* SignalFlare.particle in Resources */,

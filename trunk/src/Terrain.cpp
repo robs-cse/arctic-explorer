@@ -34,7 +34,8 @@
 #define START_X 1000
 #define START_Z 800
 
-#define MEL_SUNLIGHT
+//#define MEL_SUNLIGHT
+#define ROB_DEBUG
 
 #include "Beacon.h"
 #include "Snow.h"
@@ -79,7 +80,9 @@ public:
         // Sun currently just moves up and down. Work out how to get sun to go in a circular path
         sunMoveAxis = mSceneMgr->getRootSceneNode()->createChildSceneNode("SunMoveAxis");
         sunMoveAxis->translate(Vector3(2000.0, 0.0, 800.0));
-
+#ifdef ROB_DEBUG
+		sunMoveAxis->attachObject(mSceneMgr->createParticleSystem("SunMoveAxis", "Examples/JetEngine2"));
+#endif
         sunNode = sunMoveAxis->createChildSceneNode("SunNode");
         sunNode->translate(Vector3(0.0, SUN_AXIS_RADIUS - 10, 0.0)); 
         // Note the -10 is a hack. Otherwise the sky colout texture doesn't seem to work correctly
@@ -88,7 +91,9 @@ public:
         sunLight = mSceneMgr->createLight("MainLight");
 		sunLight->setType(Light::LT_POINT);
         sunNode->attachObject(sunLight);
-  
+#ifdef ROB_DEBUG
+		sunNode->attachObject(mSceneMgr->createParticleSystem("SunNode", "Examples/JetEngine1"));
+#endif
         // TODO: change the colour of the light depending on the position of the sun      
         sunLight->setDiffuseColour(1, 1, 0.5);
         sunLight->setSpecularColour(1, 1, 0.5);
@@ -158,8 +163,7 @@ public:
         sunLight->setDiffuseColour(ColourValue(0.85, 0.85, 0.65)*timeFactor);
         sunLight->setSpecularColour(ColourValue(0.8, 0.8, 0.8)*timeFactor);
 	    mSceneMgr->setAmbientLight(ColourValue(0.3, 0.4, 0.6)*timeFactor); 
-
-        
+  
         // key can only be pressed once every 0.5  (1 second?)
 		mToggle -= evt.timeSinceLastFrame;
         // ToDo:
@@ -184,7 +188,7 @@ public:
         arcticSnow->adjustSnow(snow, sunHeight);
         arcticSnow->adjustFog(fog, sunHeight);
         
-        
+        // Toggle superspeed
         if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_T))
         {
             mToggle = 0.5f;
@@ -204,6 +208,7 @@ public:
 
         }
 		
+		// Toggle fly/walk
 		if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_F))
         {
             mToggle = 0.5f;
@@ -211,7 +216,7 @@ public:
 			mMoveSpeed = (flyMode ? FLY_SPEED : WALK_SPEED);
         }
 	
-	    // Rob added this to clamp to terrain
+	    // Clamp to terrain when in walk mode
 		if (!flyMode)
 		{
 			static Ray updateRay;
@@ -227,14 +232,15 @@ public:
 				mCamera->getPosition().z);
 			}
 		}
-		/* Rob added this to see if flare is fired */
+		
+		// Check if flare is fired
 		if( !mMouse->buffered() )
 			if( processUnbufferedMouseInput(evt) == false )
 			{
 				return false;
 			}
 			
-					
+		// Update the status of an airborne flare's particle system and associated lights
 		if (flareNode)
 		{
 			Real t = evt.timeSinceLastFrame;
@@ -255,8 +261,7 @@ public:
 			col.saturate();
 			sigLight->setDiffuseColour(col);
 			
-			// Test if the flare has hit the ground
-			
+			// Test if the flare has hit the ground, if so, spawn a ground beacon
 			if (mFlareAirborne)
 			{
 				static Ray flareImpactRay;
@@ -278,9 +283,49 @@ public:
 					mFlareAirborne = false;
 				}
 			}
-
-		}
+		
+		}	
+		
+		// Lens flare procedure
+		Vector3 camPosition = mCamera->getPosition();
+		mCamera->setPosition(0,0,0);
+		if(mCamera->isVisible(sunNode->getWorldPosition()))
+		{
+			Vector3 sunDirection = sunNode->getWorldPosition();
+			Vector3 camDirection = mCamera->getDirection();
+			sunDirection.normalise();
+			camDirection.normalise();
 			
+			ColourValue currAmbientLight = mSceneMgr->getAmbientLight();
+			
+			// Apply lens flare effect
+			if (camDirection.directionEquals(sunDirection, Degree(10)))
+			{
+				Real sunLensFactor = camDirection.dotProduct(sunDirection);
+				mSceneMgr->setAmbientLight(ColourValue(0,sunLensFactor,0));
+			}
+
+			// Test for obstacles blocking vision to the sun
+			static Ray updateRay;
+			updateRay.setOrigin(camPosition);
+			updateRay.setDirection(sunDirection);
+			raySceneQuery->setRay(updateRay);
+			RaySceneQueryResult& qryResult = raySceneQuery->execute();
+			RaySceneQueryResult::iterator i;
+			for (i = qryResult.begin(); i != qryResult.end(); i++)
+			{
+				if (i->worldFragment)
+					break;
+			}
+			
+			// If there are obstacles, reduce effect accordingly
+			if (i != qryResult.end())
+			{
+				mSceneMgr->setAmbientLight(currAmbientLight);
+			}
+		}
+		mCamera->setPosition(camPosition);
+
         return true;
     }
 	
@@ -378,7 +423,7 @@ private:
     SceneNode *weatherNode;
     SceneNode *sunMoveAxis;
     SceneNode *sunNode;
-    Vector3 sunPosition;
+    //Vector3 sunPosition;
     Light* sunLight;
     
 };
@@ -442,7 +487,7 @@ private:
 
 		mCamera->setPosition(Vector3(START_X,200,START_Z));
 		mCamera->lookAt(Vector3(START_X*2,200,START_Z*2));
-		mCamera->setNearClipDistance(1);
+		mCamera->setNearClipDistance(0.5);
     }
 
     void createViewports(void)
@@ -466,13 +511,7 @@ private:
     {
         //mSceneMgr->setAmbientLight( ColourValue(0,0,0) );
 		mSceneMgr->setAmbientLight(ColourValue(0.7, 0.8, 1.0)); // robs: This colour is kind of nice
-
-/*        
-        ColourValue fadeColour(0.9, 0.9, 0.9);
-        mSceneMgr->setFog(FOG_LINEAR, fadeColour, 0.0, 50, 515);
-        mSceneMgr->setFog(FOG_EXP, fadeColour, 0.005);
-*/
-        
+             
 		// Set terrain
 		mSceneMgr->setWorldGeometry("arcex_terrain.cfg");
 		ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
@@ -484,7 +523,6 @@ private:
 		plane.normal = Vector3::NEGATIVE_UNIT_Y;
 		mSceneMgr->setSkyPlane(true, plane, "ArcticSkyMaterial", 1500, 20, true, 0.3f, 150, 150);
 
-        
 		// For terrain clamping in "walk" mode
         raySceneQuery = mSceneMgr->createRayQuery(
             Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
@@ -495,7 +533,7 @@ private:
     {
         mFrameListener = new SkyWeatherFrameListener(mWindow, mCamera, mSceneMgr);
 		mRoot->addFrameListener(mFrameListener);
-		
+
 		// turn on bloom
 		Ogre::Viewport* viewPort = mWindow->getViewport(0);
 	
@@ -503,7 +541,7 @@ private:
         CompositorManager::getSingleton().setCompositorEnabled(viewPort, "Bloom", true);
 	
 //		CompositorManager::getSingleton().addCompositor(viewPort, "Sharpen Edges");
-//        CompositorManager::getSingleton().setCompositorEnabled(viewPort, "Sharpen Edges", true);
+//      CompositorManager::getSingleton().setCompositorEnabled(viewPort, "Sharpen Edges", true);
 	
     }
 	void createBeaconManager(void)
