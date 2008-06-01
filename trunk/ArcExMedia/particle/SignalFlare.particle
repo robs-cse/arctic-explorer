@@ -1,4 +1,4 @@
-// A jet engine (of sorts)
+// Adapted from jet engine particle system in OgreSDK samples
 ArcEx/SignalFlare
 {
         material                Examples/Flare

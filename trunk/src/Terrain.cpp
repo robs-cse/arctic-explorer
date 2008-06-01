@@ -34,6 +34,8 @@
 #define START_X 1000
 #define START_Z 800
 
+#define LENS_FLARE_SIZE 3
+
 //#define MEL_SUNLIGHT
 #define ROB_DEBUG
 
@@ -121,10 +123,180 @@ public:
 //        snowNode = mCamera->getParentSceneNode()->createChildSceneNode("snowNode");
 /*        
 */		
+		createBeaconManager();
+		createSignalFlare();
+		createLensFlare();
+	}
+	
+	void createBeaconManager(void)
+	{
+		mBeaconManager = new BeaconManager(mSceneMgr);
+	}
+	
+	void createSignalFlare(void)
+	{
+		flareNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+					
+		sigFlareParticle = mSceneMgr->createParticleSystem("SignalFlare", "ArcEx/SignalFlare");
+		sigSmokeParticle = mSceneMgr->createParticleSystem("SignalSmoke", "ArcEx/SignalSmoke");
+		sigLight = mSceneMgr->createLight("SignalLight");
+		sigLight->setAttenuation(3250, 1, 0.0014, 0.000007);
 
-
-        
+		launchNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+		launchLight = mSceneMgr->createLight("LaunchLight");
+		launchLight->setAttenuation(600, 1, 0.007, 0.0002);
+		//launchLight->setAttenuation(200, 1, 0.022, 0.0019);
+		
+		flareNode->attachObject(sigFlareParticle);
+		flareNode->attachObject(sigSmokeParticle);
+		flareNode->attachObject(sigLight);
+		
+		launchNode->attachObject(launchLight);
+		
+		flareNode->setVisible(false);        
     }
+
+	void createLensFlare(void)
+	{
+		Billboard *bill;
+		Real size = LENS_FLARE_SIZE;
+	
+		lensNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+		
+		lensHaloSet = mSceneMgr->createBillboardSet("LensHalo");
+		lensHaloSet->setMaterialName("ArcEx/LensHalo");
+		
+		bill = lensHaloSet->createBillboard(0,0,0);
+		bill->setDimensions(size*0.5, size*0.5);
+		bill = lensHaloSet->createBillboard(0,0,0);
+		bill->setDimensions(size, size);
+		bill = lensHaloSet->createBillboard(0,0,0);
+		bill->setDimensions(size*0.25, size*0.25);
+		
+		lensBurstSet = mSceneMgr->createBillboardSet("LensBurst");
+		lensBurstSet->setMaterialName("ArcEx/LensBurst");
+
+		bill = lensBurstSet->createBillboard(0,0,0);
+		bill->setDimensions(size*0.25, size*0.25);
+		bill = lensBurstSet->createBillboard(0,0,0);
+		bill->setDimensions(size*0.5, size*0.5);
+		bill = lensBurstSet->createBillboard(0,0,0);
+		bill->setDimensions(size*0.25, size*0.25);
+		
+		lensNode->attachObject(lensHaloSet);
+		lensNode->attachObject(lensBurstSet);
+		
+		lensNode->setVisible(false);
+	}
+
+	void updateSignalFlare(Real t)
+	{
+		Ogre::Vector3 pos = flareNode->getPosition();
+		flareVel.y -= 9.8 * t;
+		pos.x += flareVel.x * t;
+		pos.y += flareVel.y * t;
+		pos.z += flareVel.z * t;
+		flareNode->setPosition(pos);
+
+		flareNode->setOrientation(mCamera->getOrientation());
+		
+		ColourValue col = launchLight->getDiffuseColour();
+		launchLight->setDiffuseColour(col*0.9);
+		
+		col = sigLight->getDiffuseColour();
+		col *= 1.1;
+		col.saturate();
+		sigLight->setDiffuseColour(col);
+		
+		// Test if the flare has hit the ground, if so, spawn a ground beacon
+		if (mFlareAirborne)
+		{
+			static Ray flareImpactRay;
+			flareImpactRay.setOrigin(flareNode->getPosition());
+			flareImpactRay.setDirection(Vector3::UNIT_Y);
+			raySceneQuery->setRay(flareImpactRay);
+			RaySceneQueryResult& qryResult = raySceneQuery->execute();
+			RaySceneQueryResult::iterator i = qryResult.begin();
+			if (i != qryResult.end() && i->worldFragment)
+			{
+				beaconNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+				mBeaconManager->newBeacon
+				(
+					Vector3(flareNode->getPosition().x, 
+					i->worldFragment->singleIntersection.y, 
+					flareNode->getPosition().z)
+				);
+				mFlareAirborne = false;
+			}
+		}
+	}
+
+	void updateLensFlare(void)
+	{
+		Vector3 camPosition = mCamera->getPosition();
+		mCamera->setPosition(0,0,0);
+		if(!mCamera->isVisible(sunNode->getWorldPosition()))
+		{
+			mCamera->setPosition(camPosition);
+			lensNode->setVisible(false);
+			return;
+		}
+		mCamera->setPosition(camPosition);
+		
+		Vector3 sunDirection = sunNode->getWorldPosition();
+		Vector3 camDirection = mCamera->getDirection();
+		sunDirection.normalise();
+		camDirection.normalise();
+			
+		//ColourValue currAmbientLight = mSceneMgr->getAmbientLight();
+		
+		/*
+		if (!camDirection.directionEquals(sunDirection, Degree(10)))
+		{
+			mSceneMgr->setAmbientLight(currAmbientLight);
+			lensNode->setVisible(false);
+			return;
+		}
+		*/
+		
+		// Test for obstacles blocking vision to the sun
+		static Ray updateRay;
+		updateRay.setOrigin(camPosition);
+		updateRay.setDirection(sunDirection);
+		raySceneQuery->setRay(updateRay);
+		RaySceneQueryResult& qryResult = raySceneQuery->execute();
+		RaySceneQueryResult::iterator i;
+		for (i = qryResult.begin(); i != qryResult.end(); i++)
+		{
+			if (i->worldFragment)
+				break;
+		}
+		// If there are obstacles, abort
+		if (i != qryResult.end())
+		{
+			//mSceneMgr->setAmbientLight(currAmbientLight);
+			lensNode->setVisible(false);
+			return;
+		}
+		
+		Vector3 lensVect = sunDirection * LENS_FLARE_SIZE;
+		
+		// Apply lens flare effect
+		lensNode->setPosition(camPosition);
+		
+		lensHaloSet->getBillboard(0)->setPosition(lensVect*0.5);
+		lensHaloSet->getBillboard(1)->setPosition(lensVect*0.125);
+		lensHaloSet->getBillboard(2)->setPosition(-lensVect*0.25);
+		
+		lensBurstSet->getBillboard(0)->setPosition(lensVect*0.333);
+		lensBurstSet->getBillboard(1)->setPosition(-lensVect*0.5);
+		lensBurstSet->getBillboard(2)->setPosition(-lensVect*0.18);
+		
+		lensNode->setVisible(true);
+		
+		//Real sunLensFactor = camDirection.dotProduct(sunDirection);
+		//mSceneMgr->setAmbientLight(ColourValue(0,sunLensFactor,0));
+	}
 
     bool frameStarted(const FrameEvent& evt)
     {
@@ -241,91 +413,12 @@ public:
 			}
 			
 		// Update the status of an airborne flare's particle system and associated lights
-		if (flareNode)
-		{
-			Real t = evt.timeSinceLastFrame;
-			Ogre::Vector3 pos = flareNode->getPosition();
-			flareVel.y -= 9.8 * t;
-			pos.x += flareVel.x * t;
-			pos.y += flareVel.y * t;
-			pos.z += flareVel.z * t;
-			flareNode->setPosition(pos);
-
-			flareNode->setOrientation(mCamera->getOrientation());
-			
-			ColourValue col = launchLight->getDiffuseColour();
-			launchLight->setDiffuseColour(col*0.9);
-			
-			col = sigLight->getDiffuseColour();
-			col *= 1.1;
-			col.saturate();
-			sigLight->setDiffuseColour(col);
-			
-			// Test if the flare has hit the ground, if so, spawn a ground beacon
-			if (mFlareAirborne)
-			{
-				static Ray flareImpactRay;
-				flareImpactRay.setOrigin(flareNode->getPosition());
-				flareImpactRay.setDirection(Vector3::UNIT_Y);
-				raySceneQuery->setRay(flareImpactRay);
-				RaySceneQueryResult& qryResult = raySceneQuery->execute();
-				RaySceneQueryResult::iterator i = qryResult.begin();
-				if (i != qryResult.end() && i->worldFragment)
-				{
-					beaconNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-					mBeaconManager->newBeacon
-					(
-						Vector3(flareNode->getPosition().x, 
-						i->worldFragment->singleIntersection.y, 
-						flareNode->getPosition().z)
-					);
-
-					mFlareAirborne = false;
-				}
-			}
-		
-		}	
+		Real t = evt.timeSinceLastFrame;
+		updateSignalFlare(t);
 		
 		// Lens flare procedure
-		Vector3 camPosition = mCamera->getPosition();
-		mCamera->setPosition(0,0,0);
-		if(mCamera->isVisible(sunNode->getWorldPosition()))
-		{
-			Vector3 sunDirection = sunNode->getWorldPosition();
-			Vector3 camDirection = mCamera->getDirection();
-			sunDirection.normalise();
-			camDirection.normalise();
-			
-			ColourValue currAmbientLight = mSceneMgr->getAmbientLight();
-			
-			// Apply lens flare effect
-			if (camDirection.directionEquals(sunDirection, Degree(10)))
-			{
-				Real sunLensFactor = camDirection.dotProduct(sunDirection);
-				mSceneMgr->setAmbientLight(ColourValue(0,sunLensFactor,0));
-			}
-
-			// Test for obstacles blocking vision to the sun
-			static Ray updateRay;
-			updateRay.setOrigin(camPosition);
-			updateRay.setDirection(sunDirection);
-			raySceneQuery->setRay(updateRay);
-			RaySceneQueryResult& qryResult = raySceneQuery->execute();
-			RaySceneQueryResult::iterator i;
-			for (i = qryResult.begin(); i != qryResult.end(); i++)
-			{
-				if (i->worldFragment)
-					break;
-			}
-			
-			// If there are obstacles, reduce effect accordingly
-			if (i != qryResult.end())
-			{
-				mSceneMgr->setAmbientLight(currAmbientLight);
-			}
-		}
-		mCamera->setPosition(camPosition);
-
+		updateLensFlare();
+		
         return true;
     }
 	
@@ -341,26 +434,7 @@ public:
 		    if (!mMouseDown)
 			{
 			    // Fireworks!!!
-				if (!flareNode)
-				{
-					flareNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-					
-					sigFlareParticle = mSceneMgr->createParticleSystem("SignalFlare", "ArcEx/SignalFlare");
-					sigSmokeParticle = mSceneMgr->createParticleSystem("SignalSmoke", "ArcEx/SignalSmoke");
-					sigLight = mSceneMgr->createLight("SignalLight");
-					sigLight->setAttenuation(3250, 1, 0.0014, 0.000007);
-
-					launchNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-					launchLight = mSceneMgr->createLight("LaunchLight");
-					launchLight->setAttenuation(600, 1, 0.007, 0.0002);
-					//launchLight->setAttenuation(200, 1, 0.022, 0.0019);
-					
-					flareNode->attachObject(sigFlareParticle);
-					flareNode->attachObject(sigSmokeParticle);
-					flareNode->attachObject(sigLight);
-					
-					launchNode->attachObject(launchLight);
-				}
+				flareNode->setVisible(true);
 				
 				if (!mFlareAirborne)
 				{
@@ -393,9 +467,10 @@ public:
 protected:
     bool mMouseDown, mFlareAirborne;
 	//SceneManager *mSceneMgr;
-	SceneNode *flareNode, *launchNode, *beaconNode;
+	SceneNode *flareNode, *launchNode, *beaconNode, *lensNode;
 	Light *launchLight, *sigLight;
 	ParticleSystem *sigFlareParticle, *sigSmokeParticle;
+	BillboardSet *lensHaloSet, *lensBurstSet;
 	Vector3 flareVel;
 	
 private:
@@ -526,8 +601,7 @@ private:
 		// For terrain clamping in "walk" mode
         raySceneQuery = mSceneMgr->createRayQuery(
             Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
-		
-		createBeaconManager();
+	
     }
     void createFrameListener(void)
     {
@@ -542,11 +616,6 @@ private:
 	
 //		CompositorManager::getSingleton().addCompositor(viewPort, "Sharpen Edges");
 //      CompositorManager::getSingleton().setCompositorEnabled(viewPort, "Sharpen Edges", true);
-	
-    }
-	void createBeaconManager(void)
-	{
-		mBeaconManager = new BeaconManager(mSceneMgr);
 	}
 };
 
