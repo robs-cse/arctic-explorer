@@ -1,0 +1,40 @@
+// Adapted from Sphinkie's Lensflare tutorial on Ogre Wiki
+
+material ArcEx/LensHalo
+{
+   technique
+   {
+       pass
+       {
+           ambient 1 1 1
+           diffuse 1 1 1
+           lighting off
+           depth_write off
+           scene_blend add
+           texture_unit
+           {
+               texture Lensflare6.jpg
+           }
+       }
+   }
+}
+
+
+material ArcEx/LensBurst
+{
+   technique
+   {
+       pass
+       {
+           ambient 1 1 1
+           diffuse 1 1 1
+           lighting off
+           depth_write off
+           scene_blend add
+           texture_unit
+           {
+               texture Lensflare5.jpg
+           }
+       }
+   }
+}

@@ -37,6 +37,7 @@
 		AA88695A0D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA8869570D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp */; };
 		AA88695B0D2BDBF900C08A49 /* OgreCEGUITexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA8869580D2BDBF900C08A49 /* OgreCEGUITexture.cpp */; };
 		AA8869840D2BDF3200C08A49 /* Ogre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000E25230B392BAA004EA2DF /* Ogre.framework */; };
+		DD73253C0DF335460092A457 /* LensFlare.material in Resources */ = {isa = PBXBuildFile; fileRef = DD73253B0DF335460092A457 /* LensFlare.material */; };
 		DDA2A3710DEF95DF00F16117 /* 512_big_pc.raw in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3480DEF95DF00F16117 /* 512_big_pc.raw */; };
 		DDA2A3720DEF95DF00F16117 /* 512_small_pc.raw in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3490DEF95DF00F16117 /* 512_small_pc.raw */; };
 		DDA2A3730DEF95DF00F16117 /* arcex_terrain.cfg in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A34A0DEF95DF00F16117 /* arcex_terrain.cfg */; };
@@ -102,7 +103,6 @@
 		000E296B0B39E162004EA2DF /* Terrain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Terrain-Info.plist"; path = "plist/Terrain-Info.plist"; sourceTree = "<group>"; };
 		000E297A0B39E1B8004EA2DF /* Terrain.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Terrain.h; path = include/Terrain.h; sourceTree = SOURCE_ROOT; };
 		000E297B0B39E1C5004EA2DF /* Terrain.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = Terrain.cpp; path = src/Terrain.cpp; sourceTree = SOURCE_ROOT; };
-		000E29870B39E350004EA2DF /* arcex_terrain.cfg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = arcex_terrain.cfg; path = ArcExMedia/arcex_terrain.cfg; sourceTree = "<group>"; };
 		0053F52E0BB5908100328359 /* libOIS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOIS.a; path = ../Dependencies/lib/Release/libOIS.a; sourceTree = SOURCE_ROOT; };
 		0062EE270B4ACACE0076F733 /* CEGUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CEGUI.framework; path = ../Dependencies/CEGUI.framework; sourceTree = SOURCE_ROOT; };
 		AA5FCC2F0D2C3B3E007F8E88 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
@@ -113,6 +113,7 @@
 		AA8869560D2BDBF900C08A49 /* OgreCEGUIRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUIRenderer.cpp; path = src/OgreCEGUIRenderer.cpp; sourceTree = SOURCE_ROOT; };
 		AA8869570D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUIResourceProvider.cpp; path = src/OgreCEGUIResourceProvider.cpp; sourceTree = SOURCE_ROOT; };
 		AA8869580D2BDBF900C08A49 /* OgreCEGUITexture.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUITexture.cpp; path = src/OgreCEGUITexture.cpp; sourceTree = SOURCE_ROOT; };
+		DD73253B0DF335460092A457 /* LensFlare.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LensFlare.material; sourceTree = "<group>"; };
 		DDA2A3480DEF95DF00F16117 /* 512_big_pc.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = 512_big_pc.raw; sourceTree = "<group>"; };
 		DDA2A3490DEF95DF00F16117 /* 512_small_pc.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = 512_small_pc.raw; sourceTree = "<group>"; };
 		DDA2A34A0DEF95DF00F16117 /* arcex_terrain.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcex_terrain.cfg; sourceTree = "<group>"; };
@@ -194,7 +195,6 @@
 				000E297A0B39E1B8004EA2DF /* Terrain.h */,
 				000E297B0B39E1C5004EA2DF /* Terrain.cpp */,
 				DDD898A20DE3EC390060FDFB /* Beacon.h */,
-				000E29870B39E350004EA2DF /* arcex_terrain.cfg */,
 			);
 			name = Terrain;
 			sourceTree = "<group>";
@@ -282,6 +282,7 @@
 		DDA2A34E0DEF95DF00F16117 /* materials */ = {
 			isa = PBXGroup;
 			children = (
+				DD73253B0DF335460092A457 /* LensFlare.material */,
 				DDA2A34F0DEF95DF00F16117 /* arcticSky.material */,
 				DDA2A3500DEF95DF00F16117 /* RobsSnowMaterial.material */,
 			);
@@ -448,6 +449,7 @@
 				DDA2A3920DEF95DF00F16117 /* starFlare.png in Resources */,
 				DDA2A3930DEF95DF00F16117 /* starMap.jpg in Resources */,
 				DDA2A3940DEF95DF00F16117 /* streak.png in Resources */,
+				DD73253C0DF335460092A457 /* LensFlare.material in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
