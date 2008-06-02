@@ -37,7 +37,7 @@
 #define LENS_FLARE_SIZE 3
 #define SIG_FLARE_SIZE 30
 
-//#define MEL_SUNLIGHT
+#define MEL_SUNLIGHT
 //#define ROB_DEBUG
 
 #include "Beacon.h"
@@ -111,7 +111,7 @@ public:
         Light* moonLight = mSceneMgr->createLight("MoonLight");
 		moonLight->setType(Light::LT_POINT);
         moonNode->attachObject(moonLight);
-        moonLight->setDiffuseColour(0.1, 0.1, 0.15);
+        moonLight->setDiffuseColour(0.05, 0.05, 0.1);
         
 
         weatherNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("snowNode");
@@ -318,7 +318,7 @@ public:
 		if (starMoveTime >= secondsInADay) // a slower changing timeOfDay (determines movement of starmap)
             starMoveTime = 0.0;
 		
-		Real timeFactor = (1 + cos(2*M_PI*timeOfDay/secondsInADay))/2;
+//		Real timeFactor = (1 + cos(2*M_PI*timeOfDay/secondsInADay))/2;
 
         // Passing parameters to the sky vertex shader
         skyVertParams->setNamedConstant("sunPosition", sunNode->getWorldPosition());
@@ -328,9 +328,9 @@ public:
         Real sunHeight = (sunNode->getWorldPosition().y + SUN_AXIS_RADIUS - sunMoveAxis->getWorldPosition().y)/(2*SUN_AXIS_RADIUS);
         skyFragParams->setNamedConstant("sunHeightRel", sunHeight);
 
-#ifdef MEL_SUNLIGHT
-		timeFactor = sunHeight;
-#endif
+//#ifdef MEL_SUNLIGHT
+		Real timeFactor = sunHeight;
+//#endif
         // Set light changes according to time
         sunLight->setDiffuseColour(ColourValue(0.85, 0.85, 0.65)*timeFactor);
         sunLight->setSpecularColour(ColourValue(0.8, 0.8, 0.8)*timeFactor);
