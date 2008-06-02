@@ -35,9 +35,10 @@
 #define START_Z 800
 
 #define LENS_FLARE_SIZE 3
+#define SIG_FLARE_SIZE 30
 
 //#define MEL_SUNLIGHT
-#define ROB_DEBUG
+//#define ROB_DEBUG
 
 #include "Beacon.h"
 #include "Snow.h"
@@ -135,6 +136,9 @@ public:
 	
 	void createSignalFlare(void)
 	{
+		Billboard *bill;
+		Real size = SIG_FLARE_SIZE;
+		
 		flareNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 					
 		sigFlareParticle = mSceneMgr->createParticleSystem("SignalFlare", "ArcEx/SignalFlare");
@@ -147,9 +151,16 @@ public:
 		launchLight->setAttenuation(600, 1, 0.007, 0.0002);
 		//launchLight->setAttenuation(200, 1, 0.022, 0.0019);
 		
+		sigFlareSet = mSceneMgr->createBillboardSet("SignalHalo");
+		sigFlareSet->setMaterialName("ArcEx/SigBurst");
+		
+		bill = sigFlareSet->createBillboard(0,0,0);
+		bill->setDimensions(size, size);
+		
 		flareNode->attachObject(sigFlareParticle);
 		flareNode->attachObject(sigSmokeParticle);
 		flareNode->attachObject(sigLight);
+		flareNode->attachObject(sigFlareSet);
 		
 		launchNode->attachObject(launchLight);
 		
@@ -227,6 +238,7 @@ public:
 					flareNode->getPosition().z)
 				);
 				mFlareAirborne = false;
+				sigFlareSet->setVisible(false);
 			}
 		}
 	}
@@ -247,17 +259,6 @@ public:
 		Vector3 camDirection = mCamera->getDirection();
 		sunDirection.normalise();
 		camDirection.normalise();
-			
-		//ColourValue currAmbientLight = mSceneMgr->getAmbientLight();
-		
-		/*
-		if (!camDirection.directionEquals(sunDirection, Degree(10)))
-		{
-			mSceneMgr->setAmbientLight(currAmbientLight);
-			lensNode->setVisible(false);
-			return;
-		}
-		*/
 		
 		// Test for obstacles blocking vision to the sun
 		static Ray updateRay;
@@ -274,12 +275,11 @@ public:
 		// If there are obstacles, abort
 		if (i != qryResult.end())
 		{
-			//mSceneMgr->setAmbientLight(currAmbientLight);
 			lensNode->setVisible(false);
 			return;
 		}
 		
-		Vector3 lensVect = sunDirection * LENS_FLARE_SIZE;
+		Vector3 lensVect = sunDirection * LENS_FLARE_SIZE * 2;
 		
 		// Apply lens flare effect
 		lensNode->setPosition(camPosition);
@@ -435,6 +435,7 @@ public:
 			{
 			    // Fireworks!!!
 				flareNode->setVisible(true);
+				sigFlareSet->setVisible(true);
 				
 				if (!mFlareAirborne)
 				{
@@ -470,7 +471,7 @@ protected:
 	SceneNode *flareNode, *launchNode, *beaconNode, *lensNode;
 	Light *launchLight, *sigLight;
 	ParticleSystem *sigFlareParticle, *sigSmokeParticle;
-	BillboardSet *lensHaloSet, *lensBurstSet;
+	BillboardSet *lensHaloSet, *lensBurstSet, *sigFlareSet;
 	Vector3 flareVel;
 	
 private:
