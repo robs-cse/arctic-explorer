@@ -13,27 +13,6 @@ void main()
 	sunDirection = sunPosition - camPosition;
 	vertDirection = gl_Vertex.xyz - camPosition;
 	
-	
-	/*
-	
-	gl_MultiTexCoord0.s
-	gl_MultiTexCoord0.t
-	
-	t/s
-	
-	
-	gl_TexCoord[0].s = gl_MultiTexCoord0.s;
-	gl_TexCoord[0].t = gl_MultiTexCoord0.t;
-	
-
-	
-	float s = gl_MultiTexCoord0.s;
-	float t = gl_MultiTexCoord0.t;
-	
-	gl_TexCoord[0].s = gl_MultiTexCoord0.s * cos(angle)   -   gl_MultiTexCoord0.t * sin(angle);
-	gl_TexCoord[0].t = gl_MultiTexCoord0.s * sin(angle)   +   gl_MultiTexCoord0.t * cos(angle);
-	*/
-
 	float angle = starMoveTime * PI * 2.0;
 
 	
