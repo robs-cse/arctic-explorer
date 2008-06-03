@@ -78,6 +78,11 @@ public:
         MaterialPtr mat = (MaterialPtr)MaterialManager::getSingleton().getByName("ArcticSkyMaterial");
         skyVertParams = mat->getTechnique(0)->getPass(0)->getVertexProgramParameters();
         skyFragParams = mat->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
+        
+        // star map shader
+        mat = (MaterialPtr)MaterialManager::getSingleton().getByName("ArcticStarMapMaterial");
+        starFragParams = mat->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
+
 
 
         // Sun currently just moves up and down. Work out how to get sun to go in a circular path
@@ -113,22 +118,31 @@ public:
         moonNode->attachObject(moonLight);
         moonLight->setDiffuseColour(0.05, 0.05, 0.1);
         
-
         weatherNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("snowNode");
         arcticSnow = new ArcticSnowManager(weatherNode, mSceneMgr);
         weatherNode->setPosition(mCamera->getPosition());
+        
+        // Draw plane
+		Plane starPlane(-Vector3::UNIT_Y, 0);
+		MeshManager::getSingleton().createCurvedPlane("stars",
+			ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, starPlane,
+			4500,4500, 0.3f,20, 20,true,1,5,5,Vector3::UNIT_Z);
+
+		Entity *ent = mSceneMgr->createEntity("StarMapEntity", "stars");
+		ent->setMaterialName("ArcticStarMapMaterial");
+
+        StarPlaneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+        SceneNode *node = StarPlaneNode->createChildSceneNode();
+        node->attachObject(ent);
+        node->translate(Vector3(0.0, 400.0, 0.0));
+        StarPlaneNode->setPosition(mCamera->getPosition());
 
 
-//        mCamera->getParentSceneNode()->
-
-//        snowNode = mCamera->getParentSceneNode()->createChildSceneNode("snowNode");
-/*        
-*/		
 		createBeaconManager();
 		createSignalFlare();
 		createLensFlare();
 	}
-	
+    
 	void createBeaconManager(void)
 	{
 		mBeaconManager = new BeaconManager(mSceneMgr);
@@ -305,10 +319,17 @@ public:
 
         mKeyboard->capture();
 
+        // Spinning the Sky plane
+        StarPlaneNode->yaw(-Degree(timeOfDay/secondsInADay*360));
+
         // Cycling through the hours in a day
 		sunMoveAxis->pitch(-Degree(timeOfDay/secondsInADay*360)); // undo last rotate
 		timeOfDay += evt.timeSinceLastFrame;
         sunMoveAxis->pitch(Degree(timeOfDay/secondsInADay*360)); // do new rotate
+
+        StarPlaneNode->yaw(Degree(timeOfDay/secondsInADay*360));
+
+        StarPlaneNode->setPosition(mCamera->getPosition());
 
         starMoveTime += evt.timeSinceLastFrame/2.0;
 
@@ -327,6 +348,7 @@ public:
         
         Real sunHeight = (sunNode->getWorldPosition().y + SUN_AXIS_RADIUS - sunMoveAxis->getWorldPosition().y)/(2*SUN_AXIS_RADIUS);
         skyFragParams->setNamedConstant("sunHeightRel", sunHeight);
+        starFragParams->setNamedConstant("sunHeightRelative", sunHeight);
 
 //#ifdef MEL_SUNLIGHT
 		Real timeFactor = sunHeight;
@@ -486,6 +508,7 @@ private:
     // parametners to pass to sky shaders
     GpuProgramParametersSharedPtr skyVertParams;
     GpuProgramParametersSharedPtr skyFragParams;
+    GpuProgramParametersSharedPtr starFragParams;
     
     // The time left until next toggle
     Real mToggle;
@@ -499,6 +522,7 @@ private:
     SceneNode *weatherNode;
     SceneNode *sunMoveAxis;
     SceneNode *sunNode;
+    SceneNode *StarPlaneNode;
     //Vector3 sunPosition;
     Light* sunLight;
     
@@ -603,6 +627,8 @@ private:
         raySceneQuery = mSceneMgr->createRayQuery(
             Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
 	
+        
+        
     }
     void createFrameListener(void)
     {

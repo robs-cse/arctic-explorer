@@ -37,7 +37,6 @@ material ArcticSkyMaterial
 		texture_unit
 		{
 			texture skyColour.png
-//	        tex_coord_set 0 // default, meshes can specify multiple coords
 		}
 		
 		texture_unit

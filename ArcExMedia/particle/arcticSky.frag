@@ -26,9 +26,8 @@ void main (void)
 	skyTexCoords.t = acos(dot(normalize(vertDirection), normalize(sunDirection)))/PI;
 
     vec4 colour = texture2D(skyColour, skyTexCoords.st);
-
+/*
 	colour = colour + texture2D(starMap, gl_TexCoord[0].st) * (1.0 - min(colour.g + colour.r, 1.0)) *(0.7 - min(3.0*sunHeightRel, 0.7));
-
-
+*/
     gl_FragColor = colour;
 }

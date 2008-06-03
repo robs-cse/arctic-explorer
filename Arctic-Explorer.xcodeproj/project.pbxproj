@@ -41,8 +41,6 @@
 		DDA2A3710DEF95DF00F16117 /* 512_big_pc.raw in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3480DEF95DF00F16117 /* 512_big_pc.raw */; };
 		DDA2A3720DEF95DF00F16117 /* 512_small_pc.raw in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3490DEF95DF00F16117 /* 512_small_pc.raw */; };
 		DDA2A3730DEF95DF00F16117 /* arcex_terrain.cfg in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A34A0DEF95DF00F16117 /* arcex_terrain.cfg */; };
-		DDA2A3740DEF95DF00F16117 /* flame.frag in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A34B0DEF95DF00F16117 /* flame.frag */; };
-		DDA2A3750DEF95DF00F16117 /* flame.vert in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A34C0DEF95DF00F16117 /* flame.vert */; };
 		DDA2A3770DEF95DF00F16117 /* arcticSky.material in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A34F0DEF95DF00F16117 /* arcticSky.material */; };
 		DDA2A3780DEF95DF00F16117 /* RobsSnowMaterial.material in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3500DEF95DF00F16117 /* RobsSnowMaterial.material */; };
 		DDA2A37A0DEF95DF00F16117 /* arcticSky.frag in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3540DEF95DF00F16117 /* arcticSky.frag */; };
@@ -53,7 +51,6 @@
 		DDA2A3800DEF95DF00F16117 /* daycloud.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A35B0DEF95DF00F16117 /* daycloud.png */; };
 		DDA2A3810DEF95DF00F16117 /* earthClouds.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A35C0DEF95DF00F16117 /* earthClouds.jpg */; };
 		DDA2A3820DEF95DF00F16117 /* explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A35D0DEF95DF00F16117 /* explosion.png */; };
-		DDA2A3830DEF95DF00F16117 /* firesmokecolors.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A35E0DEF95DF00F16117 /* firesmokecolors.png */; };
 		DDA2A3840DEF95DF00F16117 /* flare.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A35F0DEF95DF00F16117 /* flare.png */; };
 		DDA2A3850DEF95DF00F16117 /* flaretrail.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3600DEF95DF00F16117 /* flaretrail.png */; };
 		DDA2A3860DEF95DF00F16117 /* Fog.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3610DEF95DF00F16117 /* Fog.png */; };
@@ -61,7 +58,6 @@
 		DDA2A3880DEF95DF00F16117 /* ring_flare.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3630DEF95DF00F16117 /* ring_flare.png */; };
 		DDA2A3890DEF95DF00F16117 /* ring_flare2.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3640DEF95DF00F16117 /* ring_flare2.png */; };
 		DDA2A38A0DEF95DF00F16117 /* signalsmokecolors.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3650DEF95DF00F16117 /* signalsmokecolors.png */; };
-		DDA2A38B0DEF95DF00F16117 /* signalsmokecolors0.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3660DEF95DF00F16117 /* signalsmokecolors0.png */; };
 		DDA2A38C0DEF95DF00F16117 /* skyAtmosphereDensity.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3670DEF95DF00F16117 /* skyAtmosphereDensity.png */; };
 		DDA2A38D0DEF95DF00F16117 /* skyColour.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3680DEF95DF00F16117 /* skyColour.png */; };
 		DDA2A38E0DEF95DF00F16117 /* skyColour.xcf in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3690DEF95DF00F16117 /* skyColour.xcf */; };
@@ -117,8 +113,6 @@
 		DDA2A3480DEF95DF00F16117 /* 512_big_pc.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = 512_big_pc.raw; sourceTree = "<group>"; };
 		DDA2A3490DEF95DF00F16117 /* 512_small_pc.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = 512_small_pc.raw; sourceTree = "<group>"; };
 		DDA2A34A0DEF95DF00F16117 /* arcex_terrain.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcex_terrain.cfg; sourceTree = "<group>"; };
-		DDA2A34B0DEF95DF00F16117 /* flame.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flame.frag; sourceTree = "<group>"; };
-		DDA2A34C0DEF95DF00F16117 /* flame.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flame.vert; sourceTree = "<group>"; };
 		DDA2A34F0DEF95DF00F16117 /* arcticSky.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticSky.material; sourceTree = "<group>"; };
 		DDA2A3500DEF95DF00F16117 /* RobsSnowMaterial.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RobsSnowMaterial.material; sourceTree = "<group>"; };
 		DDA2A3540DEF95DF00F16117 /* arcticSky.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticSky.frag; sourceTree = "<group>"; };
@@ -129,7 +123,6 @@
 		DDA2A35B0DEF95DF00F16117 /* daycloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = daycloud.png; sourceTree = "<group>"; };
 		DDA2A35C0DEF95DF00F16117 /* earthClouds.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earthClouds.jpg; sourceTree = "<group>"; };
 		DDA2A35D0DEF95DF00F16117 /* explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = explosion.png; sourceTree = "<group>"; };
-		DDA2A35E0DEF95DF00F16117 /* firesmokecolors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = firesmokecolors.png; sourceTree = "<group>"; };
 		DDA2A35F0DEF95DF00F16117 /* flare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flare.png; sourceTree = "<group>"; };
 		DDA2A3600DEF95DF00F16117 /* flaretrail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flaretrail.png; sourceTree = "<group>"; };
 		DDA2A3610DEF95DF00F16117 /* Fog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fog.png; sourceTree = "<group>"; };
@@ -137,7 +130,6 @@
 		DDA2A3630DEF95DF00F16117 /* ring_flare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ring_flare.png; sourceTree = "<group>"; };
 		DDA2A3640DEF95DF00F16117 /* ring_flare2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ring_flare2.png; sourceTree = "<group>"; };
 		DDA2A3650DEF95DF00F16117 /* signalsmokecolors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signalsmokecolors.png; sourceTree = "<group>"; };
-		DDA2A3660DEF95DF00F16117 /* signalsmokecolors0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signalsmokecolors0.png; sourceTree = "<group>"; };
 		DDA2A3670DEF95DF00F16117 /* skyAtmosphereDensity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyAtmosphereDensity.png; sourceTree = "<group>"; };
 		DDA2A3680DEF95DF00F16117 /* skyColour.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyColour.png; sourceTree = "<group>"; };
 		DDA2A3690DEF95DF00F16117 /* skyColour.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = skyColour.xcf; sourceTree = "<group>"; };
@@ -269,8 +261,6 @@
 				DDA2A3480DEF95DF00F16117 /* 512_big_pc.raw */,
 				DDA2A3490DEF95DF00F16117 /* 512_small_pc.raw */,
 				DDA2A34A0DEF95DF00F16117 /* arcex_terrain.cfg */,
-				DDA2A34B0DEF95DF00F16117 /* flame.frag */,
-				DDA2A34C0DEF95DF00F16117 /* flame.vert */,
 				DDA2A34E0DEF95DF00F16117 /* materials */,
 				DDA2A3510DEF95DF00F16117 /* models */,
 				DDA2A3520DEF95DF00F16117 /* particle */,
@@ -314,7 +304,6 @@
 				DDA2A35B0DEF95DF00F16117 /* daycloud.png */,
 				DDA2A35C0DEF95DF00F16117 /* earthClouds.jpg */,
 				DDA2A35D0DEF95DF00F16117 /* explosion.png */,
-				DDA2A35E0DEF95DF00F16117 /* firesmokecolors.png */,
 				DDA2A35F0DEF95DF00F16117 /* flare.png */,
 				DDA2A3600DEF95DF00F16117 /* flaretrail.png */,
 				DDA2A3610DEF95DF00F16117 /* Fog.png */,
@@ -322,7 +311,6 @@
 				DDA2A3630DEF95DF00F16117 /* ring_flare.png */,
 				DDA2A3640DEF95DF00F16117 /* ring_flare2.png */,
 				DDA2A3650DEF95DF00F16117 /* signalsmokecolors.png */,
-				DDA2A3660DEF95DF00F16117 /* signalsmokecolors0.png */,
 				DDA2A3670DEF95DF00F16117 /* skyAtmosphereDensity.png */,
 				DDA2A3680DEF95DF00F16117 /* skyColour.png */,
 				DDA2A3690DEF95DF00F16117 /* skyColour.xcf */,
@@ -419,8 +407,6 @@
 				DDA2A3710DEF95DF00F16117 /* 512_big_pc.raw in Resources */,
 				DDA2A3720DEF95DF00F16117 /* 512_small_pc.raw in Resources */,
 				DDA2A3730DEF95DF00F16117 /* arcex_terrain.cfg in Resources */,
-				DDA2A3740DEF95DF00F16117 /* flame.frag in Resources */,
-				DDA2A3750DEF95DF00F16117 /* flame.vert in Resources */,
 				DDA2A3770DEF95DF00F16117 /* arcticSky.material in Resources */,
 				DDA2A3780DEF95DF00F16117 /* RobsSnowMaterial.material in Resources */,
 				DDA2A37A0DEF95DF00F16117 /* arcticSky.frag in Resources */,
@@ -431,7 +417,6 @@
 				DDA2A3800DEF95DF00F16117 /* daycloud.png in Resources */,
 				DDA2A3810DEF95DF00F16117 /* earthClouds.jpg in Resources */,
 				DDA2A3820DEF95DF00F16117 /* explosion.png in Resources */,
-				DDA2A3830DEF95DF00F16117 /* firesmokecolors.png in Resources */,
 				DDA2A3840DEF95DF00F16117 /* flare.png in Resources */,
 				DDA2A3850DEF95DF00F16117 /* flaretrail.png in Resources */,
 				DDA2A3860DEF95DF00F16117 /* Fog.png in Resources */,
@@ -439,7 +424,6 @@
 				DDA2A3880DEF95DF00F16117 /* ring_flare.png in Resources */,
 				DDA2A3890DEF95DF00F16117 /* ring_flare2.png in Resources */,
 				DDA2A38A0DEF95DF00F16117 /* signalsmokecolors.png in Resources */,
-				DDA2A38B0DEF95DF00F16117 /* signalsmokecolors0.png in Resources */,
 				DDA2A38C0DEF95DF00F16117 /* skyAtmosphereDensity.png in Resources */,
 				DDA2A38D0DEF95DF00F16117 /* skyColour.png in Resources */,
 				DDA2A38E0DEF95DF00F16117 /* skyColour.xcf in Resources */,
