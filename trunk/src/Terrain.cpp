@@ -21,12 +21,18 @@
 // #include "TerrainApplication.h"  // not working yet
 
 #define CAMERA_HEIGHT 2
-#define FLARE_LAUNCH_VELOCITY 75
+#define FLARE_LAUNCH_VELOCITY 66
 #define WALK_SPEED 5
 #define FLY_SPEED 100
+#define CLOUD_HEIGHT 999
+#define STAR_HEIGHT 1000
 
 #define SUN_AXIS_RADIUS 800
 #define MOON_AXIS_RADIUS 600
+#define CLOUD_PLANE_SIZE 100*CLOUD_HEIGHT
+#define STAR_PLANE_SIZE 100*STAR_HEIGHT
+#define CLOUD_PLANE_REPEATS 10
+#define STAR_PLANE_REPEATS 50
 
 #define DEFAULT_SECONDS_IN_A_DAY 64.0
 #define TIME_LAPSE_SECONDS_IN_A_DAY 12.0
@@ -135,11 +141,12 @@ public:
         cloudsVertParams = mat->getTechnique(0)->getPass(0)->getVertexProgramParameters();
         cloudsFragParams = mat->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
     
-            // Star plane
+		// Star plane
 		Plane starPlane(-Vector3::UNIT_Y, 0);
 		MeshManager::getSingleton().createCurvedPlane("stars",
 			ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, starPlane,
-			5000,5000, 0.3f,20, 20,true,1,8,8,Vector3::UNIT_Z);
+			STAR_PLANE_SIZE,STAR_PLANE_SIZE, 0.3f,20, 20,true,1,
+			STAR_PLANE_REPEATS,STAR_PLANE_REPEATS,Vector3::UNIT_Z);
 
 		Entity *ent = mSceneMgr->createEntity("StarMapEntity", "stars");
 		ent->setMaterialName("ArcticStarMapMaterial");
@@ -147,15 +154,15 @@ public:
         StarPlaneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
         SceneNode *node = StarPlaneNode->createChildSceneNode();
         node->attachObject(ent);
-        node->translate(Vector3(0.0, 300.0, 0.0));
+        node->translate(Vector3(0.0, STAR_HEIGHT, 0.0));
         StarPlaneNode->setPosition(mCamera->getPosition());
-
 
         // Cloud plane
 		Plane cloudPlane(-Vector3::UNIT_Y, 0);
 		MeshManager::getSingleton().createCurvedPlane("clouds",
 			ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, cloudPlane,
-			4500,4500, 0.3f,20, 20,true,1,2,2,Vector3::UNIT_Z);
+			CLOUD_PLANE_SIZE,CLOUD_PLANE_SIZE, 0.3f,20, 20,true,1,
+			CLOUD_PLANE_REPEATS,CLOUD_PLANE_REPEATS,Vector3::UNIT_Z);
 
 		ent = mSceneMgr->createEntity("CloudsMapEntity", "clouds");
 		ent->setMaterialName("ArcticCloudsMaterial");
@@ -163,7 +170,7 @@ public:
         CloudsPlaneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
         node = CloudsPlaneNode->createChildSceneNode();
         node->attachObject(ent);
-        node->translate(Vector3(0.0, 180.0, 0.0));
+        node->translate(Vector3(0.0, CLOUD_HEIGHT, 0.0));
         CloudsPlaneNode->setPosition(mCamera->getPosition());
     }
     

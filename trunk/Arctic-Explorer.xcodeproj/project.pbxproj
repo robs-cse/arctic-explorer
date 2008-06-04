@@ -37,36 +37,50 @@
 		AA88695A0D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA8869570D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp */; };
 		AA88695B0D2BDBF900C08A49 /* OgreCEGUITexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA8869580D2BDBF900C08A49 /* OgreCEGUITexture.cpp */; };
 		AA8869840D2BDF3200C08A49 /* Ogre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000E25230B392BAA004EA2DF /* Ogre.framework */; };
-		DD73253C0DF335460092A457 /* LensFlare.material in Resources */ = {isa = PBXBuildFile; fileRef = DD73253B0DF335460092A457 /* LensFlare.material */; };
-		DDA2A3710DEF95DF00F16117 /* 512_big_pc.raw in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3480DEF95DF00F16117 /* 512_big_pc.raw */; };
-		DDA2A3720DEF95DF00F16117 /* 512_small_pc.raw in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3490DEF95DF00F16117 /* 512_small_pc.raw */; };
-		DDA2A3730DEF95DF00F16117 /* arcex_terrain.cfg in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A34A0DEF95DF00F16117 /* arcex_terrain.cfg */; };
-		DDA2A3770DEF95DF00F16117 /* arcticSky.material in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A34F0DEF95DF00F16117 /* arcticSky.material */; };
-		DDA2A3780DEF95DF00F16117 /* RobsSnowMaterial.material in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3500DEF95DF00F16117 /* RobsSnowMaterial.material */; };
-		DDA2A37A0DEF95DF00F16117 /* arcticSky.frag in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3540DEF95DF00F16117 /* arcticSky.frag */; };
-		DDA2A37B0DEF95DF00F16117 /* arcticSky.vert in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3550DEF95DF00F16117 /* arcticSky.vert */; };
-		DDA2A37C0DEF95DF00F16117 /* SignalFlare.particle in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3560DEF95DF00F16117 /* SignalFlare.particle */; };
-		DDA2A37D0DEF95DF00F16117 /* weather.particle in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3570DEF95DF00F16117 /* weather.particle */; };
-		DDA2A37F0DEF95DF00F16117 /* black.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A35A0DEF95DF00F16117 /* black.png */; };
-		DDA2A3800DEF95DF00F16117 /* daycloud.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A35B0DEF95DF00F16117 /* daycloud.png */; };
-		DDA2A3810DEF95DF00F16117 /* earthClouds.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A35C0DEF95DF00F16117 /* earthClouds.jpg */; };
-		DDA2A3820DEF95DF00F16117 /* explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A35D0DEF95DF00F16117 /* explosion.png */; };
-		DDA2A3840DEF95DF00F16117 /* flare.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A35F0DEF95DF00F16117 /* flare.png */; };
-		DDA2A3850DEF95DF00F16117 /* flaretrail.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3600DEF95DF00F16117 /* flaretrail.png */; };
-		DDA2A3860DEF95DF00F16117 /* Fog.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3610DEF95DF00F16117 /* Fog.png */; };
-		DDA2A3870DEF95DF00F16117 /* nightcloud.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3620DEF95DF00F16117 /* nightcloud.png */; };
-		DDA2A3880DEF95DF00F16117 /* ring_flare.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3630DEF95DF00F16117 /* ring_flare.png */; };
-		DDA2A3890DEF95DF00F16117 /* ring_flare2.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3640DEF95DF00F16117 /* ring_flare2.png */; };
-		DDA2A38A0DEF95DF00F16117 /* signalsmokecolors.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3650DEF95DF00F16117 /* signalsmokecolors.png */; };
-		DDA2A38C0DEF95DF00F16117 /* skyAtmosphereDensity.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3670DEF95DF00F16117 /* skyAtmosphereDensity.png */; };
-		DDA2A38D0DEF95DF00F16117 /* skyColour.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3680DEF95DF00F16117 /* skyColour.png */; };
-		DDA2A38E0DEF95DF00F16117 /* skyColour.xcf in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A3690DEF95DF00F16117 /* skyColour.xcf */; };
-		DDA2A38F0DEF95DF00F16117 /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A36A0DEF95DF00F16117 /* smoke.png */; };
-		DDA2A3900DEF95DF00F16117 /* Snow.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A36B0DEF95DF00F16117 /* Snow.png */; };
-		DDA2A3910DEF95DF00F16117 /* SnowTexture_wrapped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A36C0DEF95DF00F16117 /* SnowTexture_wrapped.jpg */; };
-		DDA2A3920DEF95DF00F16117 /* starFlare.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A36D0DEF95DF00F16117 /* starFlare.png */; };
-		DDA2A3930DEF95DF00F16117 /* starMap.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A36E0DEF95DF00F16117 /* starMap.jpg */; };
-		DDA2A3940DEF95DF00F16117 /* streak.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA2A36F0DEF95DF00F16117 /* streak.png */; };
+		DD7988760DF6AF2B00082C1D /* 512_big_pc.raw in Resources */ = {isa = PBXBuildFile; fileRef = DD7988460DF6AF2B00082C1D /* 512_big_pc.raw */; };
+		DD7988770DF6AF2B00082C1D /* 512_small_pc.raw in Resources */ = {isa = PBXBuildFile; fileRef = DD7988470DF6AF2B00082C1D /* 512_small_pc.raw */; };
+		DD7988780DF6AF2B00082C1D /* arcex_terrain.cfg in Resources */ = {isa = PBXBuildFile; fileRef = DD7988480DF6AF2B00082C1D /* arcex_terrain.cfg */; };
+		DD7988790DF6AF2B00082C1D /* flame.frag in Resources */ = {isa = PBXBuildFile; fileRef = DD7988490DF6AF2B00082C1D /* flame.frag */; };
+		DD79887A0DF6AF2B00082C1D /* flame.vert in Resources */ = {isa = PBXBuildFile; fileRef = DD79884A0DF6AF2B00082C1D /* flame.vert */; };
+		DD79887B0DF6AF2B00082C1D /* arcticCloudMap.material in Resources */ = {isa = PBXBuildFile; fileRef = DD79884C0DF6AF2B00082C1D /* arcticCloudMap.material */; };
+		DD79887C0DF6AF2B00082C1D /* arcticSky.material in Resources */ = {isa = PBXBuildFile; fileRef = DD79884D0DF6AF2B00082C1D /* arcticSky.material */; };
+		DD79887D0DF6AF2B00082C1D /* arcticStarMap.material in Resources */ = {isa = PBXBuildFile; fileRef = DD79884E0DF6AF2B00082C1D /* arcticStarMap.material */; };
+		DD79887E0DF6AF2B00082C1D /* arcticWeather.material in Resources */ = {isa = PBXBuildFile; fileRef = DD79884F0DF6AF2B00082C1D /* arcticWeather.material */; };
+		DD79887F0DF6AF2B00082C1D /* LensFlare.material in Resources */ = {isa = PBXBuildFile; fileRef = DD7988500DF6AF2B00082C1D /* LensFlare.material */; };
+		DD7988800DF6AF2B00082C1D /* RobsSnowMaterial.material in Resources */ = {isa = PBXBuildFile; fileRef = DD7988510DF6AF2B00082C1D /* RobsSnowMaterial.material */; };
+		DD7988810DF6AF2B00082C1D /* arcticClouds.frag in Resources */ = {isa = PBXBuildFile; fileRef = DD7988540DF6AF2B00082C1D /* arcticClouds.frag */; };
+		DD7988820DF6AF2B00082C1D /* arcticClouds.vert in Resources */ = {isa = PBXBuildFile; fileRef = DD7988550DF6AF2B00082C1D /* arcticClouds.vert */; };
+		DD7988830DF6AF2B00082C1D /* arcticSky.frag in Resources */ = {isa = PBXBuildFile; fileRef = DD7988560DF6AF2B00082C1D /* arcticSky.frag */; };
+		DD7988840DF6AF2B00082C1D /* arcticSky.vert in Resources */ = {isa = PBXBuildFile; fileRef = DD7988570DF6AF2B00082C1D /* arcticSky.vert */; };
+		DD7988850DF6AF2B00082C1D /* arcticStarMap.frag in Resources */ = {isa = PBXBuildFile; fileRef = DD7988580DF6AF2B00082C1D /* arcticStarMap.frag */; };
+		DD7988860DF6AF2B00082C1D /* arcticStarMap.vert in Resources */ = {isa = PBXBuildFile; fileRef = DD7988590DF6AF2B00082C1D /* arcticStarMap.vert */; };
+		DD7988870DF6AF2B00082C1D /* SignalFlare.particle in Resources */ = {isa = PBXBuildFile; fileRef = DD79885A0DF6AF2B00082C1D /* SignalFlare.particle */; };
+		DD7988880DF6AF2B00082C1D /* weather.particle in Resources */ = {isa = PBXBuildFile; fileRef = DD79885B0DF6AF2B00082C1D /* weather.particle */; };
+		DD7988890DF6AF2B00082C1D /* black.png in Resources */ = {isa = PBXBuildFile; fileRef = DD79885D0DF6AF2B00082C1D /* black.png */; };
+		DD79888A0DF6AF2B00082C1D /* daycloud.png in Resources */ = {isa = PBXBuildFile; fileRef = DD79885E0DF6AF2B00082C1D /* daycloud.png */; };
+		DD79888B0DF6AF2B00082C1D /* earthClouds.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DD79885F0DF6AF2B00082C1D /* earthClouds.jpg */; };
+		DD79888C0DF6AF2B00082C1D /* earthCloudsLarge.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DD7988600DF6AF2B00082C1D /* earthCloudsLarge.jpg */; };
+		DD79888D0DF6AF2B00082C1D /* explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7988610DF6AF2B00082C1D /* explosion.png */; };
+		DD79888E0DF6AF2B00082C1D /* firesmokecolors.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7988620DF6AF2B00082C1D /* firesmokecolors.png */; };
+		DD79888F0DF6AF2B00082C1D /* flare.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7988630DF6AF2B00082C1D /* flare.png */; };
+		DD7988900DF6AF2B00082C1D /* flaretrail.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7988640DF6AF2B00082C1D /* flaretrail.png */; };
+		DD7988910DF6AF2B00082C1D /* Fog.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7988650DF6AF2B00082C1D /* Fog.png */; };
+		DD7988920DF6AF2B00082C1D /* Lensflare5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DD7988660DF6AF2B00082C1D /* Lensflare5.jpg */; };
+		DD7988930DF6AF2B00082C1D /* Lensflare6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DD7988670DF6AF2B00082C1D /* Lensflare6.jpg */; };
+		DD7988940DF6AF2B00082C1D /* nightcloud.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7988680DF6AF2B00082C1D /* nightcloud.png */; };
+		DD7988950DF6AF2B00082C1D /* ring_flare.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7988690DF6AF2B00082C1D /* ring_flare.png */; };
+		DD7988960DF6AF2B00082C1D /* ring_flare2.png in Resources */ = {isa = PBXBuildFile; fileRef = DD79886A0DF6AF2B00082C1D /* ring_flare2.png */; };
+		DD7988970DF6AF2B00082C1D /* signalsmokecolors.png in Resources */ = {isa = PBXBuildFile; fileRef = DD79886B0DF6AF2B00082C1D /* signalsmokecolors.png */; };
+		DD7988980DF6AF2B00082C1D /* signalsmokecolors0.png in Resources */ = {isa = PBXBuildFile; fileRef = DD79886C0DF6AF2B00082C1D /* signalsmokecolors0.png */; };
+		DD7988990DF6AF2B00082C1D /* skyAtmosphereDensity.png in Resources */ = {isa = PBXBuildFile; fileRef = DD79886D0DF6AF2B00082C1D /* skyAtmosphereDensity.png */; };
+		DD79889A0DF6AF2B00082C1D /* skyColour.png in Resources */ = {isa = PBXBuildFile; fileRef = DD79886E0DF6AF2B00082C1D /* skyColour.png */; };
+		DD79889B0DF6AF2B00082C1D /* skyColour.xcf in Resources */ = {isa = PBXBuildFile; fileRef = DD79886F0DF6AF2B00082C1D /* skyColour.xcf */; };
+		DD79889C0DF6AF2B00082C1D /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7988700DF6AF2B00082C1D /* smoke.png */; };
+		DD79889D0DF6AF2B00082C1D /* Snow.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7988710DF6AF2B00082C1D /* Snow.png */; };
+		DD79889E0DF6AF2B00082C1D /* SnowTexture_wrapped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DD7988720DF6AF2B00082C1D /* SnowTexture_wrapped.jpg */; };
+		DD79889F0DF6AF2B00082C1D /* starFlare.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7988730DF6AF2B00082C1D /* starFlare.png */; };
+		DD7988A00DF6AF2B00082C1D /* starMap.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DD7988740DF6AF2B00082C1D /* starMap.jpg */; };
+		DD7988A10DF6AF2B00082C1D /* streak.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7988750DF6AF2B00082C1D /* streak.png */; };
 		EF3315EF0DDA987F00ADC323 /* OgreCEGUIRenderer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA88679D0D2BDAD800C08A49 /* OgreCEGUIRenderer.framework */; };
 /* End PBXBuildFile section */
 
@@ -109,36 +123,50 @@
 		AA8869560D2BDBF900C08A49 /* OgreCEGUIRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUIRenderer.cpp; path = src/OgreCEGUIRenderer.cpp; sourceTree = SOURCE_ROOT; };
 		AA8869570D2BDBF900C08A49 /* OgreCEGUIResourceProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUIResourceProvider.cpp; path = src/OgreCEGUIResourceProvider.cpp; sourceTree = SOURCE_ROOT; };
 		AA8869580D2BDBF900C08A49 /* OgreCEGUITexture.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OgreCEGUITexture.cpp; path = src/OgreCEGUITexture.cpp; sourceTree = SOURCE_ROOT; };
-		DD73253B0DF335460092A457 /* LensFlare.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LensFlare.material; sourceTree = "<group>"; };
-		DDA2A3480DEF95DF00F16117 /* 512_big_pc.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = 512_big_pc.raw; sourceTree = "<group>"; };
-		DDA2A3490DEF95DF00F16117 /* 512_small_pc.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = 512_small_pc.raw; sourceTree = "<group>"; };
-		DDA2A34A0DEF95DF00F16117 /* arcex_terrain.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcex_terrain.cfg; sourceTree = "<group>"; };
-		DDA2A34F0DEF95DF00F16117 /* arcticSky.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticSky.material; sourceTree = "<group>"; };
-		DDA2A3500DEF95DF00F16117 /* RobsSnowMaterial.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RobsSnowMaterial.material; sourceTree = "<group>"; };
-		DDA2A3540DEF95DF00F16117 /* arcticSky.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticSky.frag; sourceTree = "<group>"; };
-		DDA2A3550DEF95DF00F16117 /* arcticSky.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticSky.vert; sourceTree = "<group>"; };
-		DDA2A3560DEF95DF00F16117 /* SignalFlare.particle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SignalFlare.particle; sourceTree = "<group>"; };
-		DDA2A3570DEF95DF00F16117 /* weather.particle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = weather.particle; sourceTree = "<group>"; };
-		DDA2A35A0DEF95DF00F16117 /* black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black.png; sourceTree = "<group>"; };
-		DDA2A35B0DEF95DF00F16117 /* daycloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = daycloud.png; sourceTree = "<group>"; };
-		DDA2A35C0DEF95DF00F16117 /* earthClouds.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earthClouds.jpg; sourceTree = "<group>"; };
-		DDA2A35D0DEF95DF00F16117 /* explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = explosion.png; sourceTree = "<group>"; };
-		DDA2A35F0DEF95DF00F16117 /* flare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flare.png; sourceTree = "<group>"; };
-		DDA2A3600DEF95DF00F16117 /* flaretrail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flaretrail.png; sourceTree = "<group>"; };
-		DDA2A3610DEF95DF00F16117 /* Fog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fog.png; sourceTree = "<group>"; };
-		DDA2A3620DEF95DF00F16117 /* nightcloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nightcloud.png; sourceTree = "<group>"; };
-		DDA2A3630DEF95DF00F16117 /* ring_flare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ring_flare.png; sourceTree = "<group>"; };
-		DDA2A3640DEF95DF00F16117 /* ring_flare2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ring_flare2.png; sourceTree = "<group>"; };
-		DDA2A3650DEF95DF00F16117 /* signalsmokecolors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signalsmokecolors.png; sourceTree = "<group>"; };
-		DDA2A3670DEF95DF00F16117 /* skyAtmosphereDensity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyAtmosphereDensity.png; sourceTree = "<group>"; };
-		DDA2A3680DEF95DF00F16117 /* skyColour.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyColour.png; sourceTree = "<group>"; };
-		DDA2A3690DEF95DF00F16117 /* skyColour.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = skyColour.xcf; sourceTree = "<group>"; };
-		DDA2A36A0DEF95DF00F16117 /* smoke.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke.png; sourceTree = "<group>"; };
-		DDA2A36B0DEF95DF00F16117 /* Snow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snow.png; sourceTree = "<group>"; };
-		DDA2A36C0DEF95DF00F16117 /* SnowTexture_wrapped.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SnowTexture_wrapped.jpg; sourceTree = "<group>"; };
-		DDA2A36D0DEF95DF00F16117 /* starFlare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starFlare.png; sourceTree = "<group>"; };
-		DDA2A36E0DEF95DF00F16117 /* starMap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = starMap.jpg; sourceTree = "<group>"; };
-		DDA2A36F0DEF95DF00F16117 /* streak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = streak.png; sourceTree = "<group>"; };
+		DD7988460DF6AF2B00082C1D /* 512_big_pc.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = 512_big_pc.raw; sourceTree = "<group>"; };
+		DD7988470DF6AF2B00082C1D /* 512_small_pc.raw */ = {isa = PBXFileReference; lastKnownFileType = file; path = 512_small_pc.raw; sourceTree = "<group>"; };
+		DD7988480DF6AF2B00082C1D /* arcex_terrain.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcex_terrain.cfg; sourceTree = "<group>"; };
+		DD7988490DF6AF2B00082C1D /* flame.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flame.frag; sourceTree = "<group>"; };
+		DD79884A0DF6AF2B00082C1D /* flame.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flame.vert; sourceTree = "<group>"; };
+		DD79884C0DF6AF2B00082C1D /* arcticCloudMap.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticCloudMap.material; sourceTree = "<group>"; };
+		DD79884D0DF6AF2B00082C1D /* arcticSky.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticSky.material; sourceTree = "<group>"; };
+		DD79884E0DF6AF2B00082C1D /* arcticStarMap.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticStarMap.material; sourceTree = "<group>"; };
+		DD79884F0DF6AF2B00082C1D /* arcticWeather.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticWeather.material; sourceTree = "<group>"; };
+		DD7988500DF6AF2B00082C1D /* LensFlare.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LensFlare.material; sourceTree = "<group>"; };
+		DD7988510DF6AF2B00082C1D /* RobsSnowMaterial.material */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RobsSnowMaterial.material; sourceTree = "<group>"; };
+		DD7988540DF6AF2B00082C1D /* arcticClouds.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticClouds.frag; sourceTree = "<group>"; };
+		DD7988550DF6AF2B00082C1D /* arcticClouds.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticClouds.vert; sourceTree = "<group>"; };
+		DD7988560DF6AF2B00082C1D /* arcticSky.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticSky.frag; sourceTree = "<group>"; };
+		DD7988570DF6AF2B00082C1D /* arcticSky.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticSky.vert; sourceTree = "<group>"; };
+		DD7988580DF6AF2B00082C1D /* arcticStarMap.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticStarMap.frag; sourceTree = "<group>"; };
+		DD7988590DF6AF2B00082C1D /* arcticStarMap.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = arcticStarMap.vert; sourceTree = "<group>"; };
+		DD79885A0DF6AF2B00082C1D /* SignalFlare.particle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SignalFlare.particle; sourceTree = "<group>"; };
+		DD79885B0DF6AF2B00082C1D /* weather.particle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = weather.particle; sourceTree = "<group>"; };
+		DD79885D0DF6AF2B00082C1D /* black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black.png; sourceTree = "<group>"; };
+		DD79885E0DF6AF2B00082C1D /* daycloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = daycloud.png; sourceTree = "<group>"; };
+		DD79885F0DF6AF2B00082C1D /* earthClouds.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earthClouds.jpg; sourceTree = "<group>"; };
+		DD7988600DF6AF2B00082C1D /* earthCloudsLarge.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earthCloudsLarge.jpg; sourceTree = "<group>"; };
+		DD7988610DF6AF2B00082C1D /* explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = explosion.png; sourceTree = "<group>"; };
+		DD7988620DF6AF2B00082C1D /* firesmokecolors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = firesmokecolors.png; sourceTree = "<group>"; };
+		DD7988630DF6AF2B00082C1D /* flare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flare.png; sourceTree = "<group>"; };
+		DD7988640DF6AF2B00082C1D /* flaretrail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flaretrail.png; sourceTree = "<group>"; };
+		DD7988650DF6AF2B00082C1D /* Fog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fog.png; sourceTree = "<group>"; };
+		DD7988660DF6AF2B00082C1D /* Lensflare5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lensflare5.jpg; sourceTree = "<group>"; };
+		DD7988670DF6AF2B00082C1D /* Lensflare6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lensflare6.jpg; sourceTree = "<group>"; };
+		DD7988680DF6AF2B00082C1D /* nightcloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nightcloud.png; sourceTree = "<group>"; };
+		DD7988690DF6AF2B00082C1D /* ring_flare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ring_flare.png; sourceTree = "<group>"; };
+		DD79886A0DF6AF2B00082C1D /* ring_flare2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ring_flare2.png; sourceTree = "<group>"; };
+		DD79886B0DF6AF2B00082C1D /* signalsmokecolors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signalsmokecolors.png; sourceTree = "<group>"; };
+		DD79886C0DF6AF2B00082C1D /* signalsmokecolors0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signalsmokecolors0.png; sourceTree = "<group>"; };
+		DD79886D0DF6AF2B00082C1D /* skyAtmosphereDensity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyAtmosphereDensity.png; sourceTree = "<group>"; };
+		DD79886E0DF6AF2B00082C1D /* skyColour.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyColour.png; sourceTree = "<group>"; };
+		DD79886F0DF6AF2B00082C1D /* skyColour.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = skyColour.xcf; sourceTree = "<group>"; };
+		DD7988700DF6AF2B00082C1D /* smoke.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke.png; sourceTree = "<group>"; };
+		DD7988710DF6AF2B00082C1D /* Snow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snow.png; sourceTree = "<group>"; };
+		DD7988720DF6AF2B00082C1D /* SnowTexture_wrapped.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SnowTexture_wrapped.jpg; sourceTree = "<group>"; };
+		DD7988730DF6AF2B00082C1D /* starFlare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starFlare.png; sourceTree = "<group>"; };
+		DD7988740DF6AF2B00082C1D /* starMap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = starMap.jpg; sourceTree = "<group>"; };
+		DD7988750DF6AF2B00082C1D /* streak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = streak.png; sourceTree = "<group>"; };
 		DDD898A20DE3EC390060FDFB /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Beacon.h; path = include/Beacon.h; sourceTree = "<group>"; };
 		EF3316400DDA9E2A00ADC323 /* OgreCEGUIRenderer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "OgreCEGUIRenderer-Info.plist"; path = "plist/OgreCEGUIRenderer-Info.plist"; sourceTree = "<group>"; };
 		EF697D470DED7B2600431F04 /* Snow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Snow.h; path = include/Snow.h; sourceTree = "<group>"; };
@@ -232,7 +260,7 @@
 		000E25320B392C4E004EA2DF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DDA2A3470DEF95DF00F16117 /* ArcExMedia */,
+				DD7988450DF6AF2B00082C1D /* ArcExMedia */,
 				EF3316400DDA9E2A00ADC323 /* OgreCEGUIRenderer-Info.plist */,
 				000E263E0B393B0A004EA2DF /* media.cfg */,
 				000E263F0B393B0A004EA2DF /* plugins.cfg */,
@@ -255,71 +283,85 @@
 			name = OgreCEGUIRenderer;
 			sourceTree = "<group>";
 		};
-		DDA2A3470DEF95DF00F16117 /* ArcExMedia */ = {
+		DD7988450DF6AF2B00082C1D /* ArcExMedia */ = {
 			isa = PBXGroup;
 			children = (
-				DDA2A3480DEF95DF00F16117 /* 512_big_pc.raw */,
-				DDA2A3490DEF95DF00F16117 /* 512_small_pc.raw */,
-				DDA2A34A0DEF95DF00F16117 /* arcex_terrain.cfg */,
-				DDA2A34E0DEF95DF00F16117 /* materials */,
-				DDA2A3510DEF95DF00F16117 /* models */,
-				DDA2A3520DEF95DF00F16117 /* particle */,
-				DDA2A3590DEF95DF00F16117 /* textures */,
+				DD7988460DF6AF2B00082C1D /* 512_big_pc.raw */,
+				DD7988470DF6AF2B00082C1D /* 512_small_pc.raw */,
+				DD7988480DF6AF2B00082C1D /* arcex_terrain.cfg */,
+				DD7988490DF6AF2B00082C1D /* flame.frag */,
+				DD79884A0DF6AF2B00082C1D /* flame.vert */,
+				DD79884B0DF6AF2B00082C1D /* materials */,
+				DD7988520DF6AF2B00082C1D /* models */,
+				DD7988530DF6AF2B00082C1D /* particle */,
+				DD79885C0DF6AF2B00082C1D /* textures */,
 			);
 			path = ArcExMedia;
 			sourceTree = "<group>";
 		};
-		DDA2A34E0DEF95DF00F16117 /* materials */ = {
+		DD79884B0DF6AF2B00082C1D /* materials */ = {
 			isa = PBXGroup;
 			children = (
-				DD73253B0DF335460092A457 /* LensFlare.material */,
-				DDA2A34F0DEF95DF00F16117 /* arcticSky.material */,
-				DDA2A3500DEF95DF00F16117 /* RobsSnowMaterial.material */,
+				DD79884C0DF6AF2B00082C1D /* arcticCloudMap.material */,
+				DD79884D0DF6AF2B00082C1D /* arcticSky.material */,
+				DD79884E0DF6AF2B00082C1D /* arcticStarMap.material */,
+				DD79884F0DF6AF2B00082C1D /* arcticWeather.material */,
+				DD7988500DF6AF2B00082C1D /* LensFlare.material */,
+				DD7988510DF6AF2B00082C1D /* RobsSnowMaterial.material */,
 			);
 			path = materials;
 			sourceTree = "<group>";
 		};
-		DDA2A3510DEF95DF00F16117 /* models */ = {
+		DD7988520DF6AF2B00082C1D /* models */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = models;
 			sourceTree = "<group>";
 		};
-		DDA2A3520DEF95DF00F16117 /* particle */ = {
+		DD7988530DF6AF2B00082C1D /* particle */ = {
 			isa = PBXGroup;
 			children = (
-				DDA2A3540DEF95DF00F16117 /* arcticSky.frag */,
-				DDA2A3550DEF95DF00F16117 /* arcticSky.vert */,
-				DDA2A3560DEF95DF00F16117 /* SignalFlare.particle */,
-				DDA2A3570DEF95DF00F16117 /* weather.particle */,
+				DD7988540DF6AF2B00082C1D /* arcticClouds.frag */,
+				DD7988550DF6AF2B00082C1D /* arcticClouds.vert */,
+				DD7988560DF6AF2B00082C1D /* arcticSky.frag */,
+				DD7988570DF6AF2B00082C1D /* arcticSky.vert */,
+				DD7988580DF6AF2B00082C1D /* arcticStarMap.frag */,
+				DD7988590DF6AF2B00082C1D /* arcticStarMap.vert */,
+				DD79885A0DF6AF2B00082C1D /* SignalFlare.particle */,
+				DD79885B0DF6AF2B00082C1D /* weather.particle */,
 			);
 			path = particle;
 			sourceTree = "<group>";
 		};
-		DDA2A3590DEF95DF00F16117 /* textures */ = {
+		DD79885C0DF6AF2B00082C1D /* textures */ = {
 			isa = PBXGroup;
 			children = (
-				DDA2A35A0DEF95DF00F16117 /* black.png */,
-				DDA2A35B0DEF95DF00F16117 /* daycloud.png */,
-				DDA2A35C0DEF95DF00F16117 /* earthClouds.jpg */,
-				DDA2A35D0DEF95DF00F16117 /* explosion.png */,
-				DDA2A35F0DEF95DF00F16117 /* flare.png */,
-				DDA2A3600DEF95DF00F16117 /* flaretrail.png */,
-				DDA2A3610DEF95DF00F16117 /* Fog.png */,
-				DDA2A3620DEF95DF00F16117 /* nightcloud.png */,
-				DDA2A3630DEF95DF00F16117 /* ring_flare.png */,
-				DDA2A3640DEF95DF00F16117 /* ring_flare2.png */,
-				DDA2A3650DEF95DF00F16117 /* signalsmokecolors.png */,
-				DDA2A3670DEF95DF00F16117 /* skyAtmosphereDensity.png */,
-				DDA2A3680DEF95DF00F16117 /* skyColour.png */,
-				DDA2A3690DEF95DF00F16117 /* skyColour.xcf */,
-				DDA2A36A0DEF95DF00F16117 /* smoke.png */,
-				DDA2A36B0DEF95DF00F16117 /* Snow.png */,
-				DDA2A36C0DEF95DF00F16117 /* SnowTexture_wrapped.jpg */,
-				DDA2A36D0DEF95DF00F16117 /* starFlare.png */,
-				DDA2A36E0DEF95DF00F16117 /* starMap.jpg */,
-				DDA2A36F0DEF95DF00F16117 /* streak.png */,
+				DD79885D0DF6AF2B00082C1D /* black.png */,
+				DD79885E0DF6AF2B00082C1D /* daycloud.png */,
+				DD79885F0DF6AF2B00082C1D /* earthClouds.jpg */,
+				DD7988600DF6AF2B00082C1D /* earthCloudsLarge.jpg */,
+				DD7988610DF6AF2B00082C1D /* explosion.png */,
+				DD7988620DF6AF2B00082C1D /* firesmokecolors.png */,
+				DD7988630DF6AF2B00082C1D /* flare.png */,
+				DD7988640DF6AF2B00082C1D /* flaretrail.png */,
+				DD7988650DF6AF2B00082C1D /* Fog.png */,
+				DD7988660DF6AF2B00082C1D /* Lensflare5.jpg */,
+				DD7988670DF6AF2B00082C1D /* Lensflare6.jpg */,
+				DD7988680DF6AF2B00082C1D /* nightcloud.png */,
+				DD7988690DF6AF2B00082C1D /* ring_flare.png */,
+				DD79886A0DF6AF2B00082C1D /* ring_flare2.png */,
+				DD79886B0DF6AF2B00082C1D /* signalsmokecolors.png */,
+				DD79886C0DF6AF2B00082C1D /* signalsmokecolors0.png */,
+				DD79886D0DF6AF2B00082C1D /* skyAtmosphereDensity.png */,
+				DD79886E0DF6AF2B00082C1D /* skyColour.png */,
+				DD79886F0DF6AF2B00082C1D /* skyColour.xcf */,
+				DD7988700DF6AF2B00082C1D /* smoke.png */,
+				DD7988710DF6AF2B00082C1D /* Snow.png */,
+				DD7988720DF6AF2B00082C1D /* SnowTexture_wrapped.jpg */,
+				DD7988730DF6AF2B00082C1D /* starFlare.png */,
+				DD7988740DF6AF2B00082C1D /* starMap.jpg */,
+				DD7988750DF6AF2B00082C1D /* streak.png */,
 			);
 			path = textures;
 			sourceTree = "<group>";
@@ -404,36 +446,50 @@
 				000E29740B39E1A9004EA2DF /* media.cfg in Resources */,
 				000E29750B39E1A9004EA2DF /* plugins.cfg in Resources */,
 				000E29760B39E1A9004EA2DF /* resources.cfg in Resources */,
-				DDA2A3710DEF95DF00F16117 /* 512_big_pc.raw in Resources */,
-				DDA2A3720DEF95DF00F16117 /* 512_small_pc.raw in Resources */,
-				DDA2A3730DEF95DF00F16117 /* arcex_terrain.cfg in Resources */,
-				DDA2A3770DEF95DF00F16117 /* arcticSky.material in Resources */,
-				DDA2A3780DEF95DF00F16117 /* RobsSnowMaterial.material in Resources */,
-				DDA2A37A0DEF95DF00F16117 /* arcticSky.frag in Resources */,
-				DDA2A37B0DEF95DF00F16117 /* arcticSky.vert in Resources */,
-				DDA2A37C0DEF95DF00F16117 /* SignalFlare.particle in Resources */,
-				DDA2A37D0DEF95DF00F16117 /* weather.particle in Resources */,
-				DDA2A37F0DEF95DF00F16117 /* black.png in Resources */,
-				DDA2A3800DEF95DF00F16117 /* daycloud.png in Resources */,
-				DDA2A3810DEF95DF00F16117 /* earthClouds.jpg in Resources */,
-				DDA2A3820DEF95DF00F16117 /* explosion.png in Resources */,
-				DDA2A3840DEF95DF00F16117 /* flare.png in Resources */,
-				DDA2A3850DEF95DF00F16117 /* flaretrail.png in Resources */,
-				DDA2A3860DEF95DF00F16117 /* Fog.png in Resources */,
-				DDA2A3870DEF95DF00F16117 /* nightcloud.png in Resources */,
-				DDA2A3880DEF95DF00F16117 /* ring_flare.png in Resources */,
-				DDA2A3890DEF95DF00F16117 /* ring_flare2.png in Resources */,
-				DDA2A38A0DEF95DF00F16117 /* signalsmokecolors.png in Resources */,
-				DDA2A38C0DEF95DF00F16117 /* skyAtmosphereDensity.png in Resources */,
-				DDA2A38D0DEF95DF00F16117 /* skyColour.png in Resources */,
-				DDA2A38E0DEF95DF00F16117 /* skyColour.xcf in Resources */,
-				DDA2A38F0DEF95DF00F16117 /* smoke.png in Resources */,
-				DDA2A3900DEF95DF00F16117 /* Snow.png in Resources */,
-				DDA2A3910DEF95DF00F16117 /* SnowTexture_wrapped.jpg in Resources */,
-				DDA2A3920DEF95DF00F16117 /* starFlare.png in Resources */,
-				DDA2A3930DEF95DF00F16117 /* starMap.jpg in Resources */,
-				DDA2A3940DEF95DF00F16117 /* streak.png in Resources */,
-				DD73253C0DF335460092A457 /* LensFlare.material in Resources */,
+				DD7988760DF6AF2B00082C1D /* 512_big_pc.raw in Resources */,
+				DD7988770DF6AF2B00082C1D /* 512_small_pc.raw in Resources */,
+				DD7988780DF6AF2B00082C1D /* arcex_terrain.cfg in Resources */,
+				DD7988790DF6AF2B00082C1D /* flame.frag in Resources */,
+				DD79887A0DF6AF2B00082C1D /* flame.vert in Resources */,
+				DD79887B0DF6AF2B00082C1D /* arcticCloudMap.material in Resources */,
+				DD79887C0DF6AF2B00082C1D /* arcticSky.material in Resources */,
+				DD79887D0DF6AF2B00082C1D /* arcticStarMap.material in Resources */,
+				DD79887E0DF6AF2B00082C1D /* arcticWeather.material in Resources */,
+				DD79887F0DF6AF2B00082C1D /* LensFlare.material in Resources */,
+				DD7988800DF6AF2B00082C1D /* RobsSnowMaterial.material in Resources */,
+				DD7988810DF6AF2B00082C1D /* arcticClouds.frag in Resources */,
+				DD7988820DF6AF2B00082C1D /* arcticClouds.vert in Resources */,
+				DD7988830DF6AF2B00082C1D /* arcticSky.frag in Resources */,
+				DD7988840DF6AF2B00082C1D /* arcticSky.vert in Resources */,
+				DD7988850DF6AF2B00082C1D /* arcticStarMap.frag in Resources */,
+				DD7988860DF6AF2B00082C1D /* arcticStarMap.vert in Resources */,
+				DD7988870DF6AF2B00082C1D /* SignalFlare.particle in Resources */,
+				DD7988880DF6AF2B00082C1D /* weather.particle in Resources */,
+				DD7988890DF6AF2B00082C1D /* black.png in Resources */,
+				DD79888A0DF6AF2B00082C1D /* daycloud.png in Resources */,
+				DD79888B0DF6AF2B00082C1D /* earthClouds.jpg in Resources */,
+				DD79888C0DF6AF2B00082C1D /* earthCloudsLarge.jpg in Resources */,
+				DD79888D0DF6AF2B00082C1D /* explosion.png in Resources */,
+				DD79888E0DF6AF2B00082C1D /* firesmokecolors.png in Resources */,
+				DD79888F0DF6AF2B00082C1D /* flare.png in Resources */,
+				DD7988900DF6AF2B00082C1D /* flaretrail.png in Resources */,
+				DD7988910DF6AF2B00082C1D /* Fog.png in Resources */,
+				DD7988920DF6AF2B00082C1D /* Lensflare5.jpg in Resources */,
+				DD7988930DF6AF2B00082C1D /* Lensflare6.jpg in Resources */,
+				DD7988940DF6AF2B00082C1D /* nightcloud.png in Resources */,
+				DD7988950DF6AF2B00082C1D /* ring_flare.png in Resources */,
+				DD7988960DF6AF2B00082C1D /* ring_flare2.png in Resources */,
+				DD7988970DF6AF2B00082C1D /* signalsmokecolors.png in Resources */,
+				DD7988980DF6AF2B00082C1D /* signalsmokecolors0.png in Resources */,
+				DD7988990DF6AF2B00082C1D /* skyAtmosphereDensity.png in Resources */,
+				DD79889A0DF6AF2B00082C1D /* skyColour.png in Resources */,
+				DD79889B0DF6AF2B00082C1D /* skyColour.xcf in Resources */,
+				DD79889C0DF6AF2B00082C1D /* smoke.png in Resources */,
+				DD79889D0DF6AF2B00082C1D /* Snow.png in Resources */,
+				DD79889E0DF6AF2B00082C1D /* SnowTexture_wrapped.jpg in Resources */,
+				DD79889F0DF6AF2B00082C1D /* starFlare.png in Resources */,
+				DD7988A00DF6AF2B00082C1D /* starMap.jpg in Resources */,
+				DD7988A10DF6AF2B00082C1D /* streak.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
