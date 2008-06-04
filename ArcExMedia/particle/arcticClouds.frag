@@ -10,7 +10,7 @@ void main (void)
 
 	colour.rgb = colour.rgb * (smoothstep(0.0, 1.0, sunHeightRelative));
 
-//colour.a = 0.0;
+colour.a = 0.0;
 
     gl_FragColor = colour;
 }
