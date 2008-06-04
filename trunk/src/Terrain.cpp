@@ -79,6 +79,7 @@ public:
         flyMode = false;
         snow = false;
         fog = false;
+        lensFlare = false;
 
 
         // Sun currently just moves up and down. Work out how to get sun to go in a circular path
@@ -117,7 +118,7 @@ public:
         weatherNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("snowNode");
         arcticSnow = new ArcticSnowManager(weatherNode, mSceneMgr);
         weatherNode->setPosition(mCamera->getPosition());
-        
+
         createSkyFeatures();
 
 		createBeaconManager();
@@ -212,39 +213,6 @@ public:
 		flareNode->setVisible(false);        
     }
 
-	void createLensFlare(void)
-	{
-		Billboard *bill;
-		Real size = LENS_FLARE_SIZE;
-	
-		lensNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-		
-		lensHaloSet = mSceneMgr->createBillboardSet("LensHalo");
-		lensHaloSet->setMaterialName("ArcEx/LensHalo");
-		
-		bill = lensHaloSet->createBillboard(0,0,0);
-		bill->setDimensions(size*0.5, size*0.5);
-		bill = lensHaloSet->createBillboard(0,0,0);
-		bill->setDimensions(size, size);
-		bill = lensHaloSet->createBillboard(0,0,0);
-		bill->setDimensions(size*0.25, size*0.25);
-		
-		lensBurstSet = mSceneMgr->createBillboardSet("LensBurst");
-		lensBurstSet->setMaterialName("ArcEx/LensBurst");
-
-		bill = lensBurstSet->createBillboard(0,0,0);
-		bill->setDimensions(size*0.25, size*0.25);
-		bill = lensBurstSet->createBillboard(0,0,0);
-		bill->setDimensions(size*0.5, size*0.5);
-		bill = lensBurstSet->createBillboard(0,0,0);
-		bill->setDimensions(size*0.25, size*0.25);
-		
-		lensNode->attachObject(lensHaloSet);
-		lensNode->attachObject(lensBurstSet);
-		
-		lensNode->setVisible(false);
-	}
-
 	void updateSignalFlare(Real t)
 	{
 		Ogre::Vector3 pos = flareNode->getPosition();
@@ -287,11 +255,58 @@ public:
 			}
 		}
 	}
+    
+    #define LENS_FLARE_LARGE_SIZE 10
+    #define LENS_FLARE_MED_SIZE 5
+    #define LENS_FLARE_SMALL_SIZE 2
 
+
+	void createLensFlare(void)
+	{
+		Billboard *bill;
+		Real size = LENS_FLARE_SIZE;
+	
+		lensNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+
+		lensRainbowSet = mSceneMgr->createBillboardSet("LensRainbow");
+		lensRainbowSet->setMaterialName("ArcEx/LensRainbow");
+		bill = lensRainbowSet->createBillboard(0,0,0);
+		bill->setDimensions(LENS_FLARE_LARGE_SIZE, LENS_FLARE_LARGE_SIZE);
+
+		lensSimpleSet = mSceneMgr->createBillboardSet("LensSimple");
+		lensSimpleSet->setMaterialName("ArcEx/LensSimple");
+		bill = lensSimpleSet->createBillboard(0,0,0);
+		bill->setDimensions(LENS_FLARE_SMALL_SIZE, LENS_FLARE_SMALL_SIZE);
+
+		lensHaloSet = mSceneMgr->createBillboardSet("LensHalo");
+		lensHaloSet->setMaterialName("ArcEx/LensHollow");
+		bill = lensHaloSet->createBillboard(0,0,0);
+		bill->setDimensions(LENS_FLARE_SMALL_SIZE, LENS_FLARE_SMALL_SIZE);
+		
+		lensBurstSet = mSceneMgr->createBillboardSet("LensBurst");
+		lensBurstSet->setMaterialName("ArcEx/LensBurst");
+		bill = lensBurstSet->createBillboard(0,0,0);
+		bill->setDimensions(LENS_FLARE_MED_SIZE, LENS_FLARE_MED_SIZE);
+		
+		lensNode->attachObject(lensRainbowSet);
+		lensNode->attachObject(lensSimpleSet);
+		lensNode->attachObject(lensHaloSet);
+		lensNode->attachObject(lensBurstSet);
+		
+		lensNode->setVisible(false);
+	}
 	void updateLensFlare(void)
 	{
+        if (!lensFlare)
+        {
+            lensNode->setVisible(false);
+            return;
+        }
+        
 		Vector3 camPosition = mCamera->getPosition();
 		mCamera->setPosition(0,0,0);
+        //std::cout<<"camera position"<<mCamera->getDerivedPosition()<<" sun "<<sunNode->getWorldPosition()<<"\n";
+
 		if(!mCamera->isVisible(sunNode->getWorldPosition()))
 		{
 			mCamera->setPosition(camPosition);
@@ -300,15 +315,15 @@ public:
 		}
 		mCamera->setPosition(camPosition);
 		
-		Vector3 sunDirection = sunNode->getWorldPosition();
+		Vector3 sunPos = sunNode->getWorldPosition();
 		Vector3 camDirection = mCamera->getDirection();
-		sunDirection.normalise();
+		sunPos.normalise();
 		camDirection.normalise();
 		
 		// Test for obstacles blocking vision to the sun
 		static Ray updateRay;
 		updateRay.setOrigin(camPosition);
-		updateRay.setDirection(sunDirection);
+		updateRay.setDirection(sunPos);
 		raySceneQuery->setRay(updateRay);
 		RaySceneQueryResult& qryResult = raySceneQuery->execute();
 		RaySceneQueryResult::iterator i;
@@ -324,24 +339,23 @@ public:
 			return;
 		}
 		
-		Vector3 lensVect = sunDirection * LENS_FLARE_SIZE * 2;
-		
+        Vector3 lensFlareAxis(camDirection*40);
+        Vector3 lensVect(sunNode->getWorldPosition() - lensFlareAxis);
+        lensVect.normalise();
+        
+		lensBurstSet->getBillboard(0)->setPosition(lensFlareAxis + lensVect*40);
+        lensHaloSet->getBillboard(0)->setPosition(lensFlareAxis + lensVect*20);
+        lensSimpleSet->getBillboard(0)->setPosition(lensFlareAxis);
+        lensRainbowSet->getBillboard(0)->setPosition(lensFlareAxis - lensVect*10);
+//lensHaloSet->getBillboard(1)->setColour(ColourValue(1.0,0.0,0.0));
+
 		// Apply lens flare effect
 		lensNode->setPosition(camPosition);
-		
-		lensHaloSet->getBillboard(0)->setPosition(lensVect*0.5);
-		lensHaloSet->getBillboard(1)->setPosition(lensVect*0.125);
-		lensHaloSet->getBillboard(2)->setPosition(-lensVect*0.25);
-		
-		lensBurstSet->getBillboard(0)->setPosition(lensVect*0.333);
-		lensBurstSet->getBillboard(1)->setPosition(-lensVect*0.5);
-		lensBurstSet->getBillboard(2)->setPosition(-lensVect*0.18);
-		
 		lensNode->setVisible(true);
-		
-		//Real sunLensFactor = camDirection.dotProduct(sunDirection);
-		//mSceneMgr->setAmbientLight(ColourValue(0,sunLensFactor,0));
 	}
+
+
+
 
     bool frameStarted(const FrameEvent& evt)
     {
@@ -371,12 +385,10 @@ public:
         
 		if (starMoveTime >= secondsInADay) // a slower changing timeOfDay (determines movement of starmap)
             starMoveTime = 0.0;
-		
-//		Real timeFactor = (1 + cos(2*M_PI*timeOfDay/secondsInADay))/2;
 
         // Passing parameters to the sky vertex shader
         skyVertParams->setNamedConstant("sunPosition", sunNode->getWorldPosition());
-        skyVertParams->setNamedConstant("camPosition", mCamera->getWorldPosition());
+        skyVertParams->setNamedConstant("camPosition", mCamera->getWorldPosition()); // NOTE: This is always 0,0,0. Camera space
         skyVertParams->setNamedConstant("starMoveTime", starMoveTime/secondsInADay);
         
         Real sunHeight = (sunNode->getWorldPosition().y + SUN_AXIS_RADIUS - sunMoveAxis->getWorldPosition().y)/(2*SUN_AXIS_RADIUS);
@@ -395,6 +407,13 @@ public:
   
         // key can only be pressed once every 0.5  (1 second?)
 		mToggle -= evt.timeSinceLastFrame;
+        
+        // Lens flare
+        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_K)) // Snow
+        {
+            mToggle = 0.5f;
+            lensFlare = !lensFlare;
+        }
 
         // Setting snow, fog (particle fog)     see Snow.h
         if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_I)) // Snow
@@ -522,7 +541,7 @@ protected:
 	SceneNode *flareNode, *launchNode, *beaconNode, *lensNode;
 	Light *launchLight, *sigLight;
 	ParticleSystem *sigFlareParticle, *sigSmokeParticle;
-	BillboardSet *lensHaloSet, *lensBurstSet, *sigFlareSet;
+	BillboardSet *lensHaloSet, *lensBurstSet, *sigFlareSet, *lensRainbowSet, *lensSimpleSet;
 	Vector3 flareVel;
 	
 private:
@@ -545,6 +564,7 @@ private:
     bool fog;
 	bool flyMode;
     bool timeLapseMode;
+    bool lensFlare;
     
     ArcticSnowManager *arcticSnow;
     SceneNode *weatherNode;

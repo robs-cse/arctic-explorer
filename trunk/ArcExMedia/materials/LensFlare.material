@@ -1,4 +1,65 @@
 // Adapted from Sphinkie's Lensflare tutorial on Ogre Wiki
+material ArcEx/LensRainbow
+{
+   technique
+   {
+       pass
+       {
+           ambient 1 1 1
+           diffuse 1 1 1
+           lighting off
+           depth_write off
+           scene_blend add
+           texture_unit
+           {
+               texture ArcticLens_rainbow.png
+           }
+       }
+   }
+}
+material ArcEx/LensHollow
+{
+   technique
+   {
+       pass
+       {
+           ambient 1 1 1
+           diffuse 1 1 1
+           lighting off
+           depth_write off
+           scene_blend add
+           texture_unit
+           {
+               texture ArcticLens_hollow.png
+           }
+       }
+   }
+}
+material ArcEx/LensSimple
+{
+   technique
+   {
+       pass
+       {
+           ambient 1 1 1
+           diffuse 1 1 1
+           lighting off
+           depth_write off
+           scene_blend add
+           texture_unit
+           {
+               texture ArcticLens_simple.png
+           }
+       }
+   }
+}
+
+
+
+
+
+
+
 
 material ArcEx/LensHalo
 {
