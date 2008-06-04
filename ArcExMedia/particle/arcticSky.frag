@@ -1,7 +1,5 @@
-uniform sampler2D starMap;
-uniform sampler2D skyColour;
-uniform sampler2D atmosphereDensity;
 uniform sampler2D earthClouds;
+uniform sampler2D skyColour;
 
 uniform float sunHeightRel; //Scaled to [0,1]
 

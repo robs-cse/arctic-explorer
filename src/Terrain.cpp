@@ -74,16 +74,6 @@ public:
         snow = false;
         fog = false;
 
-        // Parameter setting for sky plane shader
-        MaterialPtr mat = (MaterialPtr)MaterialManager::getSingleton().getByName("ArcticSkyMaterial");
-        skyVertParams = mat->getTechnique(0)->getPass(0)->getVertexProgramParameters();
-        skyFragParams = mat->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
-        
-        // star map shader
-        mat = (MaterialPtr)MaterialManager::getSingleton().getByName("ArcticStarMapMaterial");
-        starFragParams = mat->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
-
-
 
         // Sun currently just moves up and down. Work out how to get sun to go in a circular path
         sunMoveAxis = mSceneMgr->getRootSceneNode()->createChildSceneNode("SunMoveAxis");
@@ -122,11 +112,34 @@ public:
         arcticSnow = new ArcticSnowManager(weatherNode, mSceneMgr);
         weatherNode->setPosition(mCamera->getPosition());
         
-        // Draw plane
+        createSkyFeatures();
+
+		createBeaconManager();
+		createSignalFlare();
+		createLensFlare();
+	}
+    
+    void createSkyFeatures(void)
+    {
+        // Parameter setting for sky plane shader
+        MaterialPtr mat = (MaterialPtr)MaterialManager::getSingleton().getByName("ArcticSkyMaterial");
+        skyVertParams = mat->getTechnique(0)->getPass(0)->getVertexProgramParameters();
+        skyFragParams = mat->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
+        
+        // star map shader
+        mat = (MaterialPtr)MaterialManager::getSingleton().getByName("ArcticStarMapMaterial");
+        starFragParams = mat->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
+        
+        // cloud parameters
+        mat = (MaterialPtr)MaterialManager::getSingleton().getByName("ArcticCloudsMaterial");
+        cloudsVertParams = mat->getTechnique(0)->getPass(0)->getVertexProgramParameters();
+        cloudsFragParams = mat->getTechnique(0)->getPass(0)->getFragmentProgramParameters();
+    
+            // Star plane
 		Plane starPlane(-Vector3::UNIT_Y, 0);
 		MeshManager::getSingleton().createCurvedPlane("stars",
 			ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, starPlane,
-			4500,4500, 0.3f,20, 20,true,1,5,5,Vector3::UNIT_Z);
+			5000,5000, 0.3f,20, 20,true,1,8,8,Vector3::UNIT_Z);
 
 		Entity *ent = mSceneMgr->createEntity("StarMapEntity", "stars");
 		ent->setMaterialName("ArcticStarMapMaterial");
@@ -134,14 +147,25 @@ public:
         StarPlaneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
         SceneNode *node = StarPlaneNode->createChildSceneNode();
         node->attachObject(ent);
-        node->translate(Vector3(0.0, 400.0, 0.0));
+        node->translate(Vector3(0.0, 300.0, 0.0));
         StarPlaneNode->setPosition(mCamera->getPosition());
 
 
-		createBeaconManager();
-		createSignalFlare();
-		createLensFlare();
-	}
+        // Cloud plane
+		Plane cloudPlane(-Vector3::UNIT_Y, 0);
+		MeshManager::getSingleton().createCurvedPlane("clouds",
+			ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, cloudPlane,
+			4500,4500, 0.3f,20, 20,true,1,2,2,Vector3::UNIT_Z);
+
+		ent = mSceneMgr->createEntity("CloudsMapEntity", "clouds");
+		ent->setMaterialName("ArcticCloudsMaterial");
+
+        CloudsPlaneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+        node = CloudsPlaneNode->createChildSceneNode();
+        node->attachObject(ent);
+        node->translate(Vector3(0.0, 180.0, 0.0));
+        CloudsPlaneNode->setPosition(mCamera->getPosition());
+    }
     
 	void createBeaconManager(void)
 	{
@@ -330,6 +354,8 @@ public:
         StarPlaneNode->yaw(Degree(timeOfDay/secondsInADay*360));
 
         StarPlaneNode->setPosition(mCamera->getPosition());
+        CloudsPlaneNode->setPosition(mCamera->getPosition());
+
 
         starMoveTime += evt.timeSinceLastFrame/2.0;
 
@@ -349,6 +375,8 @@ public:
         Real sunHeight = (sunNode->getWorldPosition().y + SUN_AXIS_RADIUS - sunMoveAxis->getWorldPosition().y)/(2*SUN_AXIS_RADIUS);
         skyFragParams->setNamedConstant("sunHeightRel", sunHeight);
         starFragParams->setNamedConstant("sunHeightRelative", sunHeight);
+        cloudsFragParams->setNamedConstant("sunHeightRelative", sunHeight);
+        cloudsVertParams->setNamedConstant("cloudsMoveTime", starMoveTime/secondsInADay);
 
 //#ifdef MEL_SUNLIGHT
 		Real timeFactor = sunHeight;
@@ -360,20 +388,14 @@ public:
   
         // key can only be pressed once every 0.5  (1 second?)
 		mToggle -= evt.timeSinceLastFrame;
-        // ToDo:
-        // toggle fog on/off
-        // toggle snow on/off
-        // toggle winter/summer
-		// toggle walk/fly
-        // set secondsInADay (speed up mode)
 
         // Setting snow, fog (particle fog)     see Snow.h
-        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_S))
+        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_I)) // Snow
         {
             mToggle = 0.5f;
             snow = !snow;
         }
-        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_W))
+        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_O)) //Fog 
         {
             mToggle = 0.5f;
             fog = !fog;
@@ -383,7 +405,7 @@ public:
         arcticSnow->adjustFog(fog, sunHeight);
         
         // Toggle superspeed
-        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_T))
+        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_L)) //Lapse
         {
             mToggle = 0.5f;
             timeLapseMode = !timeLapseMode;
@@ -506,9 +528,8 @@ private:
     Real secondsInADay; 
 
     // parametners to pass to sky shaders
-    GpuProgramParametersSharedPtr skyVertParams;
-    GpuProgramParametersSharedPtr skyFragParams;
-    GpuProgramParametersSharedPtr starFragParams;
+    GpuProgramParametersSharedPtr skyVertParams, skyFragParams;
+    GpuProgramParametersSharedPtr starFragParams, cloudsFragParams, cloudsVertParams;
     
     // The time left until next toggle
     Real mToggle;
@@ -522,7 +543,7 @@ private:
     SceneNode *weatherNode;
     SceneNode *sunMoveAxis;
     SceneNode *sunNode;
-    SceneNode *StarPlaneNode;
+    SceneNode *StarPlaneNode, *CloudsPlaneNode;
     //Vector3 sunPosition;
     Light* sunLight;
     
@@ -626,8 +647,6 @@ private:
 		// For terrain clamping in "walk" mode
         raySceneQuery = mSceneMgr->createRayQuery(
             Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
-	
-        
         
     }
     void createFrameListener(void)

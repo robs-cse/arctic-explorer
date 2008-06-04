@@ -24,27 +24,19 @@ material ArcticSkyMaterial
 
          fragment_program_ref arcticSkyFrag
          {
-	        param_named starMap int 0
-	        param_named skyColour int 1
 	        param_named earthClouds int 2
+	        param_named skyColour int 1
          }
 
 		texture_unit
 		{
-			texture starMap.jpg
+			texture earthClouds.jpg
 		}
 
 		texture_unit
 		{
 			texture skyColour.png
 		}
-		
-		texture_unit
-		{
-			texture earthClouds.jpg
-		}
-
-		
       }
    }
 } 
