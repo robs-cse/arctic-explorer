@@ -79,7 +79,8 @@ public:
         flyMode = false;
         snow = false;
         fog = false;
-        lensFlare = false;
+		cloud = true;
+        lensFlare = true;
 
 
         // Sun currently just moves up and down. Work out how to get sun to go in a circular path
@@ -409,7 +410,7 @@ public:
 		mToggle -= evt.timeSinceLastFrame;
         
         // Lens flare
-        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_K)) // Snow
+        if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_K))
         {
             mToggle = 0.5f;
             lensFlare = !lensFlare;
@@ -426,9 +427,15 @@ public:
             mToggle = 0.5f;
             fog = !fog;
         }
+		if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_SEMICOLON)) //Cloud
+        {
+            mToggle = 0.5f;
+            cloud = !cloud;
+        }
         weatherNode->setPosition(mCamera->getPosition());
         arcticSnow->adjustSnow(snow, sunHeight);
         arcticSnow->adjustFog(fog, sunHeight);
+		CloudsPlaneNode->setVisible(cloud);
         
         // Toggle superspeed
         if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_L)) //Lapse
@@ -451,7 +458,7 @@ public:
         }
 		
 		// Toggle fly/walk
-		if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_F))
+		if ((mToggle < 0.0f ) && mKeyboard->isKeyDown(OIS::KC_J))
         {
             mToggle = 0.5f;
             flyMode = !flyMode;
@@ -562,6 +569,7 @@ private:
     // Toggle values
     bool snow;
     bool fog;
+	bool cloud;
 	bool flyMode;
     bool timeLapseMode;
     bool lensFlare;
