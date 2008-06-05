@@ -257,45 +257,67 @@ public:
 		}
 	}
     
-    #define LENS_FLARE_LARGE_SIZE 10
-    #define LENS_FLARE_MED_SIZE 5
-    #define LENS_FLARE_SMALL_SIZE 2
-
-
+    
 	void createLensFlare(void)
 	{
 		Billboard *bill;
-		Real size = LENS_FLARE_SIZE;
-	
+
 		lensNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
 		lensRainbowSet = mSceneMgr->createBillboardSet("LensRainbow");
 		lensRainbowSet->setMaterialName("ArcEx/LensRainbow");
 		bill = lensRainbowSet->createBillboard(0,0,0);
-		bill->setDimensions(LENS_FLARE_LARGE_SIZE, LENS_FLARE_LARGE_SIZE);
+		bill->setDimensions(0.6, 0.6);
 
 		lensSimpleSet = mSceneMgr->createBillboardSet("LensSimple");
 		lensSimpleSet->setMaterialName("ArcEx/LensSimple");
 		bill = lensSimpleSet->createBillboard(0,0,0);
-		bill->setDimensions(LENS_FLARE_SMALL_SIZE, LENS_FLARE_SMALL_SIZE);
-
-		lensHaloSet = mSceneMgr->createBillboardSet("LensHalo");
-		lensHaloSet->setMaterialName("ArcEx/LensHollow");
+		bill->setDimensions(0.05, 0.05);
+		bill = lensSimpleSet->createBillboard(0,0,0);
+		bill->setDimensions(0.07, 0.07);
+        
+        Real size = LENS_FLARE_SIZE;
+        lensHaloSet = mSceneMgr->createBillboardSet("LensHalo");
+		lensHaloSet->setMaterialName("ArcEx/LensHalo");
+		
 		bill = lensHaloSet->createBillboard(0,0,0);
-		bill->setDimensions(LENS_FLARE_SMALL_SIZE, LENS_FLARE_SMALL_SIZE);
+		bill->setDimensions(size*0.5, size*0.5);
+		bill = lensHaloSet->createBillboard(0,0,0);
+		bill->setDimensions(size, size);
+		bill = lensHaloSet->createBillboard(0,0,0);
+		bill->setDimensions(size*0.25, size*0.25);
+
+		bill = lensHaloSet->createBillboard(0,0,0);
+		bill->setDimensions(0.4, 0.4);
+		bill = lensHaloSet->createBillboard(0,0,0);
+		bill->setDimensions(0.2, 0.2);
+		bill = lensHaloSet->createBillboard(0,0,0);
+		bill->setDimensions(0.15, 0.15);
+		bill = lensHaloSet->createBillboard(0,0,0);
+		bill->setDimensions(0.03, 0.03);
+		bill = lensHaloSet->createBillboard(0,0,0);
+		bill->setDimensions(0.06, 0.06);
 		
 		lensBurstSet = mSceneMgr->createBillboardSet("LensBurst");
 		lensBurstSet->setMaterialName("ArcEx/LensBurst");
+
 		bill = lensBurstSet->createBillboard(0,0,0);
-		bill->setDimensions(LENS_FLARE_MED_SIZE, LENS_FLARE_MED_SIZE);
-		
-		lensNode->attachObject(lensRainbowSet);
+		bill->setDimensions(size*0.25, size*0.25);
+		bill = lensBurstSet->createBillboard(0,0,0);
+		bill->setDimensions(size*0.5, size*0.5);
+		bill = lensBurstSet->createBillboard(0,0,0);
+		bill->setDimensions(size*0.25, size*0.25);
+        
+  		lensNode->attachObject(lensRainbowSet);
 		lensNode->attachObject(lensSimpleSet);
 		lensNode->attachObject(lensHaloSet);
 		lensNode->attachObject(lensBurstSet);
 		
 		lensNode->setVisible(false);
 	}
+
+
+
 	void updateLensFlare(void)
 	{
         if (!lensFlare)
@@ -303,10 +325,8 @@ public:
             lensNode->setVisible(false);
             return;
         }
-        
 		Vector3 camPosition = mCamera->getPosition();
 		mCamera->setPosition(0,0,0);
-        //std::cout<<"camera position"<<mCamera->getDerivedPosition()<<" sun "<<sunNode->getWorldPosition()<<"\n";
 
 		if(!mCamera->isVisible(sunNode->getWorldPosition()))
 		{
@@ -316,15 +336,15 @@ public:
 		}
 		mCamera->setPosition(camPosition);
 		
-		Vector3 sunPos = sunNode->getWorldPosition();
+		Vector3 sunDirection = sunNode->getWorldPosition();
 		Vector3 camDirection = mCamera->getDirection();
-		sunPos.normalise();
+		sunDirection.normalise();
 		camDirection.normalise();
 		
 		// Test for obstacles blocking vision to the sun
 		static Ray updateRay;
 		updateRay.setOrigin(camPosition);
-		updateRay.setDirection(sunPos);
+		updateRay.setDirection(sunDirection);
 		raySceneQuery->setRay(updateRay);
 		RaySceneQueryResult& qryResult = raySceneQuery->execute();
 		RaySceneQueryResult::iterator i;
@@ -339,19 +359,36 @@ public:
 			lensNode->setVisible(false);
 			return;
 		}
-		
-        Vector3 lensFlareAxis(camDirection*40);
-        Vector3 lensVect(sunNode->getWorldPosition() - lensFlareAxis);
-        lensVect.normalise();
         
-		lensBurstSet->getBillboard(0)->setPosition(lensFlareAxis + lensVect*40);
-        lensHaloSet->getBillboard(0)->setPosition(lensFlareAxis + lensVect*20);
-        lensSimpleSet->getBillboard(0)->setPosition(lensFlareAxis);
-        lensRainbowSet->getBillboard(0)->setPosition(lensFlareAxis - lensVect*10);
-//lensHaloSet->getBillboard(1)->setColour(ColourValue(1.0,0.0,0.0));
-
+        // Rob's section
+        Vector3 lensVect = sunDirection * LENS_FLARE_SIZE * 2;
 		// Apply lens flare effect
 		lensNode->setPosition(camPosition);
+		
+		lensHaloSet->getBillboard(0)->setPosition(lensVect*0.5);
+		lensHaloSet->getBillboard(1)->setPosition(lensVect*0.125);
+		lensHaloSet->getBillboard(2)->setPosition(-lensVect*0.25);
+		
+		lensBurstSet->getBillboard(0)->setPosition(lensVect*0.333);
+		lensBurstSet->getBillboard(1)->setPosition(-lensVect*0.5);
+		lensBurstSet->getBillboard(2)->setPosition(-lensVect*0.18);
+		
+
+        // Mel's section
+        Vector3 lensFlareAxis(camDirection*2);
+        Vector3 LookatToSun(sunNode->getWorldPosition() - lensFlareAxis);
+        LookatToSun.normalise();
+
+        lensRainbowSet->getBillboard(0)->setPosition(lensFlareAxis - lensVect*0.15);
+        lensHaloSet->getBillboard(4)->setPosition(lensFlareAxis - lensVect*0.11);
+        lensSimpleSet->getBillboard(0)->setPosition(lensFlareAxis - lensVect*0.08);
+        lensHaloSet->getBillboard(3)->setPosition(lensFlareAxis + lensVect*0.02);
+        lensSimpleSet->getBillboard(1)->setPosition(lensFlareAxis + lensVect*0.09);
+        lensHaloSet->getBillboard(5)->setPosition(lensFlareAxis + lensVect*0.15);
+        lensHaloSet->getBillboard(6)->setPosition(lensFlareAxis + lensVect*0.2);
+        lensHaloSet->getBillboard(7)->setPosition(lensFlareAxis + lensVect*0.25);
+//        lensHaloSet->getBillboard(3)->setColour(ColourValue(1.0,0.0,0.0));
+
 		lensNode->setVisible(true);
 	}
 
@@ -548,7 +585,8 @@ protected:
 	SceneNode *flareNode, *launchNode, *beaconNode, *lensNode;
 	Light *launchLight, *sigLight;
 	ParticleSystem *sigFlareParticle, *sigSmokeParticle;
-	BillboardSet *lensHaloSet, *lensBurstSet, *sigFlareSet, *lensRainbowSet, *lensSimpleSet;
+	BillboardSet *lensHaloSet, *lensBurstSet, *sigFlareSet;
+    BillboardSet *lensRainbowSet, *lensSimpleSet;
 	Vector3 flareVel;
 	
 private:
